@@ -22,3 +22,15 @@ Socket: Socket.io
 # Purpose
 
 Challenge them and make a clone project better than them.
+
+# Remarks
+
+For the Web, we will only use React.js to implement it, not using react-native-web.
+
+# Folder Description
+
+api: GraphQL API project
+
+app: React Native project
+
+web: React.js project

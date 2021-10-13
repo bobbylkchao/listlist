@@ -1,0 +1,17 @@
+.MenuDropDownWrapper .dropdown-menu{
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.MenuDropDown{
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.MenuDropDownLeftItem{
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.MenuDropDownLeftItem:hover{
+  background-color: #ececee;
+}

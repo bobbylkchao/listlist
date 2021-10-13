@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "express-cors": "^0.0.3",
+    "express-graphql": "^0.12.0",
+    "geoip-lite": "^1.4.2",
+    "graphql": "^15.6.1",
+    "mysql": "^2.18.1"
+  }
+}
