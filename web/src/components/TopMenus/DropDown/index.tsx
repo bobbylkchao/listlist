@@ -5,14 +5,14 @@ import styled from "styled-components";
 import "./index.scss";
 
 const DropDownMain = styled.div`
-  width: 630px;
+  width: 700px;
   display: flex;
   flex-direction: row;
   box-sizing: border-box;
 `;
 
 const DropDownLeft = styled.div`
-  flex: 2;
+  flex: 3;
   width: 100%;
   height: 350px;
   overflow-y: auto;
@@ -35,7 +35,7 @@ const DropDownLeft = styled.div`
 `;
 
 const DropDownRight = styled.div`
-  flex: 3;
+  flex: 4;
   height: 350px;
   overflow-y: hidden;
   display: flex;
@@ -61,10 +61,21 @@ const DropDownRightLink = styled.a<DropDownRightLinkInterface>`
   }
 `;
 
-const DropDown = (props:{title: string}) => {
+interface DropDownInterface{
+  name: string;
+  categories:{
+    id: number;
+    name: string;
+    items:{
+      id:number;
+      name:string;
+    }[]
+  }[];
+};
+const DropDown = (props:DropDownInterface|any) => {
   const [dropDownVisible, setDropDownVisible] = React.useState<boolean>(false);
-  const [currentHoverdCategory, setCurrentHoverdCategory] = React.useState<{id:number, title:string}>({id: 0, title: 'Choose a category'});
-  const [categoryList, setCategoryList] = React.useState<{id:number, title:string}[]>([]);
+  const [currentHoverdCategory, setCurrentHoverdCategory] = React.useState<{id:number, name:string}>({id: 0, name: 'Choose a category'});
+  const [categoryList, setCategoryList] = React.useState<{id:number, name:string}[]>([]);
 
   const setCategoryListHandle = (subitems:any) => {
     // Avoid repeat
@@ -74,8 +85,8 @@ const DropDown = (props:{title: string}) => {
 
   interface NavDropDownItemInterface{
     id: number;
-    title: string;
-    subitems:{id:number, title:string}[];
+    name: string;
+    subitems:{id:number, name:string}[];
   }
 
   const NavDropDownItem = (props:NavDropDownItemInterface) => (
@@ -84,26 +95,27 @@ const DropDown = (props:{title: string}) => {
       className="MenuDropDownLeftItem"
       onMouseEnter={(e:any) => {
         e.target.style.backgroundColor = "#ececee";
-        setCurrentHoverdCategory({id:props.id, title:props.title});
+        setCurrentHoverdCategory({id:props.id, name:props.name});
         setCategoryListHandle(props.subitems);
       }}
     >
-      <div>{ props.title }</div>
+      <div>{ props.name }</div>
       <div><FontAwesomeIcon icon="chevron-right"/></div>
     </NavDropdown.Item>
   );
 
   return(
     <NavDropdown
-      title={props.title}
+      title={props.name}
       className="MenuDropDownWrapper"
       show={dropDownVisible}
       onMouseEnter={() => {
         setDropDownVisible(true);
         // reset states when hover to menu
-        setCurrentHoverdCategory({id: 0, title: 'Choose a category'});
+        setCurrentHoverdCategory({id: 0, name: 'Choose a category'});
         setCategoryList([]);
       }}
+      //onMouseOut={() => setDropDownVisible(false)}
     >
       <DropDownMain
         className="MenuDropDown"
@@ -111,24 +123,19 @@ const DropDown = (props:{title: string}) => {
       >
 
         <DropDownLeft>
-          <NavDropDownItem
-            title="Submenu 1"
-            id={1}
-            subitems={[
-              {'id':1,'title':'submenu1'},
-              {'id':2,'title':'submenu2'},
-              {'id':3,'title':'submenu3'},
-              {'id':4,'title':'submenu4'},
-            ]}
-          />
+          {
+            props.categories instanceof Array ? props.categories.map((item:any, key:number) => (
+              <NavDropDownItem key={key} name={item.name} id={item.id} subitems={item.items}/>
+            )) : <></>
+          }
         </DropDownLeft>
 
         <DropDownRight>
           <DropDownRightLink href={`/category/`} bold={true}>
-            { currentHoverdCategory.id === 0 ? `${currentHoverdCategory.title}` : `See all in ${ currentHoverdCategory.title}`}
+            { currentHoverdCategory.id === 0 ? `${currentHoverdCategory.name}` : `See all in ${ currentHoverdCategory.name}`}
           </DropDownRightLink>
           {
-            categoryList && categoryList.length > 0 ? categoryList.map((item:any, key:number) => <DropDownRightLink key={key} href={`/category/${item.id}`}>{ item.title }</DropDownRightLink>) : <></>
+            categoryList && categoryList.length > 0 ? categoryList.map((item:any, key:number) => <DropDownRightLink key={key} href={`/category/${item.id}`}>{ item.name }</DropDownRightLink>) : <></>
           }
         </DropDownRight>
 
