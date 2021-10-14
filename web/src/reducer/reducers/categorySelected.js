@@ -7,7 +7,6 @@ const categoryCurrentSelected = {
 const categorySelected = (state = categoryCurrentSelected, action) => {
   switch(action.type){
     case 'setCategorySelected':
-      console.log(`categorySelected ${JSON.stringify(action)}`);
       return{
         state: action.value
       }

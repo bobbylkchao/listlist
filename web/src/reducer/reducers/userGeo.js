@@ -14,7 +14,6 @@ const userGeo = (state = userGeoInitData, action) => {
         state: action.value
       }
     default:
-      console.log(`userGeo ${JSON.stringify(action)}`);
       return state;
   }
 }

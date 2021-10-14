@@ -1,12 +1,11 @@
 import React from "react";
-import Wrapper from "../../containers/Wrapper";
 
 const PostPage = () => {
   return(
     <>
-      <Wrapper>
+      <div>
         Post Page
-      </Wrapper>
+      </div>
     </>
   );
 };

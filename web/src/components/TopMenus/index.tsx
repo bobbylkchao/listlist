@@ -7,8 +7,8 @@ const TopMenus = () => {
   
   return(
     <>
-      <DropDown/>
-      <ul className="topMenu">
+      <DropDown title="Menu"/>
+      {/*<ul className="topMenu">
         {
           getReduxStoreState['categoryList']['state'] instanceof Array ? getReduxStoreState['categoryList']['state'].map((item:any, key:number) => (
             <li key={key} attr-id={item.id} className="levelOneItem">
@@ -32,7 +32,7 @@ const TopMenus = () => {
             </li>
           )) : <></>
         }
-      </ul>
+      </ul>*/}
     </>
   );
 };

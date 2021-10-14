@@ -1,6 +1,13 @@
+.MenuDropDownWrapper{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: wheat;
+}
+
 .MenuDropDownWrapper .dropdown-menu{
   padding: 0 !important;
-  border: 0 !important;
+  border: 1px solid rgb(226, 226, 226) !important;
 }
 
 .MenuDropDown{
@@ -9,9 +16,10 @@
 }
 
 .MenuDropDownLeftItem{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
   border-bottom: 1px solid #d9d9d9;
-}
-
-.MenuDropDownLeftItem:hover{
-  background-color: #ececee;
+  height: 40px;
 }

@@ -5,7 +5,7 @@ Project will include all parts, eg. Web, IOS, Android, API, and Management Websi
 
 # Technoloy Stacks
 
-Front-End: TypeScript, HTML5, Scss
+Front-End: TypeScript, HTML5, Scss, styled-components
 
 JS Library: React.js
 
