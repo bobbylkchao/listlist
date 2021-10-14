@@ -110,12 +110,12 @@ const DropDown = (props:DropDownInterface|any) => {
       className="MenuDropDownWrapper"
       show={dropDownVisible}
       onMouseEnter={() => {
+        console.log('hover');
         setDropDownVisible(true);
         // reset states when hover to menu
         setCurrentHoverdCategory({id: 0, name: 'Choose a category'});
         setCategoryList([]);
       }}
-      //onMouseOut={() => setDropDownVisible(false)}
     >
       <DropDownMain
         className="MenuDropDown"
