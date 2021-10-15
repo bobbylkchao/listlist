@@ -7,13 +7,15 @@ Project will include all parts, eg. Web, IOS, Android, API, and Management Websi
 
 # Technoloy Stacks
 
-Front-End: TypeScript, HTML5, Scss, styled-components
+Front-End: TypeScript, HTML5, SCSS, styled-components
 
 JS Library: React.js
 
+React Framework: Next.js
+
 Cross-Platform: React Native, Expo
 
-State Managment: Redux
+State Managment: Redux, Relay
 
 Back-End: Node.js, ES6, GraphQL, Apollo
 
