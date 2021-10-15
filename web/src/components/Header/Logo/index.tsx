@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { useRouter } from "next/router";
+import { useHistory } from 'react-router-dom';
 import Image from 'next/image'
 import logo from "../../../assets/images/logo.png";
 import styles from "./index.module.scss";
 
 const Logo = () => {
-  const router = useRouter()
+  const router = useHistory()
 
   return(
     <div className={styles.header_component_logo}>

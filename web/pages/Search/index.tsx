@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Wrapper from "../../containers/Wrapper";
+import Wrapper from "../../src/containers/Wrapper/";
 
 const SearchPage = () => {
   const { key }:{ key: string } = useParams();

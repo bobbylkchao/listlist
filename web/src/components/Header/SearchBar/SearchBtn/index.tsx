@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRouter } from 'next/router';
+import { useHistory } from 'react-router-dom';
 import styles from './index.module.scss';
 
 const SearchBtnComponent = styled.a`
@@ -20,7 +20,7 @@ const SearchBtnComponent = styled.a`
 `;
 
 const SearchBtn = (props:{width?:number, passData:string}) => {
-  const router = useRouter()
+  const router = useHistory();
 
   const submitSearch = () => {
     if(!props.passData){

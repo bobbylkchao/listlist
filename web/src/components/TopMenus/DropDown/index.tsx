@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { useRouter } from 'next/router';
+import { useHistory } from 'react-router-dom';
 
 // interfaces
 import { DropDownInterface, NavDropDownItemInterface } from "./interface";
@@ -11,7 +11,7 @@ import styles from "./index.module.scss";
 import { DropDownMain, DropDownLeft, DropDownRight, DropDownRightLink } from "./styled";
 
 const DropDown = (props:DropDownInterface|any) => {
-  const router = useRouter();
+  const router = useHistory();
 
   const [dropDownVisible, setDropDownVisible] = React.useState<boolean>(false);
   const [currentHoverdCategory, setCurrentHoverdCategory] = React.useState<{id:number, name:string}>({id: 0, name: 'Choose a category'});
@@ -59,7 +59,7 @@ const DropDown = (props:DropDownInterface|any) => {
           setCurrentHoverdCategory({id: 0, name: 'Choose a category'});
           // reset category list
           setCategoryList([]);
-        }, 300));
+        }, 200));
       }}
       onMouseLeave={(e:any) => {
         clearTimeout(delayHandler);
