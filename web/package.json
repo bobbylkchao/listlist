@@ -6,18 +6,38 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "test": "./node_modules/.bin/tslint --project tsconfig.json --config tslint.json"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.15",
+    "@svgr/webpack": "5.5.0",
+    "@types/styled-components": "^5.1.15",
+    "bootstrap": "5.1.1",
+    "graphql": "^15.6.1",
     "next": "11.1.2",
     "react": "17.0.2",
+    "react-bootstrap": "^1.6.4",
     "react-dom": "17.0.2",
-    "scss": "^0.2.4"
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.3.1"
   },
   "devDependencies": {
     "@types/react": "17.0.30",
+    "@types/react-dom": "^17.0.9",
+    "babel-plugin-styled-components": "^1.13.2",
     "eslint": "8.0.1",
     "eslint-config-next": "11.1.2",
+    "sass": "^1.43.2",
+    "scss": "^0.2.4",
+    "tslint": "^6.1.3",
+    "tslint-config-airbnb": "^5.11.2",
+    "tslint-react": "^5.0.0",
     "typescript": "4.4.4"
   }
 }
