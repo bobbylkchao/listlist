@@ -1,4 +1,4 @@
-.searchBar-addressInput-wrapper{
+.searchBar_addressInput_wrapper{
   height: 100%;
   width: 100%;
   display: flex;
@@ -11,11 +11,11 @@
   box-sizing: border-box;
 }
 
-.searchBar-addressInput-wrapper:hover{
+.searchBar_addressInput_wrapper:hover{
   cursor: pointer;
 }
 
-.searchBar-addressInput-inside-main{
+.searchBar_addressInput_inside_main{
   border-left: 1px solid #ebebed;
   color: #3e4153;
   font-weight: 300;
@@ -28,18 +28,18 @@
   box-sizing: border-box;
 }
 
-.searchBar-addressInput-inside-main > div{
+.searchBar_addressInput_inside_main > div{
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.searchBar-addressInput-inside-main > div:nth-child(1){
+.searchBar_addressInput_inside_main > div:nth-child(1){
   flex: 1;
   color: #7a7a7a;
 }
 
-.searchBar-addressInput-inside-main > div:nth-child(2){
+.searchBar_addressInput_inside_main > div:nth-child(2){
   flex: 3;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -47,6 +47,6 @@
   justify-content: start;
 }
 
-.searchBar-addressInput-inside-main > div:nth-child(3){
+.searchBar_addressInput_inside_main > div:nth-child(3){
   flex: 1;
 }

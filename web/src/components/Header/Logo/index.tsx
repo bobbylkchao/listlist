@@ -1,22 +1,19 @@
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useRouter } from "next/router";
+import Image from 'next/image'
 import logo from "../../../assets/images/logo.png";
-import "./index.scss";
+import styles from "./index.module.scss";
 
 const Logo = () => {
-  let history = useHistory();
+  const router = useRouter()
 
-  const LogoImg = styled.img`
-    &:hover{
-      cursor: pointer;
-    }
-  `;
   return(
-    <div className="header-component-logo">
-      <LogoImg
+    <div className={styles.header_component_logo}>
+      <Image
         src={logo}
         alt="ListList.ca"
-        onClick={() => history.push('/')}
+        onClick={() => router.push('/')}
+        placeholder="blur"
       />
     </div>
   );

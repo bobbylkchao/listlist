@@ -1,19 +1,19 @@
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './index.scss';
+import styles from "./index.module.scss";
 
 const AddressInput = (props:{width?: number}) => {
   const getReduxStoreState = useSelector((state:any) => state);
 
   return(
     <div
-      className="searchBar-addressInput-wrapper"
+      className={styles.searchBar_addressInput_wrapper}
       style={{
         flex: props.width ? props.width : 1,
       }}
       onClick={(e) => console.log(e)}
     >
-      <div className="searchBar-addressInput-inside-main">
+      <div className={styles.searchBar_addressInput_inside_main}>
         <div><FontAwesomeIcon icon="map-marker-alt"/></div>
         <div>
           {

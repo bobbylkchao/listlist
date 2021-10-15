@@ -1,0 +1,15 @@
+html, body{
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 15px;
+}
+
+#searchBarCategoryItemActive{
+  background-color: #d5e5f5;
+  color: #067ae9;
+}
+
+button[class*="CategorySelect"].btn-success:hover,
+.dropdown-toggle{
+  border-color: #ebebed !important;
+}
+

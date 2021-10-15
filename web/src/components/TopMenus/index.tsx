@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import "./index.scss";
+import styles from "./index.module.scss";
 import TopMenuWrapper from "./styled";
 import DropDown from "./DropDown";
 

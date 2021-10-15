@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import "./index.scss";
+import styles from "./index.module.scss";
 
 const PostAdBtn = styled.a`
   display: flex;
@@ -21,7 +21,7 @@ const PostAdBtn = styled.a`
 
 const UtilBtns = () => {
   return(
-    <div className="header-component-utilbtns">
+    <div className={styles.header_component_utilbtns}>
       <PostAdBtn
         onClick={e => console.log(e)}
       >Post Ad</PostAdBtn>

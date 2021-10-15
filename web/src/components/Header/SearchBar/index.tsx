@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.scss";
+import styles from "./index.module.scss";
 import SearchInput from "./SearchInput";
 import CategorySelect from "./CategorySelect";
 import AddressInput from "./AddressInput";
@@ -9,7 +9,7 @@ const SearchBar = () => {
   const [keyword, setKeyword] = React.useState<string>('');
 
   return(
-    <div className="header-component-searchbar">
+    <div className={styles.header_component_searchbar}>
       <SearchInput width={2.5} getData={setKeyword}/>
       <CategorySelect width={1.5}/>
       <AddressInput width={1.5}/>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import Dropdown from 'react-bootstrap/Dropdown';
 
-import './index.scss';
+import styles from "./index.module.scss";
 import { getGraphQL } from '../../../../utils';
 import CategoryItem from './CategoryItem';
 
@@ -44,7 +44,7 @@ const CategorySelect = (props:{width?: number}) => {
 
   return(
     <Dropdown
-      className="searchBar-category-wrapper"
+      className={styles.searchBar_category_wrapper}
       style={{
         flex: props.width ? props.width : 1,
       }}
@@ -52,11 +52,11 @@ const CategorySelect = (props:{width?: number}) => {
       <Dropdown.Toggle
         variant="success"
         style={{flex: props.width ? props.width : 1}}
-        className="searchBar-category-select"
+        className={styles.searchBar_category_select}
       >
         <div>{ getReduxStoreState['categorySelected']['state'] ? getReduxStoreState['categorySelected']['state']['name'] : 'All Categories' }</div>
       </Dropdown.Toggle>
-      <Dropdown.Menu className="searchBar-category-menu">
+      <Dropdown.Menu className={styles.searchBar_category_menu}>
         <CategoryItem items={categories}/>
       </Dropdown.Menu>
     </Dropdown>

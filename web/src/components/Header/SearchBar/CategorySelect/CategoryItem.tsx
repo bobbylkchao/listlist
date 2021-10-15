@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styles from "./index.module.scss";
 
 const CategoryItem = (props:{items: any}) => {
   const getReduxStoreState = useSelector((state:any) => state);
@@ -24,7 +25,8 @@ const CategoryItem = (props:{items: any}) => {
   return(
     <>
       <Dropdown.Item
-        className={`searchBar-category-item ${!getReduxStoreState['categorySelected']['state'] || getReduxStoreState['categorySelected']['state']['id'] === 0 ? 'active' : ''}`} 
+        id={`${!getReduxStoreState['categorySelected']['state'] || getReduxStoreState['categorySelected']['state']['id'] === 0 ? 'searchBarCategoryItemActive' : ''}`}
+        className={styles.searchBar_category_item}
         onClick={() => setSelectedCategory(0, 'All Categories')}>
           <span><FontAwesomeIcon icon="ellipsis-h"/></span>
           <span>All Categories</span>
@@ -36,7 +38,8 @@ const CategoryItem = (props:{items: any}) => {
           (item:any, key:number) => 
             <Dropdown.Item
               key={key}
-              className={`searchBar-category-item ${getReduxStoreState['categorySelected']['state'] && getReduxStoreState['categorySelected']['state']['id'] === item.id ? 'active' : ''}`}
+              id={`${getReduxStoreState['categorySelected']['state'] && getReduxStoreState['categorySelected']['state']['id'] === item.id ? 'searchBarCategoryItemActive' : ''}`}
+              className={styles.searchBar_category_item}
               onClick={() => setSelectedCategory(item.id, item.name)}>
                 <span><FontAwesomeIcon icon={item.icon}/></span>
                 <span>{ item.name }</span>

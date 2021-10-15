@@ -2,10 +2,10 @@
  * Default wrapper container
  * @Author: Bobby Chao
  */
-import "./index.scss";
+import styles from "./index.module.scss";
 
 const Wrapper = (props:{children: any}) => (
-  <div className="container-wrapper">
+  <div className={styles.container_wrapper}>
     { props.children }
   </div>
 );

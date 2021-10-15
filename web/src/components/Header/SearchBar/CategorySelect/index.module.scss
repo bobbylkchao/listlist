@@ -1,4 +1,4 @@
-.searchBar-category-wrapper{
+.searchBar_category_wrapper{
   position: initial;
   height: 100%;
   border-top: 1px solid #D1D2D6;
@@ -8,18 +8,18 @@
   box-sizing: border-box;
 }
 
-.searchBar-category-wrapper:focus{
+.searchBar_category_wrapper:focus{
   outline: initial !important;
   border: 1px solid #2681db !important;
   border-radius: 0;
   box-shadow: none !important;
 }
 
-.searchBar-category-wrapper .btn-success:hover{
- border-color: #ebebed; 
+.searchBar_category_wrapper btn-success:hover{
+ border-color: #ebebed !important;
 }
 
-.searchBar-category-select{
+.searchBar_category_select{
   background-color: transparent !important;
   border-top: 0 !important;
   border-bottom: 0 !important;
@@ -36,63 +36,63 @@
   align-items: center;
 }
 
-.searchBar-category-select > div{
+.searchBar_category_select > div{
   flex: 2;
 }
 
-.searchBar-category-select:focus{
+.searchBar_category_select:focus{
   outline: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
 }
 
-.searchBar-category-select.btn-success.dropdown-toggle{
+.searchBar_category_select.btn-success.dropdown-toggle{
   border-color: #ebebed !important;
 }
 
-.searchBar-category-menu{
+.searchBar_category_menu{
   width: 260px;
 }
 
-.searchBar-category-item{
+.searchBar_category_item{
   height: 40px;
   color: #3e4153;
   display: flex !important;
   align-items: center !important;
 }
 
-.searchBar-category-item:hover{
+.searchBar_category_item:hover{
   background-color: #ebebed;
 }
 
-.searchBar-category-item.active{
+.searchBar_category_item.active{
   //background-color: #f4faf5;
   //color: #2d844c;
   background-color: #d5e5f5;
   color: #067ae9;
 }
 
-.searchBar-category-item:focus{
+.searchBar_category_item:focus{
   color: #8a8a8a;
 }
 
-.searchBar-category-item > span{
+.searchBar_category_item > span{
   display: flex;
 }
 
-.searchBar-category-item > span:nth-child(1){
+.searchBar_category_item > span:nth-child(1){
   flex: 1;
   color: #6e6e6e;
 }
 
-.searchBar-category-item.active > span:nth-child(1){
+.searchBar_category_item.active > span:nth-child(1){
   color: #067ae9;
 }
 
-.searchBar-category-item > span:nth-child(2){
+.searchBar_category_item > span:nth-child(2){
   flex: 5;
 }
 
-.searchBar-category-item > span:nth-child(3){
+.searchBar_category_item > span:nth-child(3){
   flex: 1;
 }
