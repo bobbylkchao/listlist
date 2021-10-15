@@ -4,6 +4,7 @@ const queryUser = require('./user');
 const queryPosts = require('./posts');
 const queryCategory = require('./category');
 const queryGeo = require('./geo');
+const queryUsers = require('./users');
 
 const Query = new GraphQLObjectType({
   name: 'Query',
@@ -16,6 +17,8 @@ const Query = new GraphQLObjectType({
     category: queryCategory,
     // Query geo infos via request ip
     geo: queryGeo,
+    // Query users
+    users: queryUsers,
   }
 });
 

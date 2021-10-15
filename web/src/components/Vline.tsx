@@ -5,9 +5,14 @@
  */
 import styled from 'styled-components';
 
-const Vline = styled.div`
+interface VlineProps{
+  height?: string;
+  bgcolor?: string;
+}
+
+const Vline = styled.div<VlineProps>`
   height: ${(props:any) =>  props.height || '65%'};
-  background-color: ${(props:any) => props.bgcolor || '#ebebed'}};
+  background-color: ${(props:any) => props.bgcolor || '#ebebed'};
   width: 1px;
 `;
 

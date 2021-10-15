@@ -15,6 +15,7 @@ import { preFetchExecute } from "./prefetch/";
 import Wrapper from "./containers/Wrapper";
 import HeaderComponent from "./components/Header";
 import TopMenus from "./components/TopMenus";
+import Hline from "./components/Hline";
 
 // Pages
 import HomePage from './pages/Home';
@@ -35,9 +36,12 @@ const App = () => {
 
   return(
     <Router>
-      <Wrapper>
-        <HeaderComponent marginTop={15}/>
-        <TopMenus/>
+      <div>
+        <Wrapper>
+          <HeaderComponent marginTop={15}/>
+          <TopMenus marginTop={15}/>
+        </Wrapper>
+        <Hline marginTop="15px" marginBottom="15px"/>
 
         <Switch>
           <Route path="/category/:id">
@@ -56,7 +60,7 @@ const App = () => {
             <HomePage />
           </Route>
         </Switch>
-      </Wrapper>
+      </div>
     </Router>
   );
 };

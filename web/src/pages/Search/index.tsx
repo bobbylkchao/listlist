@@ -1,15 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import Wrapper from "../../containers/Wrapper";
 
 const SearchPage = () => {
   const { key }:{ key: string } = useParams();
 
   return(
-    <>
-      <div>
-        Search Page, keyword is: { key }
-      </div>
-    </>
+    <Wrapper>
+      Search Page, keyword is: { key }
+    </Wrapper>
   );
 };
 

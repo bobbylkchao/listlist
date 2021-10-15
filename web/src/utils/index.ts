@@ -1,5 +1,4 @@
 import webConfig from "../web.config";
-
 /**
  * GraphQL request method
  */

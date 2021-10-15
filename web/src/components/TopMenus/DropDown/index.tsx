@@ -1,78 +1,18 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NavDropdown from "react-bootstrap/NavDropdown";
-import styled from "styled-components";
+import { useHistory } from 'react-router-dom';
+
+// interfaces
+import { DropDownInterface, NavDropDownItemInterface } from "./interface";
+// cutom styles
 import "./index.scss";
+// styled components
+import { DropDownMain, DropDownLeft, DropDownRight, DropDownRightLink } from "./styled";
 
-const DropDownMain = styled.div`
-  width: 700px;
-  display: flex;
-  flex-direction: row;
-  box-sizing: border-box;
-`;
-
-const DropDownLeft = styled.div`
-  flex: 3;
-  width: 100%;
-  height: 350px;
-  overflow-y: auto;
-  padding: 0;
-  box-sizing: border-box;
-
-  scrollbar-width: auto;
-  scrollbar-color: #757575 #ffffff;
-  &::-webkit-scrollbar {
-    width: 13px;
-  }
-  &::-webkit-scrollbar-track {
-    background: #ffffff;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #757575;
-    border-radius: 10px;
-    border: 3px solid #ffffff;
-  }
-`;
-
-const DropDownRight = styled.div`
-  flex: 4;
-  height: 350px;
-  overflow-y: hidden;
-  display: flex;
-  flex-direction: column;
-  padding: 10px 20px;
-  box-sizing: border-box;
-  border-left: 1px solid rgb(226, 226, 226)
-`;
-
-interface DropDownRightLinkInterface{
-  bold?: boolean;
-}
-
-const DropDownRightLink = styled.a<DropDownRightLinkInterface>`
-  display: block;
-  text-decoration: none;
-  color:  ${(props:any) => props.bold ? '#067ae9' : '#000000'};
-  height: 30px;
-  font-weight: ${(props:any) => props.bold ? 'bold' : 'normal'};
-
-  &:hover{
-    cursor: pointer;
-  }
-`;
-
-interface DropDownInterface{
-  name: string;
-  categories:{
-    id: number;
-    name: string;
-    items:{
-      id:number;
-      name:string;
-    }[]
-  }[];
-};
 const DropDown = (props:DropDownInterface|any) => {
+  let history = useHistory();
+
   const [dropDownVisible, setDropDownVisible] = React.useState<boolean>(false);
   const [currentHoverdCategory, setCurrentHoverdCategory] = React.useState<{id:number, name:string}>({id: 0, name: 'Choose a category'});
   const [categoryList, setCategoryList] = React.useState<{id:number, name:string}[]>([]);
@@ -83,15 +23,14 @@ const DropDown = (props:DropDownInterface|any) => {
     setCategoryList(subitems);
   };
 
-  interface NavDropDownItemInterface{
-    id: number;
-    name: string;
-    subitems:{id:number, name:string}[];
-  }
-
   const NavDropDownItem = (props:NavDropDownItemInterface) => (
     <NavDropdown.Item
-      href={`/category/${props.id}`}
+      onClick={() => {
+        // hide sub menu
+        setDropDownVisible(false);
+        // go to page
+        history.push(`/category/${props.id}`);
+      }}
       className="MenuDropDownLeftItem"
       onMouseEnter={(e:any) => {
         e.target.style.backgroundColor = "#ececee";
@@ -109,12 +48,17 @@ const DropDown = (props:DropDownInterface|any) => {
       title={props.name}
       className="MenuDropDownWrapper"
       show={dropDownVisible}
-      onMouseEnter={() => {
-        console.log('hover');
+      onMouseEnter={(e:any) => {
+        // show sub menu
         setDropDownVisible(true);
         // reset states when hover to menu
         setCurrentHoverdCategory({id: 0, name: 'Choose a category'});
+        // reset category list
         setCategoryList([]);
+      }}
+      onMouseLeave={(e:any) => {
+        // hide sub menu
+        setDropDownVisible(false);
       }}
     >
       <DropDownMain
@@ -131,11 +75,21 @@ const DropDown = (props:DropDownInterface|any) => {
         </DropDownLeft>
 
         <DropDownRight>
-          <DropDownRightLink href={`/category/`} bold={true}>
+          <DropDownRightLink onClick={() => {
+            // hide sub menu
+            setDropDownVisible(false);
+            // go to page
+            history.push(`/category/${currentHoverdCategory.id}`)
+          }} bold={true}>
             { currentHoverdCategory.id === 0 ? `${currentHoverdCategory.name}` : `See all in ${ currentHoverdCategory.name}`}
           </DropDownRightLink>
           {
-            categoryList && categoryList.length > 0 ? categoryList.map((item:any, key:number) => <DropDownRightLink key={key} href={`/category/${item.id}`}>{ item.name }</DropDownRightLink>) : <></>
+            categoryList && categoryList.length > 0 ? categoryList.map((item:any, key:number) => <DropDownRightLink key={key} onClick={() => {
+              // hide sub menu
+              setDropDownVisible(false);
+              // go to page
+              history.push(`/category/${item.id}`);
+            }}>{ item.name }</DropDownRightLink>) : <></>
           }
         </DropDownRight>
 

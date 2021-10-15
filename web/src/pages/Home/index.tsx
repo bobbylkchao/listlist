@@ -1,10 +1,11 @@
 import React from "react";
+import Wrapper from "../../containers/Wrapper";
 
 const HomePage = () => {
   return(
-    <div>
+    <Wrapper>
       HOME PAGE
-    </div>
+    </Wrapper>
   );
 };
 

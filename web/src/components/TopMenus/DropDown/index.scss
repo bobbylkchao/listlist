@@ -2,7 +2,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: wheat;
+}
+
+.MenuDropDownWrapper:hover{
+  font-weight: bold;
 }
 
 .MenuDropDownWrapper .dropdown-menu{
@@ -11,8 +14,15 @@
 }
 
 .MenuDropDown{
-  border-radius: 5px;
   overflow: hidden;
+}
+
+.MenuDropDownWrapper .dropdown-menu.show{
+  inset: -2px auto auto 0px !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .MenuDropDownLeftItem{
