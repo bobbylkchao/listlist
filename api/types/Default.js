@@ -1,8 +1,8 @@
 const { GraphQLObjectType, GraphQLInt, GraphQLString } = require('graphql');
 
 const DefaultType = new GraphQLObjectType({
-  name: 'Auth',
-  description: "Auth",
+  name: 'DefaultType',
+  description: "Default",
   fields: {
     code: {
       type: GraphQLInt,

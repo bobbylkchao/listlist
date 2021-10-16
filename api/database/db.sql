@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80025
 File Encoding         : 65001
 
-Date: 2021-10-16 02:59:29
+Date: 2021-10-16 03:12:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -296,7 +296,7 @@ CREATE TABLE `user` (
   KEY `email` (`email`),
   KEY `pwd` (`password`),
   KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of user
@@ -312,7 +312,7 @@ INSERT INTO `user` VALUES ('2', 'Robert A. Donovan', 'RobertADonovan@dayrep.com'
 -- ----------------------------
 DROP TABLE IF EXISTS `visit`;
 CREATE TABLE `visit` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `userID` int NOT NULL,
   `postID` int NOT NULL,
   `categoryID` int NOT NULL,
@@ -324,7 +324,7 @@ CREATE TABLE `visit` (
   KEY `cateID` (`categoryID`),
   KEY `createdAt` (`createdAt`),
   CONSTRAINT `visit.uid` FOREIGN KEY (`userID`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of visit

@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const { dbQuery } = require('../database');
 
 const createHash = (password) => {
   return new Promise(resolve => {

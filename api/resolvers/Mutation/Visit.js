@@ -1,19 +1,18 @@
-const { GraphQLInt } = require('graphql');
+const { GraphQLInt, GraphQLNonNull } = require('graphql');
 const { dbQuery } = require('../../database');
-const { VisitType } = require('../../types');
+const { DefaultType } = require('../../types');
 const { getTimeStamp } = require('../../libs/utils');
 
 const insertVisit = {
-  type: VisitType,
+  type: DefaultType,
   args: {
-    userID: { type: GraphQLInt },
-    postID: { type: GraphQLInt },
-    categoryID: { type: GraphQLInt }
+    userID: { type: new GraphQLNonNull(GraphQLInt) },
+    postID: { type: new GraphQLNonNull(GraphQLInt) },
+    categoryID: { type: new GraphQLNonNull(GraphQLInt) }
   },
   async resolve(_, { userID, postID, categoryID }){
-    const timestamp = getTimeStamp() || 1634342515;
-    let res = await dbQuery(`INSERT INTO visit (userID, postID, categoryID, timestamp) VALUES (?, ?, ?, ${timestamp});`);
-    return { id: res.insertId }
+    let res = await dbQuery(`INSERT INTO visit (userID, postID, categoryID, createdAt) VALUES (${userID}, ${postID}, ${categoryID}, ${getTimeStamp()});`);
+    return res && res.insertId ? {code: 200, message: 'success'} : {code: 500, message: res.message};
   }
 };
 
