@@ -25,7 +25,7 @@ Socket: Socket.io
 
 # Purpose
 
-Challenge them and make a clone project better than them.
+Skills practice and proof of skills
 
 # Remarks
 
