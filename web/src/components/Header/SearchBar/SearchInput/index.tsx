@@ -26,8 +26,6 @@ const Input = styled.input`
   }
 
   &:focus{
-    outline: none;
-    border: 1px solid #2681db;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
   }

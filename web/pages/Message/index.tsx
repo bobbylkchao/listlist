@@ -1,12 +1,11 @@
 import React from "react";
+import Wrapper from "../../src/containers/Wrapper/";
 
 const MessagePage = () => {
   return(
-    <>
-      <div>
-        Message Page
-      </div>
-    </>
+    <Wrapper>
+      MESSAGE
+    </Wrapper>
   );
 };
 

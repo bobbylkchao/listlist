@@ -8,14 +8,12 @@ import {
   Route
 } from "react-router-dom";
 import { config, library } from '@fortawesome/fontawesome-svg-core';
-import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 // listlist containers, components
 import { preFetchExecute } from "../src/prefetch";
 import Wrapper from "../src/containers/Wrapper";
 import HeaderComponent from "../src/components/Header";
-import TopMenus from "../src/components/TopMenus";
-import Hline from "../src/components/Hline";
 
 // listlist pages
 import HomePage from "./Home";
@@ -23,13 +21,15 @@ import CategoryPage from "./Category";
 import MessagePage from "./Message";
 import PostPage from "./Post";
 import SearchPage from "./Search";
+import LoginPage from "./Login";
+import RegisterPage from "./Register";
 
 // fix fontawesome icon so huge under next.js framework
 config.autoAddCss = false;
 
 const Main = () => {
   const reduxUseDispatch = useDispatch();
-  library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight);
+  library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock);
 
   React.useEffect(() => {
     console.log(`[DEBUG]Main is loaded...`);
@@ -41,11 +41,15 @@ const Main = () => {
       <div>
         <Wrapper>
           <HeaderComponent marginTop={15}/>
-          <TopMenus marginTop={15}/>
         </Wrapper>
-        <Hline marginTop="15px" marginBottom="15px"/>
 
         <Switch>
+          <Route path="/register">
+            <RegisterPage />
+          </Route>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
           <Route path="/category/:id">
             <CategoryPage />
           </Route>

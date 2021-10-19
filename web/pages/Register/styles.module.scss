@@ -1,0 +1,25 @@
+.register_form{
+
+  > div{
+    position: relative !important;
+  }
+
+  > div > svg{
+    position: absolute;
+    top: 0;
+    height: 55px;
+    left: 20px;
+    color: gray;
+  }
+
+  div input{
+    height: 55px;
+    padding-left: 50px;
+  }
+}
+
+.form_submit_button{
+  width: 100%;
+  height: 40px;
+  font-weight: bold;
+}

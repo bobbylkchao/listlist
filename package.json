@@ -5,7 +5,7 @@
   "scripts": {
     "api": "cd api && npm i && node index.js",
     "web": "cd web && npm i && yarn dev",
-    "updatedb": "/usr/local/mysql/bin/mysql -ubobbylkchao -p3530566 listlist < ./api/database/db.sql"
+    "updatedb": "mysql -ubobbylkchao -p3530566 listlist < ./api/database/db.sql"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,7 @@
 .header_component_utilbtns{
   display: flex;
+  flex: 2;
   height: 100%;
   align-items: center;
+  flex-direction: row;
 }

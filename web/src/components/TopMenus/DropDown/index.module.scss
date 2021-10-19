@@ -1,7 +1,12 @@
 .MenuDropDownWrapper{
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+
+  > a{
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .MenuDropDownWrapper:hover{

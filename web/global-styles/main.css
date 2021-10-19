@@ -13,3 +13,9 @@ button[class*="CategorySelect"].btn-success:hover,
   border-color: #ebebed !important;
 }
 
+input:focus{
+  outline: none !important;
+  border: 1px solid #2681db !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}

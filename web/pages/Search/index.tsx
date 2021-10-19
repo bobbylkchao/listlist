@@ -4,7 +4,6 @@ import Wrapper from "../../src/containers/Wrapper/";
 
 const SearchPage = () => {
   const { key }:{ key: string } = useParams();
-
   return(
     <Wrapper>
       Search Page, keyword is: { key }
