@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import store from '../src/redux/store';
 import {
   BrowserRouter as Router,
@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { ThemeProvider } from 'styled-components';
 
 // listlist containers, components
 import { preFetchExecute } from "../src/prefetch";
@@ -29,6 +30,8 @@ config.autoAddCss = false;
 
 const Main = () => {
   const reduxUseDispatch = useDispatch();
+  const getReduxStoreState = useSelector((state:any) => state);
+
   library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock);
 
   React.useEffect(() => {
@@ -37,37 +40,39 @@ const Main = () => {
   }, []);
 
   return(
-    <Router>
-      <div>
-        <Wrapper>
-          <HeaderComponent marginTop={15}/>
-        </Wrapper>
-
-        <Switch>
-          <Route path="/register">
-            <RegisterPage />
-          </Route>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <Route path="/category/:id">
-            <CategoryPage />
-          </Route>
-          <Route path="/message">
-            <MessagePage />
-          </Route>
-          <Route path="/post/:id">
-            <PostPage />
-          </Route>
-          <Route path="/search/:key">
-            <SearchPage />
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    <ThemeProvider theme={{ theme: getReduxStoreState['theme']['state'] && getReduxStoreState['theme']['state']['darkmode'] ? 'dark' : 'light' }}>
+      <Router>
+        <div>
+          <Wrapper>
+            <HeaderComponent marginTop={15}/>
+          </Wrapper>
+          
+          <Switch>
+            <Route path="/register">
+              <RegisterPage />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <Route path="/category/:id">
+              <CategoryPage />
+            </Route>
+            <Route path="/message">
+              <MessagePage />
+            </Route>
+            <Route path="/post/:id">
+              <PostPage />
+            </Route>
+            <Route path="/search/:key">
+              <SearchPage />
+            </Route>
+            <Route path="/">
+              <HomePage />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 };
 

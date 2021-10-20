@@ -1,22 +1,16 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import Link from "../../src/components/Link";
 
 import styles from "./styles.module.scss";
+import Button from "../../src/components/Button";
+import { H3 } from "../../src/components/Heading";
 
 const LeftFormWrapper = styled.div`
   display: flex;
   flex: 2;
   flex-direction: column;
-`;
-
-const FormTitle = styled.h3`
-  font-size: 20px;
-  font-weight: bold;
-  color: #0d6efd;
-  margin-bottom: 20px;
 `;
 
 const BottomDiv = styled.div`
@@ -29,7 +23,7 @@ const BottomDiv = styled.div`
 const LeftForm = () => {
   return(
     <LeftFormWrapper>
-      <FormTitle>Register</FormTitle>
+      <H3 style={{marginBottom: 20}}>Register</H3>
       <Form className={styles.register_form}>
         <Form.Group className="mb-3" controlId="name">
           <FontAwesomeIcon icon="user"/>
@@ -58,7 +52,11 @@ const LeftForm = () => {
           By clicking Register, you agree to our <Link>Terms of Use</Link> and <Link>Privacy Policy</Link>
         </BottomDiv>
 
-        <Button variant="primary" type="submit" className={styles.form_submit_button}>
+        <Button
+          height="40px"
+          width="100%"
+          fontWeight="bold"
+        >
           Create Account
         </Button>
       </Form>
