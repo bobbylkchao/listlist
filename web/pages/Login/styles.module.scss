@@ -1,0 +1,19 @@
+.login_form{
+  > div{
+    position: relative !important;
+  }
+
+  > div > svg{
+    position: absolute;
+    top: 0;
+    height: 50px;
+    left: 20px;
+    color: gray;
+  }
+}
+
+.loginInput{
+  height: 50px;
+  padding-left: 50px;
+  margin-bottom: 10px;
+}

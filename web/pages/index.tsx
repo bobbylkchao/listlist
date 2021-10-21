@@ -8,12 +8,12 @@ import {
   Route
 } from "react-router-dom";
 import { config, library } from '@fortawesome/fontawesome-svg-core';
-import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { ThemeProvider } from 'styled-components';
 
 // listlist containers, components
 import { preFetchExecute } from "../src/prefetch";
-import Wrapper from "../src/containers/Wrapper";
+import Wrapper from '../src/containers/Wrapper';
 import HeaderComponent from "../src/components/Header";
 
 // listlist pages
@@ -24,6 +24,7 @@ import PostPage from "./Post";
 import SearchPage from "./Search";
 import LoginPage from "./Login";
 import RegisterPage from "./Register";
+import NotFoundPage from "./404";
 
 // fix fontawesome icon so huge under next.js framework
 config.autoAddCss = false;
@@ -32,7 +33,7 @@ const Main = () => {
   const reduxUseDispatch = useDispatch();
   const getReduxStoreState = useSelector((state:any) => state);
 
-  library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock);
+  library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle);
 
   React.useEffect(() => {
     console.log(`[DEBUG]Main is loaded...`);
@@ -42,10 +43,8 @@ const Main = () => {
   return(
     <ThemeProvider theme={{ theme: getReduxStoreState['theme']['state'] && getReduxStoreState['theme']['state']['darkmode'] ? 'dark' : 'light' }}>
       <Router>
-        <div>
-          <Wrapper>
-            <HeaderComponent marginTop={15}/>
-          </Wrapper>
+        <Wrapper>
+          <HeaderComponent marginTop={15}/>
           
           <Switch>
             <Route path="/register">
@@ -66,11 +65,14 @@ const Main = () => {
             <Route path="/search/:key">
               <SearchPage />
             </Route>
-            <Route path="/">
+            <Route exact path="/">
               <HomePage />
             </Route>
+            <Route path="*">
+              <NotFoundPage />
+            </Route>
           </Switch>
-        </div>
+        </Wrapper>
       </Router>
     </ThemeProvider>
   );

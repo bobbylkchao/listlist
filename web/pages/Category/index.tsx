@@ -1,16 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Wrapper from "../../src/containers/Wrapper/";
+import InsideWrapper from "../../src/containers/InsideWrapper";
 
 const CategoryPage = () => {
   const { id }:{ id:string } = useParams();
 
   return(
-    <>
-      <Wrapper>
-        Category Page, param is: { id }
-      </Wrapper>
-    </>
+    <InsideWrapper>
+      Category Page, param is: { id }
+    </InsideWrapper>
   );
 };
 

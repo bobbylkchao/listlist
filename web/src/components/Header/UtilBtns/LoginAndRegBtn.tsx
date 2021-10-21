@@ -5,6 +5,7 @@ import Link from "../../Link";
 
 const LoginAndRegBtnWrapper = styled.div`
   display: flex;
+  justify-content: center;
   flex: 2;
 `;
 

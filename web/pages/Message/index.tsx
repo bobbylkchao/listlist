@@ -1,11 +1,11 @@
 import React from "react";
-import Wrapper from "../../src/containers/Wrapper/";
+import InsideWrapper from "../../src/containers/InsideWrapper";
 
 const MessagePage = () => {
   return(
-    <Wrapper>
+    <InsideWrapper>
       MESSAGE
-    </Wrapper>
+    </InsideWrapper>
   );
 };
 

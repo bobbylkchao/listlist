@@ -1,15 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import Wrapper from "../../src/containers/Wrapper/";
+import InsideWrapper from "../../src/containers/InsideWrapper";
 import LeftForm from "./LeftForm";
 import RightForm from "./RightForm";
 import Hline from "../../src/components/Hline";
 
-const InsideWrapper = styled.div`
+const RegContainer = styled.div`
   display: flex;
   flex-direction: row;
-  min-height: 300px;
-  max-width: 1000px;
+  max-width: 80%;
   margin: 3% auto;
 `;
 
@@ -17,12 +16,12 @@ const RegisterPage = () => {
   return(
     <>
       <Hline marginTop="15px" marginBottom="15px"/>
-      <Wrapper>
-        <InsideWrapper>
+      <InsideWrapper>
+        <RegContainer>
           <LeftForm/>
           <RightForm/>
-        </InsideWrapper>
-      </Wrapper>
+        </RegContainer>
+      </InsideWrapper>
     </>
   );
 };

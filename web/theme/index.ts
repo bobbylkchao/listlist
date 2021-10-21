@@ -1,12 +1,9 @@
 import theme from "styled-theming";
 
-const themeConfig = {
-  darkBlue: "#076dd3",
-  lightBlue: "#1b86f0",
-  darkBlack: "#1f1f1f",
-  defaultBlack: "#fdf4f4",
-  lightBlack: "#5b5b5b",
-};
+export const defaultTextColor = theme("theme", {
+  light: "#3e4153",
+  dark: "#ffffff",
+});
 
 export const buttonColor = theme("theme", {
   light: "#076dd3",

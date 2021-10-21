@@ -19,8 +19,7 @@ interface ButtonInterface{
   fontWeight?: string;
 }
 
-const Button = styled.a`
-  text-decoration: none;
+const Button = styled.button`
   cursor: pointer;
   background-color: ${buttonColor};
   width: ${(props:any) => props.width || 'auto'};
@@ -32,6 +31,8 @@ const Button = styled.a`
   vertical-align: middle;
   border-radius: 5px;
   display: inline-block;
+  border: 0;
+  outline: none;
 
   &:hover{
     background-color: ${buttonColorHover};

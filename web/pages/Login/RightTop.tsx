@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { H4 } from "../../src/components/Heading";
 import Button from "../../src/components/Button";
+import { defaultTextColor } from "../../theme";
 
 const RightTopWrapper = styled.div`
   display: flex;
@@ -19,8 +20,9 @@ const RightTopWrapper = styled.div`
 `;
 
 const NoticeTextWrapper = styled.div`
-  color: gray;
-  font-size: 13px;
+  color: ${defaultTextColor};
+  padding: 10px 30px;
+  text-align: center;
 `;
 
 const RightTop = () => {
@@ -28,13 +30,13 @@ const RightTop = () => {
 
   return(
     <RightTopWrapper>
-      <H4>Already registered?</H4>
-      <NoticeTextWrapper>Sign in to post your ad.</NoticeTextWrapper>
+      <H4>Not registered yet?</H4>
+      <NoticeTextWrapper>Register now to post, edit, and manage ads. It’s quick, easy, and free!</NoticeTextWrapper>
       <Button
-        height="30px"
-        width="40%"
-        onClick={() => history.push('/login')}
-      >Sign In</Button>
+        height="35px"
+        width="50%"
+        onClick={() => history.push('/register')}
+      >Register Now</Button>
     </RightTopWrapper>
   );
 };

@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from 'react-bootstrap/Form';
-import Link from "../../src/components/Link";
 
 import styles from "./styles.module.scss";
 import Button from "../../src/components/Button";
 import { H3 } from "../../src/components/Heading";
+import Link from "../../src/components/Link";
 
 const LeftFormWrapper = styled.div`
   display: flex;
@@ -16,10 +16,14 @@ const LeftFormWrapper = styled.div`
 `;
 
 const BottomDiv = styled.div`
-  margin: 20px 0;
+  margin: 10px 0;
   font-size: 13px;
   text-align: center;
   color: gray;
+`;
+
+const ForgotPwdWrapper = styled.div`
+  margin-bottom: 10px;
 `;
 
 const LeftForm = () => {
@@ -36,44 +40,29 @@ const LeftForm = () => {
 
   return(
     <LeftFormWrapper>
-      <H3 style={{marginBottom: 20}}>Register</H3>
+      <H3 style={{marginBottom: 20}}>Login</H3>
       <Form
         noValidate
         validated={validated}
         onSubmit={handleSubmit}
-        className={styles.register_form}
+        className={styles.login_form}
       >
-        <Form.Group className="mb-3" controlId="name">
-          <FontAwesomeIcon icon="user"/>
-          <Form.Control type="text" placeholder="Name" required/>
-          <Form.Text className="text-muted">
-            Your name will be displayed on your public profile.
-          </Form.Text>
-          <Form.Control.Feedback type="invalid">Please enter name.</Form.Control.Feedback>
-        </Form.Group>
 
         <Form.Group className="mb-3" controlId="email">
           <FontAwesomeIcon icon="envelope"/>
-          <Form.Control type="email" placeholder="Email" required/>
+          <Form.Control type="email" placeholder="Email" className={styles.loginInput} required/>
           <Form.Control.Feedback type="invalid">Please enter email.</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="password">
           <FontAwesomeIcon icon="lock"/>
-          <Form.Control type="password" placeholder="Password" required/>
+          <Form.Control type="password" placeholder="Password" className={styles.loginInput} required/>
           <Form.Control.Feedback type="invalid">Please enter password.</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="passwordReenter">
-          <FontAwesomeIcon icon="lock"/>
-          <Form.Control type="password" placeholder="Re-enter Password" required/>
-          <Form.Control.Feedback type="invalid">Please re-enter password.</Form.Control.Feedback>
-        </Form.Group>
-
-        <BottomDiv>
-          {/*LISTLIST-TODO: create terms of use and privacy policy pages*/}
-          By clicking Register, you agree to our <Link>Terms of Use</Link> and <Link>Privacy Policy</Link>
-        </BottomDiv>
+        <ForgotPwdWrapper>
+          <Link href="#">Forgot password?</Link>
+        </ForgotPwdWrapper>
 
         <Button
           height="40px"
@@ -81,7 +70,7 @@ const LeftForm = () => {
           fontWeight="bold"
           type="submit"
         >
-          Create Account
+          Sign In
         </Button>
       </Form>
     </LeftFormWrapper>

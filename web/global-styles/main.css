@@ -1,6 +1,20 @@
 html, body{
   font-family: 'Roboto', Arial, sans-serif;
   font-size: 15px;
+  font-weight: 300;
+}
+
+::-webkit-input-placeholder {
+  font-weight: 300;
+}
+::-moz-placeholder {
+  font-weight: 300;
+}
+:-ms-input-placeholder {
+  font-weight: 300;
+}
+:-moz-placeholder {
+  font-weight: 300;
 }
 
 #searchBarCategoryItemActive{

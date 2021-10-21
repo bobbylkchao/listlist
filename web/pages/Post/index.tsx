@@ -1,11 +1,11 @@
 import React from "react";
-import Wrapper from "../../src/containers/Wrapper/";
+import InsideWrapper from "../../src/containers/InsideWrapper";
 
 const PostPage = () => {
   return(
-    <Wrapper>
+    <InsideWrapper>
       POST
-    </Wrapper>
+    </InsideWrapper>
   );
 };
 
