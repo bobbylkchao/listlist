@@ -5,9 +5,9 @@ import DropDown from "./DropDown";
 
 const TopMenus = (props:{marginTop?: number}) => {
   const getReduxStoreState = useSelector((state:any) => state);
-  
+
   return(
-    <TopMenuWrapper style={{marginTop: props.marginTop ?? 0}}>
+    <TopMenuWrapper style={{ marginTop: props.marginTop ?? 0 }}>
       {
         getReduxStoreState['categoryList']['state'] instanceof Array ? getReduxStoreState['categoryList']['state'].map((item:any, key:number) => (
           <DropDown

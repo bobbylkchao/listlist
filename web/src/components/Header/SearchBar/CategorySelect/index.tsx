@@ -36,10 +36,9 @@ const CategorySelect = (props:{width?: number}) => {
       // Pass data to redux to store
       dispatchRedux({
         type: 'saveCategories',
-        value: r.data.category
+        value: r.data.category,
       });
     });
-    
   }, []);
 
   return(
@@ -51,8 +50,8 @@ const CategorySelect = (props:{width?: number}) => {
     >
       <Dropdown.Toggle
         variant="success"
-        style={{flex: props.width ? props.width : 1}}
-        className={styles.searchBar_category_select}
+        style={{ flex: props.width ? props.width : 1 }}
+        className={ styles.searchBar_category_select }
       >
         <div>{ getReduxStoreState['categorySelected']['state'] ? getReduxStoreState['categorySelected']['state']['name'] : 'All Categories' }</div>
       </Dropdown.Toggle>

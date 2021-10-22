@@ -27,9 +27,15 @@ button[class*="CategorySelect"].btn-success:hover,
   border-color: #ebebed !important;
 }
 
-input:focus{
+input:focus:not(.is-invalid){
   outline: none !important;
   border: 1px solid #2681db !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+input.is-invalid:focus{
+  outline: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }

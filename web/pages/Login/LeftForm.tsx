@@ -40,7 +40,7 @@ const LeftForm = () => {
 
   return(
     <LeftFormWrapper>
-      <H3 style={{marginBottom: 20}}>Login</H3>
+      <H3 style={{ marginBottom: 20 }}>Login</H3>
       <Form
         noValidate
         validated={validated}

@@ -14,7 +14,7 @@ const DropDown = (props:DropDownInterface|any) => {
   const router = useHistory();
 
   const [dropDownVisible, setDropDownVisible] = React.useState<boolean>(false);
-  const [currentHoverdCategory, setCurrentHoverdCategory] = React.useState<{id:number, name:string}>({id: 0, name: 'Choose a category'});
+  const [currentHoverdCategory, setCurrentHoverdCategory] = React.useState<{id:number, name:string}>({ id: 0, name: 'Choose a category' });
   const [categoryList, setCategoryList] = React.useState<{id:number, name:string}[]>([]);
   const [delayHandler, setDelayHandler] = React.useState<any>(null);
 
@@ -35,7 +35,7 @@ const DropDown = (props:DropDownInterface|any) => {
       className={styles.MenuDropDownLeftItem}
       onMouseEnter={(e:any) => {
         e.target.style.backgroundColor = "#ececee";
-        setCurrentHoverdCategory({id:props.id, name:props.name});
+        setCurrentHoverdCategory({ id:props.id, name:props.name });
         setCategoryListHandle(props.subitems);
       }}
     >
@@ -56,7 +56,7 @@ const DropDown = (props:DropDownInterface|any) => {
           // show sub menu
           setDropDownVisible(true);
           // reset states when hover to menu
-          setCurrentHoverdCategory({id: 0, name: 'Choose a category'});
+          setCurrentHoverdCategory({ id: 0, name: 'Choose a category' });
           // reset category list
           setCategoryList([]);
         }, 200));
@@ -85,7 +85,7 @@ const DropDown = (props:DropDownInterface|any) => {
             // hide sub menu
             setDropDownVisible(false);
             // go to page
-            router.push(`/category/${currentHoverdCategory.id}`)
+            router.push(`/category/${currentHoverdCategory.id}`);
           }} bold={true}>
             { currentHoverdCategory.id === 0 ? `${currentHoverdCategory.name}` : `See all in ${ currentHoverdCategory.name}`}
           </DropDownRightLink>

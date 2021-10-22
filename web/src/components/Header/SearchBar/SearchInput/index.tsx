@@ -11,7 +11,7 @@ const Input = styled.input`
   border-right: 0;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  
+
   ::placeholder {
     color: #979797;
     opacity: 1;
@@ -44,7 +44,7 @@ const SearchInput = (props:{width?: number, getData: (v: string) => void}) => {
       placeholder="Search for anything..."
       value={searchKey}
       onChange={e => onKeyUp(e.target.value)}
-      style={{flex: props.width ? props.width : 1}}
+      style={{ flex: props.width ? props.width : 1 }}
     />
   );
 };

@@ -18,7 +18,7 @@ const CategoryItem = (props:{items: any}) => {
       value: {
         id: id,
         name: name,
-      }
+      },
     });
   };
 
@@ -30,21 +30,23 @@ const CategoryItem = (props:{items: any}) => {
         onClick={() => setSelectedCategory(0, 'All Categories')}>
           <span><FontAwesomeIcon icon="ellipsis-h"/></span>
           <span>All Categories</span>
-          <span style={{visibility: !getReduxStoreState['categorySelected']['state'] || getReduxStoreState['categorySelected']['state']['id'] === 0 ? 'visible' : 'hidden'}}><FontAwesomeIcon icon="check"/></span>
+          <span style={{ visibility: !getReduxStoreState['categorySelected']['state'] || getReduxStoreState['categorySelected']['state']['id'] === 0 ? 'visible' : 'hidden' }}><FontAwesomeIcon icon="check"/></span>
       </Dropdown.Item>
       {
         props.items instanceof Array ?
         props.items.map(
-          (item:any, key:number) => 
-            <Dropdown.Item
-              key={key}
-              id={`${getReduxStoreState['categorySelected']['state'] && getReduxStoreState['categorySelected']['state']['id'] === item.id ? 'searchBarCategoryItemActive' : ''}`}
-              className={styles.searchBar_category_item}
-              onClick={() => setSelectedCategory(item.id, item.name)}>
-                <span><FontAwesomeIcon icon={item.icon}/></span>
-                <span>{ item.name }</span>
-                <span style={{visibility: getReduxStoreState['categorySelected']['state'] && getReduxStoreState['categorySelected']['state']['id'] === item.id ? 'visible' : 'hidden'}}><FontAwesomeIcon icon="check"/></span>
-            </Dropdown.Item>
+          (item:any, key:number) =>
+            (
+              <Dropdown.Item
+                key={key}
+                id={`${getReduxStoreState['categorySelected']['state'] && getReduxStoreState['categorySelected']['state']['id'] === item.id ? 'searchBarCategoryItemActive' : ''}`}
+                className={styles.searchBar_category_item}
+                onClick={() => setSelectedCategory(item.id, item.name)}>
+                  <span><FontAwesomeIcon icon={item.icon}/></span>
+                  <span>{ item.name }</span>
+                  <span style={{ visibility: getReduxStoreState['categorySelected']['state'] && getReduxStoreState['categorySelected']['state']['id'] === item.id ? 'visible' : 'hidden' }}><FontAwesomeIcon icon="check"/></span>
+              </Dropdown.Item>
+            ),
         ) : <></>
       }
     </>

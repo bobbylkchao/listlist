@@ -25,8 +25,8 @@ const getGeoInfo = (dispatch: (parms:any) => void) => {
           region: "MB",
           city: "Winnipeg",
           ll: ['49.8179', '-97.1535'],
-          remarks: "Error, use default values."
-        }
+          remarks: "Error, use default values.",
+        },
       });
       return;
     }
@@ -37,8 +37,8 @@ const getGeoInfo = (dispatch: (parms:any) => void) => {
         region: result.data.geo.region,
         city: result.data.geo.city,
         ll: result.data.geo.ll,
-        remarks: "No error."
-      }
+        remarks: "No error.",
+      },
     });
   });
 };
@@ -46,4 +46,4 @@ const getGeoInfo = (dispatch: (parms:any) => void) => {
 export {
   getGeoInfo,
   preFetchExecute,
-}
+};

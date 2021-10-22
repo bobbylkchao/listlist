@@ -2,11 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from 'react-bootstrap/Form';
-import Link from "../../src/components/Link";
+import Alert from 'react-bootstrap/Alert';
 
 import styles from "./styles.module.scss";
 import Button from "../../src/components/Button";
+import Link from "../../src/components/Link";
 import { H3 } from "../../src/components/Heading";
+import { emailValidation, usernameValidation, passwordValidation, passwordRepeatValidation } from "../../src/utils";
 
 const LeftFormWrapper = styled.div`
   display: flex;
@@ -23,51 +25,182 @@ const BottomDiv = styled.div`
 `;
 
 const LeftForm = () => {
-  const [validated, setValidated] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [alertInfos, setAlertInfos] = React.useState({
+    variant: '',
+    message: '',
+    visible: false,
+  });
+  const [formValid, setFormValid] = React.useState({
+    name: {
+      value: '',
+      isInvalid: false,
+      message: '',
+    },
+    email: {
+      value: '',
+      isInvalid: false,
+      message: '',
+    },
+    password: {
+      value: '',
+      isInvalid: false,
+      message: '',
+    },
+    password_repeat: {
+      value: '',
+      isInvalid: false,
+      message: '',
+    },
+  });
+
+  const handleValidition = (event) => {
+    const vaildName = usernameValidation(name);
+    if(!vaildName.status){
+      setAlertInfos({ variant: 'warning', message: vaildName.message, visible: true });
+      return;
+    }
+  };
 
   const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+    console.log('submitted...');
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    /**
+     * Validation Check
+     */
+    for(const formValidItem in formValid){
+      if(formValid[formValidItem].isInvalid || !formValid[formValidItem].value){
+        return;
+      }
     }
-    setValidated(true);
+
+    const name = event.currentTarget.elements.name.value;
+    const email = event.currentTarget.elements.email.value;
+    const password = event.currentTarget.elements.password.value;
+    const passwordRepeat = event.currentTarget.elements.password_repeat.value;
+
+    setIsSubmitting(true);
+    // Logics
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 2000);
   };
 
   return(
     <LeftFormWrapper>
-      <H3 style={{marginBottom: 20}}>Register</H3>
+      <H3 style={{ marginBottom: 20 }}>Register</H3>
+      <Alert
+        variant={alertInfos.variant}
+        show={alertInfos.visible}
+        transition={false}
+      >
+        <FontAwesomeIcon icon="exclamation-circle"/> { alertInfos.message }
+      </Alert>
       <Form
         noValidate
-        validated={validated}
-        onSubmit={handleSubmit}
+        onSubmit={!isSubmitting ? handleSubmit : null}
         className={styles.register_form}
       >
-        <Form.Group className="mb-3" controlId="name">
+        <Form.Group className="mb-3">
           <FontAwesomeIcon icon="user"/>
-          <Form.Control type="text" placeholder="Name" required/>
+          <Form.Control
+            onBlur={(e:any) => {
+              const valid = usernameValidation(e.target.value);
+              setFormValid(prevState => ({
+                ...prevState,
+                name: {
+                  value: e.target.value,
+                  isInvalid: !valid.status,
+                  message: valid.message,
+                },
+              }));
+            }}
+            type="text"
+            name="name"
+            placeholder="Name"
+            isInvalid={formValid.name.isInvalid}
+            autoComplete="off"
+            required
+          />
           <Form.Text className="text-muted">
             Your name will be displayed on your public profile.
           </Form.Text>
-          <Form.Control.Feedback type="invalid">Please enter name.</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{formValid.name.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="email">
+        <Form.Group className="mb-3">
           <FontAwesomeIcon icon="envelope"/>
-          <Form.Control type="email" placeholder="Email" required/>
-          <Form.Control.Feedback type="invalid">Please enter email.</Form.Control.Feedback>
+          <Form.Control
+            onBlur={(e:any) => {
+              const valid = emailValidation(e.target.value);
+              setFormValid(prevState => ({
+                ...prevState,
+                email: {
+                  value: e.target.value,
+                  isInvalid: !valid.status,
+                  message: valid.message,
+                },
+              }));
+            }}
+            type="email"
+            name="email"
+            placeholder="Email"
+            isInvalid={formValid.email.isInvalid}
+            autoComplete="off"
+            required
+          />
+          <Form.Control.Feedback type="invalid">{formValid.email.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="password">
+        <Form.Group className="mb-3">
           <FontAwesomeIcon icon="lock"/>
-          <Form.Control type="password" placeholder="Password" required/>
-          <Form.Control.Feedback type="invalid">Please enter password.</Form.Control.Feedback>
+          <Form.Control
+            onBlur={(e:any) => {
+              const valid = passwordValidation(e.target.value);
+              setFormValid(prevState => ({
+                ...prevState,
+                password: {
+                  value: e.target.value,
+                  isInvalid: !valid.status,
+                  message: valid.message,
+                },
+              }));
+            }}
+            type="password"
+            name="password"
+            placeholder="Password"
+            isInvalid={formValid.password.isInvalid}
+            autoComplete="off"
+            required
+          />
+          <Form.Control.Feedback type="invalid">{formValid.password.message}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="passwordReenter">
+        <Form.Group className="mb-3">
           <FontAwesomeIcon icon="lock"/>
-          <Form.Control type="password" placeholder="Re-enter Password" required/>
-          <Form.Control.Feedback type="invalid">Please re-enter password.</Form.Control.Feedback>
+          <Form.Control
+            onBlur={(e:any) => {
+              const valid = passwordRepeatValidation(formValid.password.value, e.target.value);
+              setFormValid(prevState => ({
+                ...prevState,
+                password_repeat: {
+                  value: e.target.value,
+                  isInvalid: !valid.status,
+                  message: valid.message,
+                },
+              }));
+            }}
+            type="password"
+            name="password_repeat"
+            placeholder="Re-enter Password"
+            isInvalid={formValid.password_repeat.isInvalid}
+            autoComplete="off"
+            required
+          />
+          <Form.Control.Feedback type="invalid">{formValid.password_repeat.message}</Form.Control.Feedback>
         </Form.Group>
 
         <BottomDiv>
@@ -80,8 +213,9 @@ const LeftForm = () => {
           width="100%"
           fontWeight="bold"
           type="submit"
+          disabled={isSubmitting}
         >
-          Create Account
+          { isSubmitting ? 'Submitting...' : 'Create Account' }
         </Button>
       </Form>
     </LeftFormWrapper>

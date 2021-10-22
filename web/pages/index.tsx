@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 import Head from 'next/head';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import store from '../src/redux/store';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
 } from "react-router-dom";
 import { config, library } from '@fortawesome/fontawesome-svg-core';
-import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { ThemeProvider } from 'styled-components';
 
 // listlist containers, components
@@ -33,7 +33,7 @@ const Main = () => {
   const reduxUseDispatch = useDispatch();
   const getReduxStoreState = useSelector((state:any) => state);
 
-  library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle);
+  library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle);
 
   React.useEffect(() => {
     console.log(`[DEBUG]Main is loaded...`);
@@ -45,7 +45,7 @@ const Main = () => {
       <Router>
         <Wrapper>
           <HeaderComponent marginTop={15}/>
-          
+
           <Switch>
             <Route path="/register">
               <RegisterPage />

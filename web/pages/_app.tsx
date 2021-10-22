@@ -5,12 +5,12 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 // listlist css
 import '../global-styles/main.css';
 
-function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <div suppressHydrationWarning={true}>
       {typeof window === 'undefined' ? null : <Component {...pageProps} />}
     </div>
   );
-}
+};
 
 export default App;

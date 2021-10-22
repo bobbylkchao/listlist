@@ -15,7 +15,7 @@ const LoginAndRegBtn = () => {
   return(
     <LoginAndRegBtnWrapper>
       <Link onClick={() => router.push('/register')}>Register</Link>
-      <span style={{marginLeft: 5, marginRight: 5}}>or</span>
+      <span style={{ marginLeft: 5, marginRight: 5 }}>or</span>
       <Link onClick={() => router.push('/login')}>Sign In</Link>
     </LoginAndRegBtnWrapper>
   );

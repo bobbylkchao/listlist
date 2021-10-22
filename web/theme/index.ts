@@ -17,7 +17,7 @@ export const buttonColorHover = theme("theme", {
 
 export const linkColor = theme("theme", {
   light: "#076dd3",
-  dark: "#2d2d2d"
+  dark: "#2d2d2d",
 });
 
 export const linkColorHover = theme("theme", {

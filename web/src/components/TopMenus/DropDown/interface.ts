@@ -8,7 +8,7 @@ export interface DropDownInterface{
       name:string;
     }[]
   }[];
-};
+}
 
 export interface NavDropDownItemInterface{
   id: number;

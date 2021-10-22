@@ -10,11 +10,11 @@ const NotFoundPage = () => {
         <TopMenus marginTop={15}/>
       </InsideWrapper>
       <Hline marginTop="15px" marginBottom="15px"/>
-      <InsideWrapper style={{textAlign: 'center'}}>
+      <InsideWrapper style={{ textAlign: 'center' }}>
         404 - Page not found
       </InsideWrapper>
     </>
-  );  
+  );
 };
 
 export default NotFoundPage;

@@ -30,7 +30,7 @@ const SearchBtn = (props:{width?:number, passData:string}) => {
     }
     router.push(`/search/${props.passData}`);
   };
-  
+
   return(
     <div
       className={styles.searchbar_searchbtn}

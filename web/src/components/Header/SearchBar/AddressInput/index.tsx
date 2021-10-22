@@ -11,7 +11,7 @@ const AddressInput = (props:{width?: number}) => {
       style={{
         flex: props.width ? props.width : 1,
       }}
-      onClick={(e) => console.log(e)}
+      onClick={(e:any) => console.log(e)}
     >
       <div className={styles.searchBar_addressInput_inside_main}>
         <div><FontAwesomeIcon icon="map-marker-alt"/></div>

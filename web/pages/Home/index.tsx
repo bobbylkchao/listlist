@@ -14,7 +14,7 @@ const HomePage = () => {
         Home
       </InsideWrapper>
     </>
-  );  
+  );
 };
 
 export default HomePage;
