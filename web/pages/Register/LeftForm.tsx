@@ -9,6 +9,7 @@ import Button from "../../src/components/Button";
 import Link from "../../src/components/Link";
 import { H3 } from "../../src/components/Heading";
 import { emailValidation, usernameValidation, passwordValidation, passwordRepeatValidation } from "../../src/utils";
+import { userRegisterReq } from "../../src/data-request";
 
 const LeftFormWrapper = styled.div`
   display: flex;
@@ -63,8 +64,6 @@ const LeftForm = () => {
   };
 
   const handleSubmit = (event) => {
-    console.log('submitted...');
-
     event.preventDefault();
     event.stopPropagation();
 
@@ -72,7 +71,47 @@ const LeftForm = () => {
      * Validation Check
      */
     for(const formValidItem in formValid){
-      if(formValid[formValidItem].isInvalid || !formValid[formValidItem].value){
+      if(formValid[formValidItem].isInvalid) return;
+      if(!formValid[formValidItem].value){
+        if(formValidItem === 'name'){
+          setFormValid(prevState => ({
+            ...prevState,
+            name: {
+              isInvalid: true,
+              message: 'Please enter the name',
+            },
+          }));
+        }
+
+        if(formValidItem === 'email'){
+          setFormValid(prevState => ({
+            ...prevState,
+            email: {
+              isInvalid: true,
+              message: 'Please enter the email',
+            },
+          }));
+        }
+
+        if(formValidItem === 'password'){
+          setFormValid(prevState => ({
+            ...prevState,
+            password: {
+              isInvalid: true,
+              message: 'Please enter the password',
+            },
+          }));
+        }
+
+        if(formValidItem === 'password_repeat'){
+          setFormValid(prevState => ({
+            ...prevState,
+            password_repeat: {
+              isInvalid: true,
+              message: 'Please re-enter the password',
+            },
+          }));
+        }
         return;
       }
     }
@@ -80,13 +119,20 @@ const LeftForm = () => {
     const name = event.currentTarget.elements.name.value;
     const email = event.currentTarget.elements.email.value;
     const password = event.currentTarget.elements.password.value;
-    const passwordRepeat = event.currentTarget.elements.password_repeat.value;
 
-    setIsSubmitting(true);
-    // Logics
-    setTimeout(() => {
+    userRegisterReq({
+      email: email,
+      name: name,
+      password: password
+    },(result: { id: any, error: any }) => {
       setIsSubmitting(false);
-    }, 2000);
+      if(result.error){
+        setAlertInfos({ variant: 'warning', message: result.error, visible: true });
+      }else{
+        // LISTLIST-TODO: login, jwtToken, redirect to from page or profile page.
+        setAlertInfos({ variant: 'success', message: `Registration success, User ID is ${result.id}`, visible: true });
+      }
+    });
   };
 
   return(
@@ -97,7 +143,7 @@ const LeftForm = () => {
         show={alertInfos.visible}
         transition={false}
       >
-        <FontAwesomeIcon icon="exclamation-circle"/> { alertInfos.message }
+        <FontAwesomeIcon icon="exclamation-circle"/>&nbsp;&nbsp;{ alertInfos.message }
       </Alert>
       <Form
         noValidate
