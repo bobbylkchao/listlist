@@ -28,10 +28,6 @@ const UserType = new GraphQLObjectType({
       type: GraphQLInt,
       description: "User's registration date",
     },
-    error: {
-      type: GraphQLString,
-      description: "The error description of the error if an error occurs ",
-    }
   }
 });
 
