@@ -21,6 +21,15 @@ const loggingMiddleware = (req, res, next) => {
   next();
 };
 
+app.use(loggingMiddleware);
+
+const tokenMiddleware = (req, res, next) => {
+  global.token = req.headers['authorization'] ?? null;
+  next();
+};
+
+app.use(tokenMiddleware);
+
 // gzip compression
 app.use(compression());
 
@@ -30,8 +39,6 @@ app.use(
     allowedOrigins: ["http://localhost:3000"]
   })
 );
-
-app.use(loggingMiddleware);
 
 app.use(
   "/",

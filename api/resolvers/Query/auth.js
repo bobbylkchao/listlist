@@ -1,7 +1,7 @@
 const { GraphQLString, GraphQLNonNull} = require('graphql');
 const { dbQuery } = require('../../database');
 const { DefaultType } = require('../../types');
-const { diffHash } = require('../../libs/Auth');
+const { diffHash, AuthToken } = require('../../libs/Auth');
 const { emailValidation, passwordValidation } = require('../../libs/utils');
 
 const queryAuth = {
@@ -26,7 +26,14 @@ const queryAuth = {
     
     let diff = await diffHash(password, passwordInDB);
     if(diff){
-      return {code: 200, message: 'Success'};
+      const token = AuthToken.generate(email);
+
+      if(token){
+        return {code: 200, message: token};
+      }else{
+        return {code: 500, message: 'Failed to create token'};
+      }
+      
     }else{
       return {code: 500, message: 'Email or password does not match'};
     }

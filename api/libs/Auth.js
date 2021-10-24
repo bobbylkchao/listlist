@@ -1,4 +1,9 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+// get config vars
+dotenv.config();
 
 const createHash = (password) => {
   return new Promise(resolve => {
@@ -16,7 +21,26 @@ const diffHash = (pwdInput, pwdInDB) => {
   });
 };
 
+const AuthToken = {
+  generate: (email) => {
+    // @default The expiration time is 7 days by default
+    return email ? jwt.sign({ email: email }, process.env.TOKEN_SECRET, { expiresIn: '7d' }) : false;
+  },
+  verify: (token) => {
+    try{
+      if(jwt.verify(token, process.env.TOKEN_SECRET)){
+        return true;
+      }else{
+        return false;
+      }
+    }catch(err){
+      return false;
+    }
+  },
+};
+
 module.exports = {
   createHash,
   diffHash,
+  AuthToken,
 };
