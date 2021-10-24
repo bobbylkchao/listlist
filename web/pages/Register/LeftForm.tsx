@@ -120,6 +120,7 @@ const LeftForm = () => {
     const email = event.currentTarget.elements.email.value;
     const password = event.currentTarget.elements.password.value;
 
+    setIsSubmitting(true);
     userRegisterReq({
       email: email,
       name: name,
@@ -250,7 +251,7 @@ const LeftForm = () => {
         </Form.Group>
 
         <BottomDiv>
-          {/*LISTLIST-TODO: create terms of use and privacy policy pages*/}
+          {/* LISTLIST-TODO: create terms of use and privacy policy pages */}
           By clicking Register, you agree to our <Link>Terms of Use</Link> and <Link>Privacy Policy</Link>
         </BottomDiv>
 
@@ -261,7 +262,7 @@ const LeftForm = () => {
           type="submit"
           disabled={isSubmitting}
         >
-          { isSubmitting ? 'Submitting...' : 'Create Account' }
+          { isSubmitting ? 'Processing...' : 'Create Account' }
         </Button>
       </Form>
     </LeftFormWrapper>

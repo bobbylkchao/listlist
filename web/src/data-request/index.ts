@@ -90,3 +90,29 @@ export const userRegisterReq = (params: userRegReqInterface, callback: (res: { i
     callback(res);
   });
 };
+
+/**
+ * userLoginReq()
+ * @desc user login
+ * @param {string} email user's email
+ * @param {string} password user's password
+ */
+ interface userLoginReqInterface{
+  email: string;
+  password: string
+}
+export const userLoginReq = (params: userLoginReqInterface, callback: () => void) => {
+  getGraphQL(`
+    query{
+      auth(
+        email: "${params.email}",
+        password: "${params.password}"
+      ){
+        code,
+        message
+      }
+    }
+  `, (result: any) => {
+    callback(result);
+  });
+};
