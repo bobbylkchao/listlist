@@ -1,6 +1,6 @@
 const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
-const cors = require("express-cors");
+const cors = require("cors");
 const compression = require("compression");
 const http = require("http");
 const schema = require("./schema");
@@ -33,12 +33,23 @@ app.use(tokenMiddleware);
 // gzip compression
 app.use(compression());
 
-//设置跨域访问
+// Set Cors
 app.use(
   cors({
-    allowedOrigins: ["http://localhost:3000"]
+    origin: ["http://localhost:3000"],
+    methods: "POST",
+    optionsSuccessStatus: 200
   })
 );
+
+/*
+app.all('*', function(req, res, next) {
+  //res.setHeader('Access-Control-Allow-Origin','*');
+  //res.setHeader('Access-Control-Allow-Methods', '*'); 
+  res.setHeader('Access-Control-Allow-Headers', '*'); 
+  next();
+});*/
+
 
 app.use(
   "/",
