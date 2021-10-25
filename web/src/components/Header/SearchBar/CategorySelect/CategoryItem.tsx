@@ -4,7 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from "./index.module.scss";
 
-const CategoryItem = (props:{items: any}) => {
+const CategoryItem = () => {
   const getReduxStoreState = useSelector((state:any) => state);
   const dispatchRedux = useDispatch();
 
@@ -33,8 +33,8 @@ const CategoryItem = (props:{items: any}) => {
           <span style={{ visibility: !getReduxStoreState['categorySelected']['state'] || getReduxStoreState['categorySelected']['state']['id'] === 0 ? 'visible' : 'hidden' }}><FontAwesomeIcon icon="check"/></span>
       </Dropdown.Item>
       {
-        props.items instanceof Array ?
-        props.items.map(
+        getReduxStoreState['categoryList']['state'] instanceof Array ?
+        getReduxStoreState['categoryList']['state'].map(
           (item:any, key:number) =>
             (
               <Dropdown.Item

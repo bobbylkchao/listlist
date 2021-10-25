@@ -16,13 +16,8 @@ const HomePage = () => {
         <TopMenus marginTop={15}/>
       </InsideWrapper>
       <Hline marginTop="15px" marginBottom="15px"/>
-      <InsideWrapper>
+      <InsideWrapper style={{ minHeight: 500 }}>
         Home
-        <ul>
-          {
-            getReduxStoreState['userAuth'] ? <li>{ JSON.stringify(getReduxStoreState['userAuth']['state']) }</li>: <li>no auth state</li>
-          }
-        </ul>
       </InsideWrapper>
     </>
   );

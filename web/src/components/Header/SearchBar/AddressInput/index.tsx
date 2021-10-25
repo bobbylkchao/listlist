@@ -16,11 +16,15 @@ const AddressInput = (props:{width?: number}) => {
       <div className={styles.searchBar_addressInput_inside_main}>
         <div><FontAwesomeIcon icon="map-marker-alt"/></div>
         <div>
+          <span>
           {
             getReduxStoreState['userGeo']['state'] ? getReduxStoreState['userGeo']['state']['city'] : '...'
           }
+          </span>
         </div>
-        <div>150km</div>
+        <div>
+          <span>150km</span>
+        </div>
       </div>
     </div>
   );

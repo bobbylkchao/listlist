@@ -1,4 +1,6 @@
 // reducer for storing currently selected category
+import { getGeoInfo } from "../../data-request";
+
 const userGeoInitData = {
   country: "CA",
   region: "MB",

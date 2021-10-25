@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import styles from "./styles.module.scss";
 import Button from "../../src/components/Button";
@@ -32,6 +33,7 @@ const ForgotPwdWrapper = styled.div`
 
 const LeftForm = () => {
   const reduxDispatch = useDispatch();
+  const router = useHistory();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [alertInfos, setAlertInfos] = React.useState({
     variant: '',
@@ -100,9 +102,9 @@ const LeftForm = () => {
     setIsSubmitting(true);
     userLoginReq({
       email: email,
-      password: password
+      password: password,
     }, (result: any) => {
-      setIsSubmitting(false);
+
       if(result.errors){
         setAlertInfos({ variant: 'danger', message: `Oops! Something went wrong, please try again later. (${result.errors[0] ? result.errors[0].message : '' })`, visible: true });
       }else{
@@ -118,10 +120,17 @@ const LeftForm = () => {
             reduxDispatch: reduxDispatch,
           });
           setAlertInfos({ variant: 'success', message: "Login Success", visible: true });
+          setTimeout(() => {
+            setIsSubmitting(false);
+            router.push('/m-profile');
+          }, 1000);
         }else{
           setAlertInfos({ variant: 'warning', message: result.data.auth.message, visible: true });
         }
       }
+
+      setIsSubmitting(false);
+
     });
   };
 

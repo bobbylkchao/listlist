@@ -129,7 +129,7 @@ const LeftForm = () => {
     userRegisterReq({
       email: email,
       name: name,
-      password: password
+      password: password,
     },(result: { code: number, message: string, token: null | string }) => {
       if(result.code === 200){
         // Parse the return message
@@ -142,7 +142,7 @@ const LeftForm = () => {
           userID: parseInt(resUserInfos.userID),
           headnav: 'default',
           createdAt: parseInt(resUserInfos.createdAt),
-          reduxDispatch: reduxDispatch
+          reduxDispatch: reduxDispatch,
         });
 
         setAlertInfos({ variant: 'success', message: "Congratulations! Successful registration!", visible: true });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Dropdown from 'react-bootstrap/Dropdown';
 
 import styles from "./index.module.scss";
@@ -9,38 +9,6 @@ import CategoryItem from './CategoryItem';
 const CategorySelect = (props:{width?: number}) => {
   const [categories, setCategories] = React.useState<object>({});
   const getReduxStoreState = useSelector((state:any) => state);
-  const dispatchRedux = useDispatch();
-
-  React.useEffect(() => {
-    // When load, get data
-    if(getReduxStoreState['categoryList']['state'] instanceof Array) return;
-
-    getGraphQL(`
-      query{
-        category{
-          id,
-          name,
-          icon,
-          items{
-            id,
-            name,
-            items{
-              id,
-              name
-            }
-          }
-        }
-      }
-    `, (r:any) => {
-      setCategories(r.data.category);
-      // Pass data to redux to store
-      dispatchRedux({
-        type: 'saveCategories',
-        value: r.data.category,
-      });
-    });
-  }, []);
-
   return(
     <Dropdown
       className={styles.searchBar_category_wrapper}

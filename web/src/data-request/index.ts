@@ -1,4 +1,4 @@
-import { getGraphQL, ls } from "../utils";
+import { getGraphQL, ls, userAuthLSInfos } from "../utils";
 
 /**
  * getGetInfo()
@@ -6,7 +6,7 @@ import { getGraphQL, ls } from "../utils";
  * @param {void} dispatch redux dispatch
  * @return {null}
  */
-export const getGeoInfo = (dispatch: (params:any) => void) => {
+export const getGeoInfo = (callback: () => void) => {
   getGraphQL(`
     query{
       geo{
@@ -17,29 +17,7 @@ export const getGeoInfo = (dispatch: (params:any) => void) => {
       }
     }
   `, (result: any) => {
-    if(!result.data || !result.data.geo){
-      dispatch({
-        type: 'updateUserGeo',
-        value: {
-          country: "CA",
-          region: "MB",
-          city: "Winnipeg",
-          ll: ['49.8179', '-97.1535'],
-          remarks: "Error, use default values.",
-        },
-      });
-      return;
-    }
-    dispatch({
-      type: 'updateUserGeo',
-      value: {
-        country: result.data.geo.country,
-        region: result.data.geo.region,
-        city: result.data.geo.city,
-        ll: result.data.geo.ll,
-        remarks: "No error.",
-      },
-    });
+    callback(result);
   });
 };
 
@@ -50,12 +28,12 @@ export const getGeoInfo = (dispatch: (params:any) => void) => {
  * @param {string} name user's name
  * @param {string} password user's password
  */
-interface userRegReqInterface{
+interface UserRegReqInterface{
   email: string;
   name: string;
-  password: string
+  password: string;
 }
-export const userRegisterReq = (params: userRegReqInterface, callback: (res: any) => void) => {
+export const userRegisterReq = (params: UserRegReqInterface, callback: (res: any) => void) => {
   getGraphQL(`
     mutation {
       addUser(
@@ -67,9 +45,9 @@ export const userRegisterReq = (params: userRegReqInterface, callback: (res: any
         message,
         token
       }
-    }  
+    }
   `, (result: any) => {
-    let res = {
+    const res = {
       code: 200,
       message: null,
       token: "",
@@ -93,7 +71,7 @@ export const userRegisterReq = (params: userRegReqInterface, callback: (res: any
         res.message = result.data.addUser.message;
       }
     }
-    
+
     callback(res);
   });
 };
@@ -104,11 +82,11 @@ export const userRegisterReq = (params: userRegReqInterface, callback: (res: any
  * @param {string} email user's email
  * @param {string} password user's password
  */
- interface userLoginReqInterface{
+interface UserLoginReqInterface{
   email: string;
-  password: string
+  password: string;
 }
-export const userLoginReq = (params: userLoginReqInterface, callback: () => void) => {
+export const userLoginReq = (params: UserLoginReqInterface, callback: () => void) => {
   getGraphQL(`
     query{
       auth(
@@ -125,7 +103,7 @@ export const userLoginReq = (params: userLoginReqInterface, callback: () => void
   });
 };
 
-export const tokenValidation = () => {
+export const tokenValidation = (callback: () => void) => {
   const currentToken = ls.get('token');
   if(currentToken){
     getGraphQL(`
@@ -137,14 +115,20 @@ export const tokenValidation = () => {
       }
     `, (result:any) => {
       if(result.data){
+        let validRes: boolean;
         if(result.data.validateToken.code === 200){
-          // token is ok, update login redux state to true
+          validRes = true;
+        }else{
+          validRes = false;
+          userAuthLSInfos.clear();
         }
+        callback && typeof(callback) === 'function' ? callback(validRes) : null;
       }
     });
   }
 };
 
+// TODO: to be removed
 export const testToken = () => {
   getGraphQL(`
     query{
@@ -157,3 +141,25 @@ export const testToken = () => {
     console.log(result);
   });
 };
+
+export const getAllCategories = (callback: (params: any) => void) => (
+  getGraphQL(`
+    query{
+      category{
+        id,
+        name,
+        icon,
+        items{
+          id,
+          name,
+          items{
+            id,
+            name
+          }
+        }
+      }
+    }
+  `, (r:any) => {
+    callback(r);
+  })
+);

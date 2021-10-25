@@ -12,7 +12,6 @@ import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, fa
 import { ThemeProvider } from 'styled-components';
 
 // listlist containers, components
-import { preFetchExecute } from "../src/prefetch";
 import Wrapper from '../src/containers/Wrapper';
 import HeaderComponent from "../src/components/Header";
 
@@ -27,6 +26,9 @@ import RegisterPage from "./Register";
 import MProfilePage from "./MProfile";
 import OProfilePage from "./OProfile";
 import NotFoundPage from "./404";
+
+// listlist prefetch
+import { preFetchExecute } from "../src/prefetch";
 
 // fix fontawesome icon so huge under next.js framework
 config.autoAddCss = false;

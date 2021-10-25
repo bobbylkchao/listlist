@@ -8,7 +8,7 @@ export const getGraphQL = (query: string, callback: (res: any) => void) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': ls.get('token')
+      Authorization: ls.get('token'),
     },
     body: JSON.stringify({
       query: query,
@@ -17,7 +17,7 @@ export const getGraphQL = (query: string, callback: (res: any) => void) => {
   .then(res => res.json())
   .then(res => callback(res))
   .catch((error:any) => {
-    console.error(`getGraphQL error, ${error}`);
+    // console.error(`getGraphQL error, ${error}`);
   });
 };
 
@@ -113,6 +113,7 @@ export const ls = {
  * User Auth LocalStorage Infos
  * @method userAuthLSInfos.set() Set all the user's auth infos to localstorage
  * @method userAuthLSInfos.get(); Get all the user's auth infos from localstorage
+ * @method userAuthLSInfos.clear(); Clear the user's auth infos from localstorage
  */
 export const userAuthLSInfos = {
   set: (
@@ -124,13 +125,13 @@ export const userAuthLSInfos = {
       headnav?: string | undefined,
       createdAt: number,
       reduxDispatch: () => void,
-    }
+    },
   ) => {
 
     ls.set('token', params.token);
     ls.set('name', params.name);
     ls.set('email', params.email);
-    ls.set('userId', params.userID);
+    ls.set('userID', params.userID);
     ls.set('headnav', params.headnav ?? 'default');
     ls.set('createdAt', params.createdAt);
 
@@ -144,18 +145,27 @@ export const userAuthLSInfos = {
         userID: params.userID,
         headnav: params.headnav ?? 'default',
         createdAt: params.createdAt,
-      }
+      },
     }) : null;
-    
   },
   get: () => {
     return {
-      token: ls.get('token'),
-      name: ls.get('name'),
-      email: ls.get('email'),
-      userID: ls.get('userID'),
-      headnav: ls.get('headnav'),
-      createdAt: ls.get('createdAt'),
+      token: ls.get('token') ?? null,
+      name: ls.get('name') ?? null,
+      email: ls.get('email') ?? null,
+      userID: ls.get('userID') ?? null,
+      headnav: ls.get('headnav') ?? 'default',
+      createdAt: ls.get('createdAt') ?? null,
     };
+  },
+  clear: () => {
+    userAuthLSInfos.set({
+      token: null,
+      name: null,
+      email: null,
+      userID: null,
+      headnav: 'default',
+      createdAt: null,
+    });
   },
 };

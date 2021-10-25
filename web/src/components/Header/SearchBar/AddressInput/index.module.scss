@@ -40,13 +40,24 @@
 }
 
 .searchBar_addressInput_inside_main > div:nth-child(2){
+  justify-content: flex-start;
   flex: 3;
+  width: 0;
+}
+
+.searchBar_addressInput_inside_main > div:nth-child(2) > span{
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
-  justify-content: start;
+  text-overflow: ellipsis;
 }
 
 .searchBar_addressInput_inside_main > div:nth-child(3){
-  flex: 1;
+  flex: 2;
+  width: 0;
+}
+
+.searchBar_addressInput_inside_main > div:nth-child(3) > span{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

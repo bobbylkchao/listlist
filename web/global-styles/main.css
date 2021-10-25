@@ -17,9 +17,14 @@ html, body{
   font-weight: 300;
 }
 
+.dropdown-item{
+  font-weight: 300 !important;
+}
+
 #searchBarCategoryItemActive{
   background-color: #d5e5f5;
   color: #067ae9;
+  font-weight: bold !important;
 }
 
 button[class*="CategorySelect"].btn-success:hover,
