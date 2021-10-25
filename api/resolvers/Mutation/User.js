@@ -22,12 +22,26 @@ const insertUser = {
     const passwordValid = passwordValidation(password);
     if(!passwordValid.status) return { code: 500, message: passwordValid.message, token: null }
 
+    // Create hashed password
     let hashedPwd = await createHash(password);
+
+    // Get current timestamp
+    const currentTimestamp = getTimeStamp();
     
-    let res = await dbQuery(`insert into User (email, name, password, createdAt) values ('${email}', '${name}', '${hashedPwd}', ${getTimeStamp()})`);
+    // Insert to DB
+    let res = await dbQuery(`insert into User (email, name, password, createdAt) values ('${email}', '${name}', '${hashedPwd}', ${currentTimestamp})`);
     
+    // Generate the auth token for user
     const token = AuthToken.generate(email);
-    return {code: 200, message: res.insertId, token: token};
+
+    // Static return infos
+    const resUserInfos = JSON.stringify({
+      userID: res.insertId,
+      createdAt: currentTimestamp,
+    });
+
+    // Return
+    return {code: 200, message: resUserInfos, token: token};
 
   }
 };

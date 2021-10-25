@@ -1,4 +1,5 @@
 import webConfig from "../web.config";
+
 /**
  * GraphQL request method
  */
@@ -7,6 +8,7 @@ export const getGraphQL = (query: string, callback: (res: any) => void) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': ls.get('token')
     },
     body: JSON.stringify({
       query: query,
@@ -85,4 +87,75 @@ export const passwordRepeatValidation = (orgPassword: string, repeatPassword: st
   }
 
   return { status: true, message: '' };
+};
+
+/**
+ * LocalStorage
+ */
+export const ls = {
+  set: (key: string, value: any) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
+  get: (key: string) => {
+    const keyValue = localStorage.getItem(key);
+    try{
+      return keyValue ? JSON.parse(keyValue) : null;
+    }catch(err){
+      return null;
+    }
+  },
+  delete: (key: string) => {
+    localStorage.removeItem(key);
+  },
+};
+
+/**
+ * User Auth LocalStorage Infos
+ * @method userAuthLSInfos.set() Set all the user's auth infos to localstorage
+ * @method userAuthLSInfos.get(); Get all the user's auth infos from localstorage
+ */
+export const userAuthLSInfos = {
+  set: (
+    params: {
+      token: string,
+      name: string,
+      email: string,
+      userID: number,
+      headnav?: string | undefined,
+      createdAt: number,
+      reduxDispatch: () => void,
+    }
+  ) => {
+
+    ls.set('token', params.token);
+    ls.set('name', params.name);
+    ls.set('email', params.email);
+    ls.set('userId', params.userID);
+    ls.set('headnav', params.headnav ?? 'default');
+    ls.set('createdAt', params.createdAt);
+
+    params.reduxDispatch && typeof(params.reduxDispatch) === 'function' ? params.reduxDispatch({
+      type: "setUserAuthState",
+      value: {
+        auth: true,
+        token: params.token,
+        name: params.name,
+        email: params.email,
+        userID: params.userID,
+        headnav: params.headnav ?? 'default',
+        createdAt: params.createdAt,
+      }
+    }) : null;
+    
+  },
+  get: () => {
+    return {
+      token: ls.get('token'),
+      name: ls.get('name'),
+      email: ls.get('email'),
+      userID: ls.get('userID'),
+      headnav: ls.get('headnav'),
+      createdAt: ls.get('createdAt'),
+    };
+  },
 };

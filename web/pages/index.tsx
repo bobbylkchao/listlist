@@ -24,6 +24,8 @@ import PostPage from "./Post";
 import SearchPage from "./Search";
 import LoginPage from "./Login";
 import RegisterPage from "./Register";
+import MProfilePage from "./MProfile";
+import OProfilePage from "./OProfile";
 import NotFoundPage from "./404";
 
 // fix fontawesome icon so huge under next.js framework
@@ -64,6 +66,12 @@ const Main = () => {
             </Route>
             <Route path="/search/:key">
               <SearchPage />
+            </Route>
+            <Route path="/m-profile">
+              <MProfilePage />
+            </Route>
+            <Route path="/o-profile/:id">
+              <OProfilePage />
             </Route>
             <Route exact path="/">
               <HomePage />

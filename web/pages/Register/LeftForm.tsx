@@ -1,14 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Form from 'react-bootstrap/Form';
-import Alert from 'react-bootstrap/Alert';
+import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import styles from "./styles.module.scss";
 import Button from "../../src/components/Button";
 import Link from "../../src/components/Link";
 import { H3 } from "../../src/components/Heading";
-import { emailValidation, usernameValidation, passwordValidation, passwordRepeatValidation } from "../../src/utils";
+import { emailValidation, usernameValidation, passwordValidation, passwordRepeatValidation, userAuthLSInfos } from "../../src/utils";
 import { userRegisterReq } from "../../src/data-request";
 
 const LeftFormWrapper = styled.div`
@@ -26,6 +28,8 @@ const BottomDiv = styled.div`
 `;
 
 const LeftForm = () => {
+  const router = useHistory();
+  const reduxDispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [alertInfos, setAlertInfos] = React.useState({
     variant: '',
@@ -121,17 +125,36 @@ const LeftForm = () => {
     const password = event.currentTarget.elements.password.value;
 
     setIsSubmitting(true);
+
     userRegisterReq({
       email: email,
       name: name,
       password: password
-    },(result: { id: any, error: any }) => {
-      setIsSubmitting(false);
-      if(result.error){
-        setAlertInfos({ variant: 'warning', message: result.error, visible: true });
+    },(result: { code: number, message: string, token: null | string }) => {
+      if(result.code === 200){
+        // Parse the return message
+        const resUserInfos = JSON.parse(result.message);
+        // Set localstorage infos and update redux state
+        userAuthLSInfos.set({
+          token: result.token,
+          name: name,
+          email: email,
+          userID: parseInt(resUserInfos.userID),
+          headnav: 'default',
+          createdAt: parseInt(resUserInfos.createdAt),
+          reduxDispatch: reduxDispatch
+        });
+
+        setAlertInfos({ variant: 'success', message: "Congratulations! Successful registration!", visible: true });
+
+        setTimeout(() => {
+          setIsSubmitting(false);
+          router.push('/m-profile');
+        }, 1000);
+
       }else{
-        // LISTLIST-TODO: login, jwtToken, redirect to from page or profile page.
-        setAlertInfos({ variant: 'success', message: `Registration success, User ID is ${result.id}`, visible: true });
+        setIsSubmitting(false);
+        setAlertInfos({ variant: 'warning', message: result.message, visible: true });
       }
     });
   };

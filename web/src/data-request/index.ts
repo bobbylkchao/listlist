@@ -1,4 +1,4 @@
-import { getGraphQL } from "../utils";
+import { getGraphQL, ls } from "../utils";
 
 /**
  * getGetInfo()
@@ -55,7 +55,7 @@ interface userRegReqInterface{
   name: string;
   password: string
 }
-export const userRegisterReq = (params: userRegReqInterface, callback: (res: { id: any, error: any }) => void) => {
+export const userRegisterReq = (params: userRegReqInterface, callback: (res: any) => void) => {
   getGraphQL(`
     mutation {
       addUser(
@@ -63,27 +63,34 @@ export const userRegisterReq = (params: userRegReqInterface, callback: (res: { i
         name: "${params.name}",
         password: "${params.password}"
       ) {
-        id,
-        error
+        code,
+        message,
+        token
       }
     }  
   `, (result: any) => {
     let res = {
-      id: null,
-      error: "",
+      code: 200,
+      message: null,
+      token: "",
     };
 
     if(result.errors){
+      // has graphQL errors
+      res.code = 500;
       if(result.errors[0].message.indexOf("ER_DUP_ENTRY" !== -1)){
-        res.error = "Email address has been registered";
+        res.message = "Email address has been registered";
       }else{
-        res.error = "Registration failed";
+        res.message = "Registration failed";
       }
     }else{
-      if(result.data.addUser.error){
-        res.error = result.data.addUser.error;
+      if(result.data.addUser.code === 200){
+        res.message = result.data.addUser.message;
+        res.token = result.data.addUser.token;
       }else{
-        res.id = result.data.addUser.id;
+        // has validation errors
+        res.code = 500;
+        res.message = result.data.addUser.message;
       }
     }
     
@@ -109,10 +116,44 @@ export const userLoginReq = (params: userLoginReqInterface, callback: () => void
         password: "${params.password}"
       ){
         code,
-        message
+        message,
+        token
       }
     }
   `, (result: any) => {
     callback(result);
+  });
+};
+
+export const tokenValidation = () => {
+  const currentToken = ls.get('token');
+  if(currentToken){
+    getGraphQL(`
+      query{
+        validateToken{
+          code,
+          message
+        }
+      }
+    `, (result:any) => {
+      if(result.data){
+        if(result.data.validateToken.code === 200){
+          // token is ok, update login redux state to true
+        }
+      }
+    });
+  }
+};
+
+export const testToken = () => {
+  getGraphQL(`
+    query{
+      test{
+        code,
+        message
+      }
+    }
+  `, (result: any) => {
+    console.log(result);
   });
 };

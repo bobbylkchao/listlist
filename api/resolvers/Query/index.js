@@ -5,8 +5,7 @@ const queryPosts = require('./posts');
 const queryCategory = require('./category');
 const queryGeo = require('./geo');
 const queryUsers = require('./users');
-const queryAuth = require('./auth');
-const queryTokenTest = require('./test');
+const { queryAuth, queryTokenValidation } = require('./auth');
 
 const Query = new GraphQLObjectType({
   name: 'Query',
@@ -23,8 +22,8 @@ const Query = new GraphQLObjectType({
     users: queryUsers,
     // Query user auth
     auth: queryAuth,
-    // Query token test
-    test: queryTokenTest,
+    // Query validate the token
+    validateToken: queryTokenValidation,
   }
 });
 

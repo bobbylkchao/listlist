@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Form from 'react-bootstrap/Form';
-import Alert from 'react-bootstrap/Alert';
+import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
+import { useDispatch } from "react-redux";
 
 import styles from "./styles.module.scss";
 import Button from "../../src/components/Button";
 import { H3 } from "../../src/components/Heading";
 import Link from "../../src/components/Link";
-import { emailValidation, passwordValidation } from "../../src/utils";
+import { emailValidation, passwordValidation, userAuthLSInfos } from "../../src/utils";
 import { userLoginReq } from "../../src/data-request";
 
 const LeftFormWrapper = styled.div`
@@ -30,6 +31,7 @@ const ForgotPwdWrapper = styled.div`
 `;
 
 const LeftForm = () => {
+  const reduxDispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [alertInfos, setAlertInfos] = React.useState({
     variant: '',
@@ -101,14 +103,24 @@ const LeftForm = () => {
       password: password
     }, (result: any) => {
       setIsSubmitting(false);
-      if(result.data){
+      if(result.errors){
+        setAlertInfos({ variant: 'danger', message: `Oops! Something went wrong, please try again later. (${result.errors[0] ? result.errors[0].message : '' })`, visible: true });
+      }else{
         if(result.data.auth.code === 200){
+          const resUserInfos = JSON.parse(result.data.auth.message);
+          userAuthLSInfos.set({
+            token: result.data.auth.token,
+            name: resUserInfos.name,
+            email: resUserInfos.email,
+            userID: resUserInfos.userID,
+            headnav: resUserInfos.headnav,
+            createdAt: resUserInfos.createdAt,
+            reduxDispatch: reduxDispatch,
+          });
           setAlertInfos({ variant: 'success', message: "Login Success", visible: true });
         }else{
           setAlertInfos({ variant: 'warning', message: result.data.auth.message, visible: true });
         }
-      }else{
-        setAlertInfos({ variant: 'error', message: "Oops! Something went wrong...", visible: true });
       }
     });
   };
