@@ -33,6 +33,14 @@ Database: MySQL
 
 Socket: Socket.io
 
+# How to run?
+
+1. Clone repo
+2. Create a mysql database, and import the SQL from /api/database/db.sql file.
+3. Modify /api/config/db.config.js file, change the db password and db name.
+4. Run `npm run api`, then visit graphQL http://localhost:4000 in your browser.
+5. Run `npm run web`, then visit http://localhost:3000 in your browser
+
 # Purpose
 
 Skills practice and proof of skills
