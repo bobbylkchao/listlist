@@ -5,3 +5,27 @@
   align-items: center;
   flex-direction: row;
 }
+
+.header_component_mylistlist_dropdown{
+  background-color: #fff;
+  border: 0;
+  color: #3e4153;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.header_component_mylistlist_dropdown:focus,
+.header_component_mylistlist_dropdown:hover,
+.header_component_mylistlist_dropdown:active{
+  outline: initial !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-color: #fff !important;
+  color: #3e4153 !important;
+}
+
+.header_component_mylistlist_dropdown > div{
+  display: inline-block;
+}

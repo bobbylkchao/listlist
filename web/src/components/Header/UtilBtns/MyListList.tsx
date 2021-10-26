@@ -1,18 +1,28 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 import styled from 'styled-components';
+import styles from './index.module.scss';
 
 const MyListListBtnWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex: 2;
+  height: 100%;
+`;
+
+const MyHeadNav = styled.div`
+  height: 35px;
+  background-color: #c8e3ff;
+  width: 35px;
+  border-radius: 50%;
+  line-height: 35px;
 `;
 
 const MyListList = () => {
   return(
     <MyListListBtnWrapper>
-      <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Bobby Chao
+      <Dropdown style={{ width: '100%' }}>
+        <Dropdown.Toggle className={styles.header_component_mylistlist_dropdown}>
+          <MyHeadNav>B</MyHeadNav>
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
