@@ -1,5 +1,7 @@
 **[IN DEVELOPMENT]**
 
+![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-header.png)
+
 # Introduction
 
 Listlist is a Kijiji clone opensource project, using React.js, React Native, GraphQL and Apollo.
