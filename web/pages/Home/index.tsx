@@ -3,13 +3,9 @@ import InsideWrapper from "../../src/containers/InsideWrapper";
 import TopMenus from "../../src/components/TopMenus";
 import Hline from "../../src/components/Hline";
 import Link from "../../src/components/Link";
-
-import { testToken } from "../../src/data-request";
-import { useSelector } from "react-redux";
+import GlobalNoticeMsg from "../../src/components/GlobalNoticeMsg";
 
 const HomePage = () => {
-  const getReduxStoreState = useSelector((state:any) => state);
-
   return(
     <>
       <InsideWrapper>
@@ -17,7 +13,8 @@ const HomePage = () => {
       </InsideWrapper>
       <Hline marginTop="15px" marginBottom="15px"/>
       <InsideWrapper style={{ minHeight: 500 }}>
-        Home
+        <GlobalNoticeMsg />
+        <h2>Home</h2>
       </InsideWrapper>
     </>
   );

@@ -119,7 +119,16 @@ const LeftForm = () => {
             createdAt: resUserInfos.createdAt,
             reduxDispatch: reduxDispatch,
           });
-          setAlertInfos({ variant: 'success', message: "Login Success", visible: true });
+
+          //setAlertInfos({ variant: 'success', message: "Login Success", visible: true });
+          reduxDispatch({
+            type: "setGlobalNoticeMessage",
+            value: {
+              'type': 'success',
+              'message': 'You\'ve successfully signed into ListList.',
+            }
+          });
+
           setTimeout(() => {
             setIsSubmitting(false);
             router.push('/m-profile');

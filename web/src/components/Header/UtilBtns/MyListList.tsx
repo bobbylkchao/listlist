@@ -1,6 +1,9 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import styled from 'styled-components';
 import styles from './index.module.scss';
+import { userAuthLSInfos } from '../../../utils';
 
 const MyListListBtnWrapper = styled.div`
   display: flex;
@@ -18,17 +21,40 @@ const MyHeadNav = styled.div`
 `;
 
 const MyListList = () => {
+  const reduxDispatch = useDispatch();
+  const getReduxStoreState = useSelector((state:any) => state);
+  const router = useHistory();
+
+  const logOut = () => {
+    reduxDispatch({
+      type: "setGlobalNoticeMessage",
+      value: {
+        'type': 'success',
+        'message': 'You have successfully signed out.',
+      }
+    });
+
+    reduxDispatch({ type: "clearUserAuthState" });
+
+    userAuthLSInfos.clear();
+    
+    router.push("/");
+  };
+
   return(
     <MyListListBtnWrapper>
       <Dropdown>
         <Dropdown.Toggle className={styles.header_component_mylistlist_dropdown}>
-          <MyHeadNav>B</MyHeadNav>
+          <MyHeadNav>
+            { getReduxStoreState['userAuth']['state']['name'].substring(0,1).toUpperCase() }
+          </MyHeadNav>
         </Dropdown.Toggle>
 
-        <Dropdown.Menu>
-          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+        <Dropdown.Menu className={styles.header_component_mylistlist_dropdown_items}>
+          <Dropdown.Item href="#/action-1">My Ads</Dropdown.Item>
+          <Dropdown.Item href="#/action-2">My Profile</Dropdown.Item>
+          <Dropdown.Divider />
+          <Dropdown.Item onClick={() => logOut()}>Log Out</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </MyListListBtnWrapper>

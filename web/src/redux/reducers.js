@@ -4,6 +4,7 @@ import { categorySelected } from './reducers/categorySelected';
 import { userGeo } from './reducers/userGeo';
 import { userAuth } from './reducers/userAuth';
 import { theme } from './reducers/theme';
+import { globalReducer } from './reducers/global';
 
 export const reducers = combineReducers({
   categoryList,
@@ -11,4 +12,5 @@ export const reducers = combineReducers({
   userGeo,
   userAuth,
   theme,
+  globalReducer,
 });
