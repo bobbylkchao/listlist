@@ -2,6 +2,10 @@
 
 ![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-header.png)
 
+# Status
+Current status: Under development
+Contributors: Bobby Chao (bobbylkchao@gmail.com)
+
 # Introduction
 
 Listlist is a Kijiji clone opensource project, using React.js, React Native, GraphQL and Apollo.
