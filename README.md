@@ -12,7 +12,7 @@
 
 # Introduction
 
-Listlist is a Kijiji clone opensource project, using React.js, React Native, GraphQL and Apollo.
+Listlist is a Kijiji clone opensource project, it is a full-stack project, using React.js, React Native, GraphQL and Apollo.
 Project will include all parts, eg. Web, IOS, Android, API, and Management Website.
 
 # Technoloy Stacks
