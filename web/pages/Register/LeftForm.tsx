@@ -36,7 +36,7 @@ const LeftForm = () => {
     message: '',
     visible: false,
   });
-  const [formValid, setFormValid] = React.useState({
+  const [formValid, setFormValid] = React.useState<any>({
     name: {
       value: '',
       isInvalid: false,
@@ -59,15 +59,7 @@ const LeftForm = () => {
     },
   });
 
-  const handleValidition = (event) => {
-    const vaildName = usernameValidation(name);
-    if(!vaildName.status){
-      setAlertInfos({ variant: 'warning', message: vaildName.message, visible: true });
-      return;
-    }
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = (event:any) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -78,7 +70,7 @@ const LeftForm = () => {
       if(formValid[formValidItem].isInvalid) return;
       if(!formValid[formValidItem].value){
         if(formValidItem === 'name'){
-          setFormValid(prevState => ({
+          setFormValid((prevState:any) => ({
             ...prevState,
             name: {
               isInvalid: true,
@@ -88,7 +80,7 @@ const LeftForm = () => {
         }
 
         if(formValidItem === 'email'){
-          setFormValid(prevState => ({
+          setFormValid((prevState:any) => ({
             ...prevState,
             email: {
               isInvalid: true,
@@ -98,7 +90,7 @@ const LeftForm = () => {
         }
 
         if(formValidItem === 'password'){
-          setFormValid(prevState => ({
+          setFormValid((prevState:any) => ({
             ...prevState,
             password: {
               isInvalid: true,
@@ -108,7 +100,7 @@ const LeftForm = () => {
         }
 
         if(formValidItem === 'password_repeat'){
-          setFormValid(prevState => ({
+          setFormValid((prevState:any) => ({
             ...prevState,
             password_repeat: {
               isInvalid: true,
@@ -130,7 +122,7 @@ const LeftForm = () => {
       email: email,
       name: name,
       password: password,
-    },(result: { code: number, message: string, token: null | string }) => {
+    },(result: { code: number, message: string, token: string }) => {
       if(result.code === 200){
         // Parse the return message
         const resUserInfos = JSON.parse(result.message);
@@ -150,7 +142,7 @@ const LeftForm = () => {
         setTimeout(() => {
           setIsSubmitting(false);
           router.push('/m-profile');
-        }, 1000);
+        }, 500);
 
       }else{
         setIsSubmitting(false);
@@ -179,7 +171,7 @@ const LeftForm = () => {
           <Form.Control
             onBlur={(e:any) => {
               const valid = usernameValidation(e.target.value);
-              setFormValid(prevState => ({
+              setFormValid((prevState:any) => ({
                 ...prevState,
                 name: {
                   value: e.target.value,
@@ -206,7 +198,7 @@ const LeftForm = () => {
           <Form.Control
             onBlur={(e:any) => {
               const valid = emailValidation(e.target.value);
-              setFormValid(prevState => ({
+              setFormValid((prevState:any) => ({
                 ...prevState,
                 email: {
                   value: e.target.value,
@@ -230,7 +222,7 @@ const LeftForm = () => {
           <Form.Control
             onBlur={(e:any) => {
               const valid = passwordValidation(e.target.value);
-              setFormValid(prevState => ({
+              setFormValid((prevState:any) => ({
                 ...prevState,
                 password: {
                   value: e.target.value,
@@ -254,7 +246,7 @@ const LeftForm = () => {
           <Form.Control
             onBlur={(e:any) => {
               const valid = passwordRepeatValidation(formValid.password.value, e.target.value);
-              setFormValid(prevState => ({
+              setFormValid((prevState:any) => ({
                 ...prevState,
                 password_repeat: {
                   value: e.target.value,

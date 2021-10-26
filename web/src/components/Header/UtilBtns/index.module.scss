@@ -3,6 +3,7 @@
   flex: 2;
   height: 100%;
   align-items: center;
+  justify-content: flex-end;
   flex-direction: row;
 }
 
@@ -12,7 +13,6 @@
   color: #3e4153;
   padding: 0;
   height: 100%;
-  width: 100%;
 }
 
 .header_component_mylistlist_dropdown:focus,

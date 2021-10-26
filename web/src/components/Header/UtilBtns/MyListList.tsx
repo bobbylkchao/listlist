@@ -5,8 +5,8 @@ import styles from './index.module.scss';
 const MyListListBtnWrapper = styled.div`
   display: flex;
   justify-content: center;
-  flex: 2;
   height: 100%;
+  margin-right: 20px;
 `;
 
 const MyHeadNav = styled.div`
@@ -20,7 +20,7 @@ const MyHeadNav = styled.div`
 const MyListList = () => {
   return(
     <MyListListBtnWrapper>
-      <Dropdown style={{ width: '100%' }}>
+      <Dropdown>
         <Dropdown.Toggle className={styles.header_component_mylistlist_dropdown}>
           <MyHeadNav>B</MyHeadNav>
         </Dropdown.Toggle>

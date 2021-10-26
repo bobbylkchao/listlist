@@ -1,7 +1,7 @@
 import theme from "styled-theming";
 
 export const defaultTextColor = theme("theme", {
-  light: "#3e4153",
+  light: "#1c242c",
   dark: "#ffffff",
 });
 

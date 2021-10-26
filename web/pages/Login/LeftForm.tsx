@@ -123,7 +123,7 @@ const LeftForm = () => {
           setTimeout(() => {
             setIsSubmitting(false);
             router.push('/m-profile');
-          }, 1000);
+          }, 500);
         }else{
           setAlertInfos({ variant: 'warning', message: result.data.auth.message, visible: true });
         }
