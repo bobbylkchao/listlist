@@ -6,6 +6,8 @@
 
 **Current status:** Under development
 
+**Current development sequence:** Web & API -> Mobile App
+
 **Contributors:** Bobby Chao (bobbylkchao@gmail.com)
 
 # Introduction
