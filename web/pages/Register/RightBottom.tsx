@@ -41,7 +41,7 @@ const RightBottom = () => {
     <RightBottomWrapper>
       <H4>Why Register?</H4>
       <NoticeText>
-        To enhance your Kijiji experience and help you stay safe and secure, you now need to register to:
+        To enhance your ListList experience and help you stay safe and secure, you now need to register to:
       </NoticeText>
       <UList>
         <li>
