@@ -118,13 +118,13 @@ export const ls = {
 export const userAuthLSInfos = {
   set: (
     params: {
-      token: string,
-      name: string,
-      email: string,
-      userID: number,
+      token: string | null,
+      name: string | null,
+      email: string | null,
+      userID: number | null,
       headnav?: string | undefined,
-      createdAt: number,
-      reduxDispatch: () => void,
+      createdAt: number | null,
+      reduxDispatch?: (params: any) => void,
     },
   ) => {
 
@@ -169,3 +169,32 @@ export const userAuthLSInfos = {
     });
   },
 };
+
+/**
+ * echo debug log
+ * @desc will execute according `debug` value in webConfig file.
+ */
+
+export const debugLog = (msg: string | number) => {
+  webConfig.debug ? console.log(`${getCurrentTime()} - [DEBUG] - ${msg}`) : null;
+};
+
+const getCurrentTime = () => {
+  const zeroFill = (i: number) => {
+    if (i >= 0 && i <= 9) {
+        return "0" + i;
+    } else {
+        return i;
+    }
+  };
+
+  const date = new Date();
+  const month = zeroFill(date.getMonth() + 1);
+  const day = zeroFill(date.getDate());
+  const hour = zeroFill(date.getHours());
+  const minute = zeroFill(date.getMinutes());
+  const second = zeroFill(date.getSeconds());
+  const ms = zeroFill(date.getMilliseconds());
+  
+  return date.getFullYear() + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second + ":" + ms;
+}

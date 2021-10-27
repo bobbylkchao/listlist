@@ -1,4 +1,4 @@
-import { getGraphQL, ls, userAuthLSInfos } from "../utils";
+import { getGraphQL, ls, userAuthLSInfos, debugLog } from "../utils";
 
 /**
  * getGetInfo()
@@ -6,7 +6,7 @@ import { getGraphQL, ls, userAuthLSInfos } from "../utils";
  * @param {void} dispatch redux dispatch
  * @return {null}
  */
-export const getGeoInfo = (callback: () => void) => {
+export const getGeoInfo = (callback: (result: any) => void) => {
   getGraphQL(`
     query{
       geo{
@@ -47,7 +47,7 @@ export const userRegisterReq = (params: UserRegReqInterface, callback: (res: any
       }
     }
   `, (result: any) => {
-    const res = {
+    const res: any = {
       code: 200,
       message: null,
       token: "",
@@ -56,7 +56,7 @@ export const userRegisterReq = (params: UserRegReqInterface, callback: (res: any
     if(result.errors){
       // has graphQL errors
       res.code = 500;
-      if(result.errors[0].message.indexOf("ER_DUP_ENTRY" !== -1)){
+      if(result.errors[0].message.indexOf("ER_DUP_ENTRY") !== -1){
         res.message = "Email address has been registered";
       }else{
         res.message = "Registration failed";
@@ -86,7 +86,7 @@ interface UserLoginReqInterface{
   email: string;
   password: string;
 }
-export const userLoginReq = (params: UserLoginReqInterface, callback: () => void) => {
+export const userLoginReq = (params: UserLoginReqInterface, callback: (result:any) => void) => {
   getGraphQL(`
     query{
       auth(
@@ -103,9 +103,10 @@ export const userLoginReq = (params: UserLoginReqInterface, callback: () => void
   });
 };
 
-export const tokenValidation = (callback: () => void) => {
+export const tokenValidation = (callback: (result:any) => void) => {
   const currentToken = ls.get('token');
   if(currentToken){
+    debugLog(`tokenValidation start...`);
     getGraphQL(`
       query{
         validateToken{
@@ -114,6 +115,7 @@ export const tokenValidation = (callback: () => void) => {
         }
       }
     `, (result:any) => {
+      debugLog(`tokenValidation finished...`);
       if(result.data){
         let validRes: boolean;
         if(result.data.validateToken.code === 200){
@@ -126,20 +128,6 @@ export const tokenValidation = (callback: () => void) => {
       }
     });
   }
-};
-
-// TODO: to be removed
-export const testToken = () => {
-  getGraphQL(`
-    query{
-      test{
-        code,
-        message
-      }
-    }
-  `, (result: any) => {
-    console.log(result);
-  });
 };
 
 export const getAllCategories = (callback: (params: any) => void) => (

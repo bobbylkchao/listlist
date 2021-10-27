@@ -29,8 +29,9 @@ import OProfilePage from "./OProfile";
 import AddPostPage from './AddPost';
 import NotFoundPage from "./404";
 
-// listlist prefetch
+// listlist prefetch and libs
 import { preFetchExecute } from "../src/prefetch";
+import { debugLog } from "../src/utils";
 
 // fix fontawesome icon so huge under next.js framework
 config.autoAddCss = false;
@@ -38,11 +39,12 @@ config.autoAddCss = false;
 const Main = () => {
   const reduxUseDispatch = useDispatch();
   const getReduxStoreState = useSelector((state:any) => state);
+  const [tokenValidateStatus, setTokenValidateStatus] = React.useState<boolean>(false);
 
   library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle);
 
   React.useEffect(() => {
-    console.log(`[DEBUG]Main is loaded...`);
+    debugLog(`Main is loaded...`);
     preFetchExecute(reduxUseDispatch);
   }, []);
 
@@ -75,35 +77,24 @@ const Main = () => {
                 return <LoginPage />;
               }}
             />
-            <Route path="/category/:id">
-              <CategoryPage />
-            </Route>
-            <Route
-              path="/message"
-              render={(r:any) => {
-                if(getReduxStoreState['userAuth']['state']){
-                  if(getReduxStoreState['userAuth']['state']['auth']){
-                    return <MessagePage />;
-                  }
-                }
-                return <Redirect to="/login"/>;
-              }}
-            />
-            <Route path="/post/:id">
-              <PostPage />
-            </Route>
+            <Route path="/category/:id"><CategoryPage /></Route>
+            <Route path="/message"><MessagePage /></Route>
+            <Route path="/post/:id"><PostPage /></Route>
             <Route path="/search/:key">
               <SearchPage />
             </Route>
             <Route
               path="/m-profile"
-              render={() => {
+              render={(e: any) => {
                 if(getReduxStoreState['userAuth']['state']){
                   if(getReduxStoreState['userAuth']['state']['auth']){
                     return <MProfilePage />;
                   }
                 }
-                return <Redirect to="/login" />;
+                return <Redirect to={{
+                  pathname: "/login",
+                  search: `?from=${encodeURIComponent(e.location.pathname)}`,
+                }}/>;
               }}
             />
             <Route path="/o-profile/:id">
@@ -111,13 +102,17 @@ const Main = () => {
             </Route>
             <Route
               path="/add-post"
-              render={() => {
+              render={(e: any) => {
                 if(getReduxStoreState['userAuth']['state']){
                   if(getReduxStoreState['userAuth']['state']['auth']){
                     return <AddPostPage />;
                   }
                 }
-                return <Redirect to="/login" />;
+
+                return <Redirect to={{
+                  pathname: "/login",
+                  search: `?from=${encodeURIComponent(e.location.pathname)}`,
+                }}/>;
               }}
             />
             <Route exact path="/">
@@ -134,6 +129,10 @@ const Main = () => {
 };
 
 const MainEntry = () => {
+  React.useEffect(() => {
+    debugLog(`MainEntry is loaded...`);
+  }, []);
+  
   return(
     <Provider store={store}>
       <Head>
