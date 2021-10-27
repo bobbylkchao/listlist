@@ -26,6 +26,7 @@ import LoginPage from "./Login";
 import RegisterPage from "./Register";
 import MProfilePage from "./MProfile";
 import OProfilePage from "./OProfile";
+import AddPostPage from './AddPost';
 import NotFoundPage from "./404";
 
 // listlist prefetch
@@ -108,6 +109,17 @@ const Main = () => {
             <Route path="/o-profile/:id">
               <OProfilePage />
             </Route>
+            <Route
+              path="/add-post"
+              render={() => {
+                if(getReduxStoreState['userAuth']['state']){
+                  if(getReduxStoreState['userAuth']['state']['auth']){
+                    return <AddPostPage />;
+                  }
+                }
+                return <Redirect to="/login" />;
+              }}
+            />
             <Route exact path="/">
               <HomePage />
             </Route>
