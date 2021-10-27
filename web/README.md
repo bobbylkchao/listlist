@@ -2,7 +2,7 @@
 
 **Technogly Stacks**
 
-- Language: HTML5, SCSS, TypeScript
+- Language: HTML5, SCSS, TypeScript, Styled-components
 - JS Library: React.js
 - React Framework: Next.js
 - UI Framework: Boostrap for React
