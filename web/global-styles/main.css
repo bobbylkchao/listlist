@@ -62,3 +62,9 @@ input.is-invalid:focus{
 .close > span{
   display: none;
 }
+
+.btn-primary.dropdown-toggle {
+  color: unset !important;
+  background-color: unset !important;
+  border-color: unset !important;
+}

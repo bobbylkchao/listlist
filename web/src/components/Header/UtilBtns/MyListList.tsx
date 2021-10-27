@@ -38,7 +38,9 @@ const MyListList = () => {
 
     userAuthLSInfos.clear();
     
-    router.push("/");
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 500);
   };
 
   return(
@@ -51,8 +53,10 @@ const MyListList = () => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu className={styles.header_component_mylistlist_dropdown_items}>
-          <Dropdown.Item href="#/action-1">My Ads</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">My Profile</Dropdown.Item>
+          <Dropdown.Item href="#">My Ads</Dropdown.Item>
+          <Dropdown.Item href="#">My Profile</Dropdown.Item>
+          <Dropdown.Divider />
+          <Dropdown.Item href="#">Français</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={() => logOut()}>Log Out</Dropdown.Item>
         </Dropdown.Menu>

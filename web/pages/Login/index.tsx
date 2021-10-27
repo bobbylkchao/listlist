@@ -18,15 +18,6 @@ const LoginPage = () => {
   const getReduxStoreState = useSelector((state:any) => state);
   const router = useHistory();
 
-  React.useEffect(() => {
-    // If already logged, redirect to home page
-    if(getReduxStoreState['userAuth']['state']){
-      if(getReduxStoreState['userAuth']['state']['auth']){
-        router.push("/");
-      }
-    }
-  }, []);
-
   return(
     <>
       <Hline marginTop="15px" marginBottom="15px"/>

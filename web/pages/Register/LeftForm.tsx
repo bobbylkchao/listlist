@@ -141,7 +141,7 @@ const LeftForm = () => {
 
         setTimeout(() => {
           setIsSubmitting(false);
-          router.push('/m-profile');
+          router.replace('/m-profile');
         }, 500);
 
       }else{
@@ -180,6 +180,19 @@ const LeftForm = () => {
                 },
               }));
             }}
+            onKeyDown={(e:any) => {
+              if(e.keyCode === 13) {
+                const valid = usernameValidation(e.target.value);
+                setFormValid((prevState:any) => ({
+                  ...prevState,
+                  name: {
+                    value: e.target.value,
+                    isInvalid: !valid.status,
+                    message: valid.message,
+                  },
+                }));
+              }
+            }}
             type="text"
             name="name"
             placeholder="Name"
@@ -207,6 +220,19 @@ const LeftForm = () => {
                 },
               }));
             }}
+            onKeyDown={(e:any) => {
+              if(e.keyCode === 13) {
+                const valid = emailValidation(e.target.value);
+                setFormValid((prevState:any) => ({
+                  ...prevState,
+                  email: {
+                    value: e.target.value,
+                    isInvalid: !valid.status,
+                    message: valid.message,
+                  },
+                }));
+              }
+            }}
             type="email"
             name="email"
             placeholder="Email"
@@ -231,11 +257,24 @@ const LeftForm = () => {
                 },
               }));
             }}
+            onKeyDown={(e:any) => {
+              if(e.keyCode === 13) {
+                const valid = passwordValidation(e.target.value);
+                setFormValid((prevState:any) => ({
+                  ...prevState,
+                  password: {
+                    value: e.target.value,
+                    isInvalid: !valid.status,
+                    message: valid.message,
+                  },
+                }));
+              }
+            }}
             type="password"
             name="password"
             placeholder="Password"
             isInvalid={formValid.password.isInvalid}
-            autoComplete="off"
+            autoComplete="new-password"
             required
           />
           <Form.Control.Feedback type="invalid">{formValid.password.message}</Form.Control.Feedback>
@@ -255,11 +294,24 @@ const LeftForm = () => {
                 },
               }));
             }}
+            onKeyDown={(e:any) => {
+              if(e.keyCode === 13) {
+                const valid = passwordRepeatValidation(formValid.password.value, e.target.value);
+                setFormValid((prevState:any) => ({
+                  ...prevState,
+                  password_repeat: {
+                    value: e.target.value,
+                    isInvalid: !valid.status,
+                    message: valid.message,
+                  },
+                }));
+              }
+            }}
             type="password"
             name="password_repeat"
             placeholder="Re-enter Password"
             isInvalid={formValid.password_repeat.isInvalid}
-            autoComplete="off"
+            autoComplete="new-password"
             required
           />
           <Form.Control.Feedback type="invalid">{formValid.password_repeat.message}</Form.Control.Feedback>

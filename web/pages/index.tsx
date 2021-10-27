@@ -6,6 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect
 } from "react-router-dom";
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
@@ -51,27 +52,59 @@ const Main = () => {
           <HeaderComponent marginTop={15}/>
 
           <Switch>
-            <Route path="/register">
-              <RegisterPage />
-            </Route>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
+            <Route
+              path="/register"
+              render={() => {
+                if(getReduxStoreState['userAuth']['state']){
+                  if(getReduxStoreState['userAuth']['state']['auth']){
+                    return <Redirect to="/" />;
+                  }
+                }
+                return <RegisterPage />;
+              }}
+            />
+            <Route
+              path="/login"
+              render={() => {
+                if(getReduxStoreState['userAuth']['state']){
+                  if(getReduxStoreState['userAuth']['state']['auth']){
+                    return <Redirect to="/" />;
+                  }
+                }
+                return <LoginPage />;
+              }}
+            />
             <Route path="/category/:id">
               <CategoryPage />
             </Route>
-            <Route path="/message">
-              <MessagePage />
-            </Route>
+            <Route
+              path="/message"
+              render={(r:any) => {
+                if(getReduxStoreState['userAuth']['state']){
+                  if(getReduxStoreState['userAuth']['state']['auth']){
+                    return <MessagePage />;
+                  }
+                }
+                return <Redirect to="/login"/>;
+              }}
+            />
             <Route path="/post/:id">
               <PostPage />
             </Route>
             <Route path="/search/:key">
               <SearchPage />
             </Route>
-            <Route path="/m-profile">
-              <MProfilePage />
-            </Route>
+            <Route
+              path="/m-profile"
+              render={() => {
+                if(getReduxStoreState['userAuth']['state']){
+                  if(getReduxStoreState['userAuth']['state']['auth']){
+                    return <MProfilePage />;
+                  }
+                }
+                return <Redirect to="/login" />;
+              }}
+            />
             <Route path="/o-profile/:id">
               <OProfilePage />
             </Route>

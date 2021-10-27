@@ -131,7 +131,7 @@ const LeftForm = () => {
 
           setTimeout(() => {
             setIsSubmitting(false);
-            router.push('/m-profile');
+            router.replace('/m-profile');
           }, 500);
         }else{
           setAlertInfos({ variant: 'warning', message: result.data.auth.message, visible: true });
@@ -173,6 +173,19 @@ const LeftForm = () => {
                 },
               }));
             }}
+            onKeyDown={(e:any) => {
+              if(e.keyCode === 13) {
+                const valid = emailValidation(e.target.value);
+                setFormValid(prevState => ({
+                  ...prevState,
+                  email: {
+                    value: e.target.value,
+                    isInvalid: !valid.status,
+                    message: valid.message,
+                  },
+                }));
+              }
+            }}
             type="email"
             placeholder="Email"
             className={styles.loginInput}
@@ -197,11 +210,24 @@ const LeftForm = () => {
                 },
               }));
             }}
+            onKeyDown={(e:any) => {
+              if(e.keyCode === 13) {
+                const valid = passwordValidation(e.target.value);
+                setFormValid(prevState => ({
+                  ...prevState,
+                  password: {
+                    value: e.target.value,
+                    isInvalid: !valid.status,
+                    message: valid.message,
+                  },
+                }));
+              }
+            }}
             type="password"
             placeholder="Password"
             className={styles.loginInput}
             isInvalid={formValid.password.isInvalid}
-            autoComplete="off"
+            autoComplete="new-password"
             required
           />
           <Form.Control.Feedback type="invalid">{formValid.password.message}</Form.Control.Feedback>
