@@ -58,10 +58,7 @@ const Main = () => {
             <Route path="/register"><RegisterPage /></Route>
             <Route path="/login"><LoginPage /></Route>
             <Route path="/category/:id"><CategoryPage /></Route>
-            <Route path="/message" render={(e: any) => {
-              console.log(e);
-              return <MessagePage />;
-            }}/>
+            <Route path="/message"><MessagePage /></Route>
             <Route path="/post/:id"><PostPage /></Route>
             <Route path="/search/:key"><SearchPage /></Route>
             <Route path="/m-profile"><MProfilePage /></Route>
