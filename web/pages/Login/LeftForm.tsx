@@ -10,7 +10,7 @@ import styles from "./styles.module.scss";
 import Button from "../../src/components/Button";
 import { H3 } from "../../src/components/Heading";
 import Link from "../../src/components/Link";
-import { emailValidation, passwordValidation, userAuthLSInfos } from "../../src/utils";
+import { emailValidation, passwordValidation, userAuthLSInfos, getQueryVariable } from "../../src/utils";
 import { userLoginReq } from "../../src/data-request";
 
 const LeftFormWrapper = styled.div`
@@ -32,6 +32,7 @@ const ForgotPwdWrapper = styled.div`
 `;
 
 const LeftForm = () => {
+  const fromWhichPage = getQueryVariable("from");
   const reduxDispatch = useDispatch();
   const router = useHistory();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -132,7 +133,7 @@ const LeftForm = () => {
 
           setTimeout(() => {
             setIsSubmitting(false);
-            router.replace("/m-profile");
+            fromWhichPage ? router.replace(fromWhichPage) : router.replace("/m-profile");
           }, 500);
 
         }else{

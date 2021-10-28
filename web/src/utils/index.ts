@@ -182,11 +182,14 @@ export const userAuthLSInfos = {
  * echo debug log
  * @desc will execute according `debug` value in webConfig file.
  */
-
 export const debugLog = (msg: string | number) => {
   webConfig.debug ? console.log(`${getCurrentTime()} - [DEBUG] - ${msg}`) : null;
 };
 
+/**
+ * getCurrentTime
+ * @desc Get current time, with milliseconds.
+ */
 const getCurrentTime = () => {
   const zeroFill = (i: number) => {
     if (i >= 0 && i <= 9) {
@@ -205,4 +208,21 @@ const getCurrentTime = () => {
   const ms = zeroFill(date.getMilliseconds());
   
   return date.getFullYear() + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second + ":" + ms;
+}
+
+/**
+ * getQueryVariable
+ * @desc Get query variable from URL
+ * @param {string} variable
+ * @returns {string} Already used decodeURIComponent()
+ */
+export const getQueryVariable = (variable) => {
+  if(!variable) return "";
+  const query = window.location.search.substring(1);
+  const vars = query.split("&");
+  for (let i=0;i<vars.length;i++) {
+    const pair = vars[i].split("=");
+    if(pair[0] == variable) return decodeURIComponent(pair[1]);
+  }
+  return "";
 }
