@@ -149,6 +149,7 @@ export const tokenValidation = (reduxDispatch: (params: any) => void) => {
           });
         }else{
           // token is not valid, clear user auth informations in localstorage
+          reduxDispatch({ type: 'setUserAuthExecuted' });
           userAuthLSInfos.clear();
         }
       }
