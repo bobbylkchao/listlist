@@ -1,37 +1,35 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useHistory, useLocation, Redirect } from "react-router-dom";
-import { debugLog } from "../../src/utils";
+import { useHistory, useLocation } from "react-router-dom";
+import AuthorizedWrapper from "../../src/components/AuthorizedWrapper";
 import InsideWrapper from "../../src/containers/InsideWrapper";
 
 const MessagePage = () => {
-  const getReduxStoreState = useSelector((state:any) => state);
+  const getUserAuthState = useSelector((state:any) => state.userAuth.state);
   const router = useHistory();
   const location = useLocation();
 
   React.useEffect(() => {
-    debugLog(`Message page, auth state: ${getReduxStoreState['userAuth']['state']}`);
-
-    /*
-    if(!getReduxStoreState['userAuth']['state']){
-      return router.replace({
-        pathname: "/login",
-        search: `?from=${encodeURIComponent(location.pathname)}`,
-      });
+    // If it is not authorized, then redirect to login page
+    if(getUserAuthState){
+      if(!getUserAuthState.auth){
+        // Set 100 ms to avoid routing crossover issue (execute too fast, the URL is not changed)
+        setTimeout(() => {
+          router.replace({
+            pathname: "/login",
+            search: `?from=${encodeURIComponent(location.pathname)}`,
+          });
+        }, 100);
+      }
     }
-
-    if(!getReduxStoreState['userAuth']['state']['auth']){
-      return router.replace({
-        pathname: "/login",
-        search: `?from=${encodeURIComponent(location.pathname)}`,
-      });
-    }*/
-  }, []);
+  }, [getUserAuthState]);
 
   return(
-    <InsideWrapper>
-      {getReduxStoreState['userAuth']['state'] ? 'MESSAGE' : 'loading...'}
-    </InsideWrapper>
+    <AuthorizedWrapper>
+      <InsideWrapper>
+        <div>authed</div>
+      </InsideWrapper>
+    </AuthorizedWrapper>
   );
 };
 

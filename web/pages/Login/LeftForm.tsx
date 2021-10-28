@@ -104,13 +104,15 @@ const LeftForm = () => {
       email: email,
       password: password,
     }, (result: any) => {
-
       if(result.errors){
         setAlertInfos({ variant: 'danger', message: `Oops! Something went wrong, please try again later. (${result.errors[0] ? result.errors[0].message : '' })`, visible: true });
       }else{
         if(result.data.auth.code === 200){
           const resUserInfos = JSON.parse(result.data.auth.message);
+         
           userAuthLSInfos.set({
+            executed: true,
+            auth: true,
             token: result.data.auth.token,
             name: resUserInfos.name,
             email: resUserInfos.email,
@@ -120,7 +122,6 @@ const LeftForm = () => {
             reduxDispatch: reduxDispatch,
           });
 
-          //setAlertInfos({ variant: 'success', message: "Login Success", visible: true });
           reduxDispatch({
             type: "setGlobalNoticeMessage",
             value: {
@@ -131,8 +132,9 @@ const LeftForm = () => {
 
           setTimeout(() => {
             setIsSubmitting(false);
-            router.replace('/m-profile');
+            router.replace("/m-profile");
           }, 500);
+
         }else{
           setAlertInfos({ variant: 'warning', message: result.data.auth.message, visible: true });
         }

@@ -128,6 +128,8 @@ const LeftForm = () => {
         const resUserInfos = JSON.parse(result.message);
         // Set localstorage infos and update redux state
         userAuthLSInfos.set({
+          executed: true,
+          auth: true,
           token: result.token,
           name: name,
           email: email,
@@ -141,7 +143,7 @@ const LeftForm = () => {
 
         setTimeout(() => {
           setIsSubmitting(false);
-          router.replace('/m-profile');
+          router.replace("/m-profile");
         }, 500);
 
       }else{

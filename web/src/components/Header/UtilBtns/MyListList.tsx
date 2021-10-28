@@ -34,8 +34,6 @@ const MyListList = () => {
       }
     });
 
-    reduxDispatch({ type: "clearUserAuthState" });
-
     userAuthLSInfos.clear();
     
     setTimeout(() => {

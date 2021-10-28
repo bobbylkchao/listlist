@@ -1,3 +1,6 @@
+/**
+ * Fetch before rendering
+ */
 import { getAllCategories, getGeoInfo, tokenValidation } from "../data-request";
 import { userAuthLSInfos } from "../utils";
 
@@ -43,36 +46,9 @@ const preFetchExecute = (reduxUseDispatch: (parms:any) => void) => {
   });
 
   /**
-   * Init the user's auth infos
+   * Validate the token
    */
-  tokenValidation((result:any) => {
-    if(result){
-      const userAuthInfos = userAuthLSInfos.get();
-      if(
-        userAuthInfos.token &&
-        userAuthInfos.name &&
-        userAuthInfos.email &&
-        userAuthInfos.userID &&
-        userAuthInfos.createdAt &&
-        userAuthInfos.headnav
-      ){
-        reduxUseDispatch({
-          type: "setUserAuthState",
-          value:{
-            auth: true,
-            token: userAuthInfos.token,
-            name: userAuthInfos.name,
-            email: userAuthInfos.email,
-            userID: userAuthInfos.userID,
-            createdAt: userAuthInfos.createdAt,
-            headnav: userAuthInfos.headnav,
-          },
-        });
-      }else{
-        userAuthLSInfos.clear();
-      }
-    }
-  });
+  tokenValidation(reduxUseDispatch);
 };
 
 export {

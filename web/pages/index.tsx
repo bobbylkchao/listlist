@@ -44,7 +44,7 @@ const Main = () => {
   library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle);
 
   React.useEffect(() => {
-    debugLog(`Main is loaded...`);
+    debugLog(`Route is loaded...`);
     preFetchExecute(reduxUseDispatch);
   }, []);
 
@@ -55,72 +55,20 @@ const Main = () => {
           <HeaderComponent marginTop={15}/>
 
           <Switch>
-            <Route
-              path="/register"
-              render={() => {
-                if(getReduxStoreState['userAuth']['state']){
-                  if(getReduxStoreState['userAuth']['state']['auth']){
-                    return <Redirect to="/" />;
-                  }
-                }
-                return <RegisterPage />;
-              }}
-            />
-            <Route
-              path="/login"
-              render={() => {
-                if(getReduxStoreState['userAuth']['state']){
-                  if(getReduxStoreState['userAuth']['state']['auth']){
-                    return <Redirect to="/" />;
-                  }
-                }
-                return <LoginPage />;
-              }}
-            />
+            <Route path="/register"><RegisterPage /></Route>
+            <Route path="/login"><LoginPage /></Route>
             <Route path="/category/:id"><CategoryPage /></Route>
-            <Route path="/message"><MessagePage /></Route>
+            <Route path="/message" render={(e: any) => {
+              console.log(e);
+              return <MessagePage />;
+            }}/>
             <Route path="/post/:id"><PostPage /></Route>
-            <Route path="/search/:key">
-              <SearchPage />
-            </Route>
-            <Route
-              path="/m-profile"
-              render={(e: any) => {
-                if(getReduxStoreState['userAuth']['state']){
-                  if(getReduxStoreState['userAuth']['state']['auth']){
-                    return <MProfilePage />;
-                  }
-                }
-                return <Redirect to={{
-                  pathname: "/login",
-                  search: `?from=${encodeURIComponent(e.location.pathname)}`,
-                }}/>;
-              }}
-            />
-            <Route path="/o-profile/:id">
-              <OProfilePage />
-            </Route>
-            <Route
-              path="/add-post"
-              render={(e: any) => {
-                if(getReduxStoreState['userAuth']['state']){
-                  if(getReduxStoreState['userAuth']['state']['auth']){
-                    return <AddPostPage />;
-                  }
-                }
-
-                return <Redirect to={{
-                  pathname: "/login",
-                  search: `?from=${encodeURIComponent(e.location.pathname)}`,
-                }}/>;
-              }}
-            />
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route path="*">
-              <NotFoundPage />
-            </Route>
+            <Route path="/search/:key"><SearchPage /></Route>
+            <Route path="/m-profile"><MProfilePage /></Route>
+            <Route path="/o-profile/:id"><OProfilePage /></Route>
+            <Route path="/add-post"><AddPostPage /></Route>
+            <Route exact path="/"><HomePage /></Route>
+            <Route path="*"><NotFoundPage /></Route>
           </Switch>
         </Wrapper>
       </Router>

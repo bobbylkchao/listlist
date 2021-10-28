@@ -1,5 +1,6 @@
 // reducer for user auth state
 const userAuthStateInit = {
+  executed: false,
   auth: false,
   token: null,
   name: null,
@@ -15,9 +16,12 @@ const userAuth = (state = userAuthStateInit, action) => {
       return{
         state: action.value
       }
-    case 'clearUserAuthState':
+    case 'setUserAuthExecuted':
       return{
-        state: userAuthStateInit
+        state: {
+          ...state,
+          executed: true
+        }
       }
     default:
       return state;

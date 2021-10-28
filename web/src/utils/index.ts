@@ -118,6 +118,8 @@ export const ls = {
 export const userAuthLSInfos = {
   set: (
     params: {
+      executed: boolean,
+      auth: boolean,
       token: string | null,
       name: string | null,
       email: string | null,
@@ -132,21 +134,25 @@ export const userAuthLSInfos = {
     ls.set('name', params.name);
     ls.set('email', params.email);
     ls.set('userID', params.userID);
-    ls.set('headnav', params.headnav ?? 'default');
+    ls.set('headnav', params.headnav ? params.headnav : 'default');
     ls.set('createdAt', params.createdAt);
 
-    params.reduxDispatch && typeof(params.reduxDispatch) === 'function' ? params.reduxDispatch({
-      type: "setUserAuthState",
-      value: {
-        auth: true,
-        token: params.token,
-        name: params.name,
-        email: params.email,
-        userID: params.userID,
-        headnav: params.headnav ?? 'default',
-        createdAt: params.createdAt,
-      },
-    }) : null;
+    if(params.reduxDispatch && typeof(params.reduxDispatch) === 'function'){
+      params.reduxDispatch({
+        type: "setUserAuthState",
+        value: {
+          executed: params.executed,
+          auth: params.auth,
+          token: params.token,
+          name: params.name,
+          email: params.email,
+          userID: params.userID,
+          headnav: params.headnav ? params.headnav : 'default',
+          createdAt: params.createdAt,
+        },
+      });
+    }
+
   },
   get: () => {
     return {
@@ -160,6 +166,8 @@ export const userAuthLSInfos = {
   },
   clear: () => {
     userAuthLSInfos.set({
+      executed: true,
+      auth: false,
       token: null,
       name: null,
       email: null,

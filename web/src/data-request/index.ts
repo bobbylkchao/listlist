@@ -103,10 +103,25 @@ export const userLoginReq = (params: UserLoginReqInterface, callback: (result:an
   });
 };
 
-export const tokenValidation = (callback: (result:any) => void) => {
-  const currentToken = ls.get('token');
-  if(currentToken){
-    debugLog(`tokenValidation start...`);
+/**
+ * tokenValidation
+ * @desc Check the validity of the user's token 
+ * @param {void} reduxDispatch pass `useDispatch()` from react-redux as a param
+ */
+export const tokenValidation = (reduxDispatch: (params: any) => void) => {
+  // Get user auth infomations from localstorage
+  const userAuthInfos = userAuthLSInfos.get();
+
+  // User auth informations must with full fields
+  if(
+    userAuthInfos.token &&
+    userAuthInfos.name &&
+    userAuthInfos.email &&
+    userAuthInfos.userID &&
+    userAuthInfos.createdAt &&
+    userAuthInfos.headnav
+  ){
+    // Validate token, by using `Authorization` header in request
     getGraphQL(`
       query{
         validateToken{
@@ -115,18 +130,32 @@ export const tokenValidation = (callback: (result:any) => void) => {
         }
       }
     `, (result:any) => {
-      debugLog(`tokenValidation finished...`);
+
       if(result.data){
-        let validRes: boolean;
         if(result.data.validateToken.code === 200){
-          validRes = true;
+          // token is valid, update reducer state
+          reduxDispatch({
+            type: "setUserAuthState",
+            value:{
+              executed: true,
+              auth: true,
+              token: userAuthInfos.token,
+              name: userAuthInfos.name,
+              email: userAuthInfos.email,
+              userID: userAuthInfos.userID,
+              createdAt: userAuthInfos.createdAt,
+              headnav: userAuthInfos.headnav,
+            },
+          });
         }else{
-          validRes = false;
+          // token is not valid, clear user auth informations in localstorage
           userAuthLSInfos.clear();
         }
-        callback && typeof(callback) === 'function' ? callback(validRes) : null;
       }
     });
+  }else{
+    // Token not found, set userAuth `executed` state from `false` to `true`
+    reduxDispatch({ type: 'setUserAuthExecuted' });
   }
 };
 
