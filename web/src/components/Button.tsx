@@ -19,7 +19,7 @@ interface ButtonInterface{
   fontWeight?: string;
 }
 
-const Button = styled.button`
+const Button = styled.button<ButtonInterface>`
   cursor: pointer;
   background-color: ${buttonColor};
   width: ${(props:any) => props.width || 'auto'};

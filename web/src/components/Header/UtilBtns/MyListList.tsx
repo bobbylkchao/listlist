@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import styled from 'styled-components';
 import styles from './index.module.scss';
@@ -52,7 +52,7 @@ const MyListList = () => {
 
         <Dropdown.Menu className={styles.header_component_mylistlist_dropdown_items}>
           <Dropdown.Item href="#">My Ads</Dropdown.Item>
-          <Dropdown.Item href="#">My Profile</Dropdown.Item>
+          <Dropdown.Item onClick={() => router.push("/m-profile")}>My Profile</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item href="#">Français</Dropdown.Item>
           <Dropdown.Divider />

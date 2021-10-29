@@ -10,9 +10,6 @@ import InsideWrapper from "../../src/containers/InsideWrapper";
 const MProfilePage = () => {
   return(
     <AuthorizedWrapper>
-      <InsideWrapper>
-        <TopMenus marginTop={15}/>
-      </InsideWrapper>
       <Hline marginTop="15px" marginBottom="15px"/>
       <InsideWrapper style={{ minHeight: 500 }}>
         <GlobalNoticeMsg />

@@ -7,7 +7,10 @@ import '../global-styles/main.css';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <div suppressHydrationWarning={true}>
+    <div
+      suppressHydrationWarning={true}
+      style={{ height: '100%' }}
+    >
       {typeof window === 'undefined' ? null : <Component {...pageProps} />}
     </div>
   );

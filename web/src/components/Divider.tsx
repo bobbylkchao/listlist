@@ -4,7 +4,7 @@ interface DividerInterface{
   height?: string;
 }
 
-const Divider = styled.div`
+const Divider = styled.div<DividerInterface>`
   height: ${(props:any) => props.height ? props.height : '10px'};
 `;
 

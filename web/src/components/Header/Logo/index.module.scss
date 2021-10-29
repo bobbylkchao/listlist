@@ -1,5 +1,8 @@
 .header_component_logo{
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header_component_logo:hover{
