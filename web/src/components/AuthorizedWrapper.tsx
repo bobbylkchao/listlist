@@ -9,8 +9,12 @@ import styled from "styled-components";
 
 const AuthorizedWrapperChild = styled.div`
   padding-top: 50px;
+  padding-bottom: 50px;
   text-align: center;
   color: #afafaf;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
 `;
 
 const AuthorizedWrapper = (props: { children: any}) => {
