@@ -18,14 +18,23 @@ const SectionComponent = (params: { no: number, title: string, children: any }) 
     font-size: 13px;
   `;
 
+  const SectionTitle = styled.span`
+    font-weight: bold;
+  `;
+
+  const SectionChild = styled.div`
+    box-sizing: border-box;
+    width: 80%;
+  `;
+
   return(
     <SectionWrapper>
       <div>
         <SectionOrderIcon>{ params.no }</SectionOrderIcon>
-        <span>{ params.title }</span>
+        <SectionTitle>{ params.title }</SectionTitle>
       </div>
       <Hline marginTop="15px" marginBottom="15px"/>
-      <div>{ params.children }</div>
+      <SectionChild>{ params.children }</SectionChild>
     </SectionWrapper>
   );
 };

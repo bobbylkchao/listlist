@@ -28,22 +28,34 @@ html, body{
   font-weight: bold !important;
 }
 
+/* Bootstrap Form global styles */
 button[class*="CategorySelect"].btn-success:hover,
 .dropdown-toggle{
   border-color: #ebebed !important;
 }
 
-input:focus:not(.is-invalid){
+input:focus:not(.is-invalid),
+textarea:focus{
   outline: none !important;
   border: 1px solid #2681db !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
+  font-size: 15px !important;
+}
+
+textarea{
+  font-size: 15px !important;
 }
 
 input.is-invalid:focus{
   outline: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
+}
+
+label:not(.form-check-label){
+  font-weight: bold;
+  text-align: right;
 }
 
 /* Bootstrap missing */
@@ -72,4 +84,13 @@ input.is-invalid:focus{
   color: unset !important;
   background-color: unset !important;
   border-color: unset !important;
+}
+
+select.form-control{
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .75rem center;
+  background-size: 16px 12px;
+  appearance: none;
 }

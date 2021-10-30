@@ -1,19 +1,53 @@
 .add_post_form{
-  > div{
-    position: relative !important;
+  
+}
+
+.add_post_form_tags_remark{
+  color: #999999;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.add_post_form_optional_title{
+  font-weight: normal;
+}
+
+.add_post_form_category_flex{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  > span,
+  > a{
+    display: flex;
   }
 
-  > div > svg{
-    position: absolute;
-    top: 0;
-    height: 50px;
-    left: 20px;
-    color: gray;
+  > span{
+    margin-right: 5px;
   }
 
-  .Input{
-    height: 50px;
-    padding-left: 50px;
-    margin-bottom: 10px;
+  > a{
+    margin-left: 20px;
   }
+}
+
+.add_post_form_adtype{
+  label:nth-child(1):after{
+    content: ' - You are offering an item for sale';
+    color: #999999;
+    font-weight: normal;
+  }
+
+  label:nth-child(2):after{
+    content: ' - You want to buy an item';
+    color: #999999;
+    font-weight: normal;
+  }
+}
+
+.add_post_form_row_v_center{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }

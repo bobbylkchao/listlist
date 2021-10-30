@@ -38,6 +38,14 @@ const AgreementWrapper = styled.div`
 `;
 
 const AddPostPage = () => {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    event.stopPropagation();
+    alert('submitted...');
+  };
+
   return(
     <GrayBgWrapper>
       <AuthorizedWrapper>
@@ -48,51 +56,57 @@ const AddPostPage = () => {
         >
           <GlobalNoticeMsg />
 
-          <SectionComponent no={1} title="Ad Details">
-            <AdDetailsSection/>
-          </SectionComponent>
-          
-          <SectionComponent no={2} title="Media">
-            <MediaSection/>
-          </SectionComponent>
+          <Form
+            noValidate
+            onSubmit={!isSubmitting ? handleSubmit : null}
+            className={styles.add_post_form}
+          >
+            <SectionComponent no={1} title="Ad Details">
+              <AdDetailsSection/>
+            </SectionComponent>
+            
+            <SectionComponent no={2} title="Media">
+              <MediaSection/>
+            </SectionComponent>
 
-          <SectionComponent no={3} title="Location">
-            <LocationSection/>
-          </SectionComponent>
+            <SectionComponent no={3} title="Location">
+              <LocationSection/>
+            </SectionComponent>
 
-          <SectionComponent no={4} title="Price">
-            <PriceSection/>
-          </SectionComponent>
+            <SectionComponent no={4} title="Price">
+              <PriceSection/>
+            </SectionComponent>
 
-          <SectionComponent no={5} title="Contact Information">
-            <ContactSection/>
-          </SectionComponent>
+            <SectionComponent no={5} title="Contact Information">
+              <ContactSection/>
+            </SectionComponent>
 
-          <AgreementWrapper>
-            <div>By posting your ad, you are agreeing to our <Link>terms of use</Link>, <Link>privacy policy</Link> and <Link>site policies</Link>.</div>
-            <div>Please do not post duplicate ads.</div>
-          </AgreementWrapper>
+            <AgreementWrapper>
+              <div>By posting your ad, you are agreeing to our <Link>terms of use</Link>, <Link>privacy policy</Link> and <Link>site policies</Link>.</div>
+              <div>Please do not post duplicate ads.</div>
+            </AgreementWrapper>
 
-          <BottomBtnsWrapper>
-            <Button
-              height="40px"
-              width="150px"
-              fontWeight="bold"
-              type="submit"
-              style={{ marginRight: 20}}
-            >
-              Post Your Ad
-            </Button>
+            <BottomBtnsWrapper>
+              <Button
+                height="40px"
+                width="150px"
+                fontWeight="bold"
+                type="submit"
+                style={{ marginRight: 20}}
+              >
+                Post Your Ad
+              </Button>
 
-            <Button
-              height="40px"
-              width="150px"
-              bgColor="#ffffff"
-              color="#006bc2"
-            >
-              Preview
-            </Button>
-          </BottomBtnsWrapper>
+              <Button
+                height="40px"
+                width="150px"
+                bgColor="#ffffff"
+                color="#006bc2"
+              >
+                Preview
+              </Button>
+            </BottomBtnsWrapper>
+          </Form>
 
         </InsideWrapper>
       </AuthorizedWrapper>
