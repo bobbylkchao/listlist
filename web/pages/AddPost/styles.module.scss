@@ -51,3 +51,10 @@
   align-items: flex-start;
   justify-content: center;
 }
+
+.add_post_media_form_wrapper{
+  display: flex;
+  flex-direction: row;
+  padding: 0 15px;
+  justify-content: space-between;
+}

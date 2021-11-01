@@ -226,3 +226,18 @@ export const getQueryVariable = (variable) => {
   }
   return "";
 }
+
+/**
+ * getImageBase64
+ * @desc Convert image file to base64 string
+ * @param {object} file
+ */
+export const getImageBase64 = (file: any) => {
+  return new Promise((resolve: any) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      resolve(reader.result ?? '');
+    };
+  });
+}

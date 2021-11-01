@@ -9,13 +9,17 @@ import styles from './styles.module.scss';
 import Button from '../../src/components/Button';
 import Link from '../../src/components/Link';
 
+const AdDetailsSectionWrapper = styled.div`
+  padding-right: 10%;
+`;
+
 const Gap = styled.div`
   height: 10px;
 `;
 
 const AdDetailsSection = () => {
   return(
-    <>
+    <AdDetailsSectionWrapper>
       {/**category */}
       <Form.Group as={Row} className="mb-3" controlId="addPost_category">
         <Form.Label column sm={3}>
@@ -214,7 +218,7 @@ const AdDetailsSection = () => {
         </Col>
       </Form.Group>  
 
-    </>
+    </AdDetailsSectionWrapper>
   );
 };
 

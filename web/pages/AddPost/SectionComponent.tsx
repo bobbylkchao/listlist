@@ -24,7 +24,6 @@ const SectionComponent = (params: { no: number, title: string, children: any }) 
 
   const SectionChild = styled.div`
     box-sizing: border-box;
-    width: 80%;
   `;
 
   return(
