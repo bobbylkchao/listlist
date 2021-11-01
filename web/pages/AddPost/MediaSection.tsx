@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import webConfig from '../../src/web.config';
 import styles from './styles.module.scss';
 import { getImageBase64 } from '../../src/utils';
-import exampleImage from '../../src/assets/images/sample.png';
 
 const AddImageWrapper = styled.div`
   height: 150px;
@@ -23,6 +22,7 @@ const AddImageWrapper = styled.div`
   position: relative;
   margin-right: 10px;
   margin-bottom: 20px;
+  overflow: hidden;
 
   > span{
     font-size: 80px;
@@ -36,8 +36,8 @@ const AddImageWrapper = styled.div`
   }
 
   > img{
-    width: 100%;
-    height: 100%;
+    width: 150px;
+    height: 150px;
     object-fit: contain;
   }
 `;
@@ -69,12 +69,19 @@ const Title = styled.div`
 
 const RemoveBtn = styled.div`
   position: absolute;
-  top: 0;
-  right: 1px;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 5px;
+  background-color: #fff;
+  border-top: 1px solid #ced4da;
 
   >svg{
-    font-size: 25px;
-    color: #73b9ff;
+    font-size: 13px;
+    color: #2681db;
   }
 
   &:hover{
@@ -82,10 +89,23 @@ const RemoveBtn = styled.div`
   }
 `;
 
-const MediaSection = () => {
-  const [images, setImages] = React.useState<[]>([]);
+const MainPhoto = styled.div`
+  position: absolute;
+  height: 20px;
+  line-height: 20px;
+  width: 100%;
+  text-align: center;
+  background-color: #2681db;
+  color: #fff;
+  font-size: 13px;
+  top: 0;
+`;
 
-  const getUploadFiles = async(e: any, callback: () => void) => {
+const MediaSection = () => {
+  const [images, setImages] = React.useState<any>([]);
+
+  const getUploadFiles = async(e: any) => {
+    console.log(e);
     if(images.length >= webConfig.maxUploadPhotos) return alert('Maximum 10 photos');
 
     if(e.files){
@@ -98,6 +118,7 @@ const MediaSection = () => {
   
   const removeAFile = (index: number) => {
     console.log(`removed...${index}`);
+    console.log(images);
     setImages((preImages: any) => ([...preImages.splice(index, 1)]));
   };
   
@@ -127,9 +148,10 @@ const MediaSection = () => {
       {
         images ? images.map((item: string, key: number) => (
           <AddImageWrapper key={key}>
+            { key===0 ? <MainPhoto>Main</MainPhoto> : null }
             <img src={item}/>
             <RemoveBtn onClick={() => removeAFile(key)}>
-              <FontAwesomeIcon icon="minus-square"/>
+              <FontAwesomeIcon icon="times"/>
             </RemoveBtn>
           </AddImageWrapper>
         )) : null

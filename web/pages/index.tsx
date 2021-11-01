@@ -9,7 +9,7 @@ import {
   Redirect
 } from "react-router-dom";
 import { config, library } from '@fortawesome/fontawesome-svg-core';
-import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle, faPlus, faImages, faMinusSquare } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ThemeProvider } from 'styled-components';
 
 // listlist containers, components
@@ -41,7 +41,7 @@ const Main = () => {
   const getReduxStoreState = useSelector((state:any) => state);
   const [tokenValidateStatus, setTokenValidateStatus] = React.useState<boolean>(false);
 
-  library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle, faPlus, faImages, faMinusSquare);
+  library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle, faPlus, faTimes);
 
   React.useEffect(() => {
     debugLog(`Route is loaded...`);
