@@ -102,6 +102,11 @@ label:not(.form-check-label){
   background-color: #ececee;
 }
 
+input:focus:not(.is-invalid).form-control,
+textarea:focus.form-control{
+	box-shadow: 0 0 5px #2681db !important;
+}
+
 /* Bootstrap missing */
 .close{
   position: absolute;
