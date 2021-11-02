@@ -1,10 +1,12 @@
-**[IN DEVELOPMENT]**
+**[UNDER DEVELOPMENT]**
 
 ![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-header.png)
 
+![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-post-ad.png)
+
 # Status
 
-**Current status:** Under development
+**Current status:** Web development -> Post Ad Feature
 
 **Current development sequence:** Web & API -> Mobile App
 
