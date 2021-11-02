@@ -14,7 +14,7 @@ interface ButtonInterface{
   height?: string;
   /**
    * fontWeight
-   * @default 'bold'
+   * @default 'normal'
    */
   fontWeight?: string;
   /**

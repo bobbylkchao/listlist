@@ -18,7 +18,7 @@ font-size: 13px;
 `;
 
 const SectionTitle = styled.span`
-font-weight: bold;
+font-weight: 500;
 `;
 
 const SectionChild = styled.div`

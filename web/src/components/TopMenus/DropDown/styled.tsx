@@ -54,7 +54,7 @@ const DropDownRightLink = styled.a<DropDownRightLinkInterface>`
   text-decoration: none;
   color:  ${(props:any) => props.bold ? '#067ae9' : '#000000'};
   height: 30px;
-  font-weight: ${(props:any) => props.bold ? 'bold' : 'normal'};
+  font-weight: ${(props:any) => props.bold ? 500 : 'normal'};
 
   &:hover{
     cursor: pointer;
