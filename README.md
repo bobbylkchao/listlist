@@ -15,7 +15,7 @@
 
 - Web: Basic structure, Router, Reducer(category list, category selected, global, theme, userAuth and userGeo), Header, Login, Register, Logout
 
-- API: ip geo query, login, register, category list query, token validation query.
+- API: ip geo query, login, register, jwt token, category list query, token validation query.
 
 - APP: None.
 
