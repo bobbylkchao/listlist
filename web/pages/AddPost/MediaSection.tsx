@@ -12,7 +12,9 @@ import { getImageBase64 } from '../../src/utils';
 
 const AddImageWrapper = styled.div`
   height: 150px;
-  width: 150px;
+  width: 18.5%;
+  min-width: 18.5%;
+  max-width: 18.5%;
   border: 1px solid #ced4da;
   border-radius: 5px;
   box-sizing: border-box;
@@ -36,8 +38,9 @@ const AddImageWrapper = styled.div`
   }
 
   > img{
-    width: 150px;
+    width: 200px;
     height: 150px;
+    object-fit: contain;
   }
 `;
 
@@ -77,14 +80,34 @@ const RemoveBtn = styled.div`
   padding: 0 5px;
   background-color: #fff;
   border-top: 1px solid #ced4da;
+`;
+
+const RemoveBtnIcon = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
 
   >svg{
     font-size: 13px;
     color: #2681db;
+    
+    &:hover{
+      cursor: pointer;
+    }
   }
+`;
+
+const SetMainBtn = styled.a`
+  display: flex;
+  flex: 2;
+  font-size: 13px;
+  justify-content: flex-start;
+  color: #2681db;
+  text-decoration: none;
 
   &:hover{
     cursor: pointer;
+    color: #2681db;
   }
 `;
 
@@ -110,7 +133,10 @@ const MediaSection = () => {
       for(let i = 0; i < webConfig.maxUploadPhotos; i++) {
         if(e.files[i]){
           const base64Result = await getImageBase64(e.files[i]);
-          setImages((preImages: any) => ([...preImages, base64Result]));
+          setImages((preImages: any) => ([...preImages, {
+            img: base64Result,
+            main: images.length === 0 && i === 0 ? true : false,// if no image, then set first image as the main
+          }]));
         }
       }
     }
@@ -118,7 +144,25 @@ const MediaSection = () => {
   
   const removeAFile = (index: number) => {
     setImages((preImages: any) => {
+      // if the `main` image to be deleted, replace the `main` to first image
+      if(preImages[index].main === true){
+        preImages[0].main = true;
+      }
+
+      // if the item to be deleted is first image, and it is the `main`, replace the `main` to next image
+      if(index === 0 && preImages[index].main === true && preImages.length > 1){
+        preImages[index+1].main = true;
+      }
+
       return preImages.filter((item: any, key: number) => key !== index);
+    });
+  };
+
+  const setImageAsMain = (key: number) => {
+    setImages((preImages: any) => {
+      preImages.map((item:any) => item.main = false);
+      preImages[key].main = true;
+      return [...preImages];
     });
   };
   
@@ -146,17 +190,19 @@ const MediaSection = () => {
       </AddImageWrapper>
 
       {
-        images ? images.map((item: string, key: number) => (
+        images ? images.map((item: any, key: number) => (
           <AddImageWrapper key={key}>
-            { key===0 ? <MainPhoto>Main</MainPhoto> : null }
-            <img src={item}/>
-            <RemoveBtn onClick={() => removeAFile(key)}>
-              <FontAwesomeIcon icon="times"/>
+            { item.main ? <MainPhoto>Main</MainPhoto> : null }
+            <img src={item.img}/>
+            <RemoveBtn>
+              { item.main ? null : <SetMainBtn onClick={() => setImageAsMain(key)}>Set as Main</SetMainBtn> }
+              <RemoveBtnIcon>
+                <FontAwesomeIcon icon="times" onClick={() => removeAFile(key)}/>
+              </RemoveBtnIcon>
             </RemoveBtn>
           </AddImageWrapper>
         )) : null
       }
-      
     </Form.Group>
   );
 };
