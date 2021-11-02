@@ -53,18 +53,20 @@ const AdDetailsSection = () => {
           <Form.Label as="legend" column sm={3}>
             Ad Type
           </Form.Label>
-          <Col sm={9} className={styles.add_post_form_adtype}>
+          <Col sm={9}>
             <Form.Check
               type="radio"
               label="I'm offering"
               name="addPost_adtype"
               id="addPost_adtype_offering"
+              className={styles.add_post_form_adtype_o1}
             />
             <Form.Check
               type="radio"
               label="I want to find"
               name="addPost_adtype"
               id="addPost_adtype_buy"
+              className={styles.add_post_form_adtype_o2}
             />
           </Col>
         </Form.Group>
