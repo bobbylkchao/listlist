@@ -38,7 +38,6 @@ const AddImageWrapper = styled.div`
   > img{
     width: 150px;
     height: 150px;
-    object-fit: contain;
   }
 `;
 
@@ -105,21 +104,22 @@ const MediaSection = () => {
   const [images, setImages] = React.useState<any>([]);
 
   const getUploadFiles = async(e: any) => {
-    console.log(e);
     if(images.length >= webConfig.maxUploadPhotos) return alert('Maximum 10 photos');
 
     if(e.files){
       for(let i = 0; i < webConfig.maxUploadPhotos; i++) {
-        const base64Result = await getImageBase64(e.files[i]);
-        setImages((preImages: any) => ([...preImages, base64Result]));
+        if(e.files[i]){
+          const base64Result = await getImageBase64(e.files[i]);
+          setImages((preImages: any) => ([...preImages, base64Result]));
+        }
       }
     }
   };
   
   const removeAFile = (index: number) => {
-    console.log(`removed...${index}`);
-    console.log(images);
-    setImages((preImages: any) => ([...preImages.splice(index, 1)]));
+    setImages((preImages: any) => {
+      return preImages.filter((item: any, key: number) => key !== index);
+    });
   };
   
   return(
