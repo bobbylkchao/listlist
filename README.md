@@ -6,7 +6,7 @@
 
 **Current status:** Web development -> Post Ad Feature
 
-![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-post-ad.png)
+![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-post-ad-0.0.2.png)
 *(Post Ad Feature)*
 
 **Current development sequence:** Web & API -> Mobile App
