@@ -58,6 +58,50 @@ label:not(.form-check-label){
   text-align: right;
 }
 
+.form-check{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 30px;
+  margin-bottom: 0;
+}
+
+.form-check .form-check-label{
+  display: flex;
+  margin-top: 3px;
+  margin-left: 10px;
+}
+
+.form-check input[type="radio"].form-check-input,
+.form-check input[type="checkbox"].form-check-input{
+  height: 20px;
+  width: 20px;
+  display: flex;
+  background-color: #ffffff;
+  border-color: #ced4da;
+}
+
+.form-check input[type="radio"]:checked.form-check-input,
+.form-check input[type="checkbox"]:checked.form-check-input{
+  background-color: #57c07b;
+  border-color: #57c07b;
+}
+
+.form-check input[type="radio"]:focus:not(.is-invalid).form-check-input,
+.form-check input[type="checkbox"]:focus:not(.is-invalid).form-check-input{
+	border-color: #57c07b !important;
+}
+
+.form-check input[type="radio"],
+.form-check input[type="checkbox"]{
+  transition: background-color .2s linear;
+}
+
+.form-check input[type="radio"]:hover,
+.form-check input[type="checkbox"]:hover{
+  background-color: #ececee;
+}
+
 /* Bootstrap missing */
 .close{
   position: absolute;
