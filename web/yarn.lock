@@ -1417,13 +1417,21 @@
   "resolved" "https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.2.tgz"
   "version" "0.16.2"
 
-"@types/styled-components@^5.1.15":
+"@types/styled-components@*", "@types/styled-components@^5.1.15":
   "integrity" "sha512-4evch8BRI3AKgb0GAZ/sn+mSeB+Dq7meYtMi7J/0Mg98Dt1+r8fySOek7Sjw1W+Wskyjc93565o5xWAT/FdY0Q=="
   "resolved" "https://registry.npmjs.org/@types/styled-components/-/styled-components-5.1.15.tgz"
   "version" "5.1.15"
   dependencies:
     "@types/hoist-non-react-statics" "*"
     "@types/react" "*"
+    "csstype" "^3.0.2"
+
+"@types/styled-theming@^2.2.5":
+  "integrity" "sha512-7Rxu3Oj2nFG40+barPjt/5hzexlZTjWKDHfngrprxO2+y9RhxtzJ2wSiZrY9+kwtC0mmlI0poVW4PxTiobv1qQ=="
+  "resolved" "https://registry.npmjs.org/@types/styled-theming/-/styled-theming-2.2.5.tgz"
+  "version" "2.2.5"
+  dependencies:
+    "@types/styled-components" "*"
     "csstype" "^3.0.2"
 
 "@types/warning@^3.0.0":

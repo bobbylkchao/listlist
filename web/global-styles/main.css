@@ -107,6 +107,10 @@ textarea:focus.form-control{
 	box-shadow: 0 0 5px #2681db !important;
 }
 
+.form-group.row{
+  align-items: center;
+}
+
 /* Bootstrap missing */
 .close{
   position: absolute;

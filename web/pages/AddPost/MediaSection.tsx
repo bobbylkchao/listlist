@@ -67,6 +67,7 @@ const Title = styled.div`
   margin: 5px 0 20px 0;
   padding-left: 0;
   word-break: break-word;
+  font-weight: 300;
 `;
 
 const RemoveBtn = styled.div`
@@ -123,6 +124,13 @@ const MainPhoto = styled.div`
   top: 0;
 `;
 
+const YoutubeVideoRemarkWrapper = styled.div`
+  color: #999;
+  font-size: 13px;
+  font-weight: 300;
+  margin-top: 5px;
+`;
+
 const MediaSection = () => {
   const [images, setImages] = React.useState<any>([]);
 
@@ -167,43 +175,68 @@ const MediaSection = () => {
   };
   
   return(
-    <Form.Group
-      as={Row}
-      className={`${styles.add_post_media_form_wrapper} mb-3`}
-      controlId="addPost_media"
-    >
-      <Title>
-        Include pictures with different angles and details. You can upload a maximum of { webConfig.maxUploadPhotos } photos, that are at least 300px wide or tall (we recommend at least 1000px).
-        Drag and drop to change the order of your pictures.
-      </Title>
-      <AddImageWrapper
-        style={{display: images.length >= webConfig.maxUploadPhotos ? 'none' : 'flex'}}
+    <>
+      <Form.Group
+        as={Row}
+        className={`${styles.add_post_media_form_wrapper} mb-3`}
+        controlId="addPost_media"
       >
-        <span>+</span>
-        <AddPostFileUploadPureBtn
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={(e: any) => getUploadFiles(e.target)}
-          title="upload your images"
-        />
-      </AddImageWrapper>
+        <Title>
+          Include pictures with different angles and details. You can upload a maximum of { webConfig.maxUploadPhotos } photos, that are at least 300px wide or tall (we recommend at least 1000px). Drag and drop to change the order of your pictures.
+        </Title>
+        <AddImageWrapper
+          style={{display: images.length >= webConfig.maxUploadPhotos ? 'none' : 'flex'}}
+        >
+          <span>+</span>
+          <AddPostFileUploadPureBtn
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e: any) => getUploadFiles(e.target)}
+            title="upload your images"
+          />
+        </AddImageWrapper>
 
-      {
-        images ? images.map((item: any, key: number) => (
-          <AddImageWrapper key={key}>
-            { item.main ? <MainPhoto>Main</MainPhoto> : null }
-            <img src={item.img}/>
-            <RemoveBtn>
-              { item.main ? null : <SetMainBtn onClick={() => setImageAsMain(key)}>Set as Main</SetMainBtn> }
-              <RemoveBtnIcon>
-                <FontAwesomeIcon icon="times" onClick={() => removeAFile(key)}/>
-              </RemoveBtnIcon>
-            </RemoveBtn>
-          </AddImageWrapper>
-        )) : null
-      }
-    </Form.Group>
+        {
+          images ? images.map((item: any, key: number) => (
+            <AddImageWrapper key={key}>
+              { item.main ? <MainPhoto>Main</MainPhoto> : null }
+              <img src={item.img}/>
+              <RemoveBtn>
+                { item.main ? null : <SetMainBtn onClick={() => setImageAsMain(key)}>Set as Main</SetMainBtn> }
+                <RemoveBtnIcon>
+                  <FontAwesomeIcon icon="times" onClick={() => removeAFile(key)}/>
+                </RemoveBtnIcon>
+              </RemoveBtn>
+            </AddImageWrapper>
+          )) : null
+        }
+      </Form.Group>
+
+      <Form.Group as={Row} className={`mb-3 ${styles.add_post_media_input_wrapper} ${styles.alignTopWithoutGap}`} controlId="addPost_youtubelink">
+        <Form.Label column sm={3}>
+          <div>YouTube Video</div>
+          <div className={styles.add_post_form_optional_title}>(optional)</div>
+        </Form.Label>
+        <Col sm={9}>
+          <Form.Control type="text" placeholder="" />
+          <YoutubeVideoRemarkWrapper>
+            <div>Add a YouTube video to your ad.</div>
+            <div>Example: http://www.youtube.com/watch?v=&lt;your video id&gt;</div>
+          </YoutubeVideoRemarkWrapper>
+        </Col>
+      </Form.Group>
+
+      <Form.Group as={Row} className={`mb-3 ${styles.add_post_media_input_wrapper}`} controlId="addPost_websitelink">
+        <Form.Label column sm={3}>
+          <div>Website URL</div>
+          <div className={styles.add_post_form_optional_title}>(optional)</div>
+        </Form.Label>
+        <Col sm={9}>
+          <Form.Control type="text" placeholder="" />
+        </Col>
+      </Form.Group>
+    </>
   );
 };
 
