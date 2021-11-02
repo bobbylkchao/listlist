@@ -1,7 +1,7 @@
 const LocationSection = () => {
   return(
     <div>
-      location
+      location, in development
     </div>
   );
 };

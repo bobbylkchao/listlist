@@ -1,7 +1,7 @@
 const PriceSection = () => {
   return(
     <div>
-      price
+      price, in development
     </div>
   );
 };
