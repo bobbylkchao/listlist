@@ -74,3 +74,19 @@
     padding-top: 0;
   }
 }
+
+.tagsItem{
+  height: 30px;
+  line-height: 20px;
+  background-color: #ececee !important;
+  color: gray;
+  font-weight: 300;
+  font-size: 13px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}

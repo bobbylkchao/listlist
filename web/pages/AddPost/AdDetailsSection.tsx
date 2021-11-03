@@ -2,12 +2,15 @@ import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Badge from 'react-bootstrap/Badge';
+import CloseButton from 'react-bootstrap/CloseButton';
 import styled from 'styled-components';
 
 // listlist
 import styles from './styles.module.scss';
 import Button from '../../src/components/Button';
 import Link from '../../src/components/Link';
+import { regexLetterNumberSpace } from '../../src/utils';
 
 const AdDetailsSectionWrapper = styled.div`
   padding-right: 10%;
@@ -17,7 +20,14 @@ const Gap = styled.div`
   height: 10px;
 `;
 
+const TagsWrapper = styled.div`
+  margin-top: 10px;
+`;
+
 const AdDetailsSection = () => {
+  const [tags, setTags] = React.useState<[]>([]);
+  const [tagTyping, setTagTyping] = React.useState<string | number | null | undefined>('');
+
   return(
     <AdDetailsSectionWrapper>
       {/**category */}
@@ -195,7 +205,7 @@ const AdDetailsSection = () => {
       <Gap/>
 
       {/**tags */}
-      <Form.Group as={Row} className="mb-3" controlId="addPost_tags">
+      <Form.Group as={Row} className={`mb-3 ${styles.alignTopWithoutGap}`} controlId="addPost_tags">
         <Form.Label column sm={3}>
           <div>Tags</div>
           <div className={styles.add_post_form_optional_title}>(optional)</div>
@@ -206,17 +216,65 @@ const AdDetailsSection = () => {
           </div>
           <Row>
             <Col xs="auto">
-              <Form.Control type="text" placeholder="" />
+              <Form.Control
+                type="text"
+                disabled={tags.length === 5 ? true : false}
+                maxLength="30"
+                placeholder={tags.length === 5 ? 'Maximum 5 tags reached' : ''}
+                onChange={(e:any) => setTagTyping(e.target.value)}
+                value={tagTyping}
+                onKeyPress={(e:any) => {
+                  if(e.charCode === 13){
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const newValue = regexLetterNumberSpace(e.target.value);
+                    if(newValue){
+                      setTags((tags: any) => [...tags, newValue]);
+                      setTimeout(() => e.target.value='', 100);
+                    }else{
+                      e.target.value=''
+                    }
+                  }
+                }}
+              />
             </Col>
             <Col xs="auto">
               <Button
                 height="100%"
                 width="60px"
-              >
-                Add
-              </Button>
+                onClick={(e:any) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if(tagTyping){
+                    const newValue = regexLetterNumberSpace(tagTyping);
+                    if(newValue){
+                      setTags((tags: any) => [...tags, newValue]);
+                    }
+                    setTagTyping('');
+                  }
+                }}
+              >Add</Button>
             </Col>
           </Row>
+
+          {
+            tags ? <TagsWrapper>
+              {
+                tags ? tags.map((item: string | number, key: number) => (
+                  <Badge
+                    key={key}
+                    className={`bg-secondary ${styles.tagsItem}`}
+                  >
+                    <span>{ item }</span>
+                    <a className="closeInline" onClick={() => setTags((tags: []) => {
+                      return tags.filter((item: any, index: number) => index !== key)
+                    })}></a>
+                  </Badge>
+                )) : null
+              }
+            </TagsWrapper> : null
+          }
+
         </Col>
       </Form.Group>  
 

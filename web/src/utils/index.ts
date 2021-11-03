@@ -271,3 +271,13 @@ export const phonNumberTransform = (value: string | number | null | undefined) =
   }
   return newNumber;
 };
+
+/**
+ * regexLetterNumberSpace
+ * @desc Regex, only keep letter, number, and space
+ * @param {string | number} value 
+ * @returns {string | number} new value
+ */
+export const regexLetterNumberSpace = (value: string | number) => {
+  return value.trim().replace(/[^a-z0-9À-ÿ ]/gi, '');
+};
