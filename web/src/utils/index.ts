@@ -251,3 +251,23 @@ export const getImageBase64 = (file: any) => {
 export const priceNumberCheck = (value: number | string | null | undefined) => {
   return value.replace(/[^0-9\.]/g,'');
 };
+
+/**
+ * phonNumberTransform
+ * @desc Transform phone number to canadian number format
+ * @param {string | number | null | undefined} value
+ * @returns {string}
+ */
+export const phonNumberTransform = (value: string | number | null | undefined) => {
+  // remove all non-numeric first
+  let valueWithoutDash = value.replace(/\D/g,"");
+  // add `-` behind the number
+  let newNumber = valueWithoutDash;
+  if(valueWithoutDash.length >= 3){
+    newNumber = valueWithoutDash.substring(0, 3) + '-' + valueWithoutDash.substring(3, valueWithoutDash.length);
+  }
+  if(valueWithoutDash.length >= 6){
+    newNumber = newNumber.substring(0, 7) + '-' + valueWithoutDash.substring(6, valueWithoutDash.length);
+  }
+  return newNumber;
+};
