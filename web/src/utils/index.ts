@@ -241,3 +241,13 @@ export const getImageBase64 = (file: any) => {
     };
   });
 }
+
+/**
+ * priceNumberCheck
+ * @desc Check the input value is a valid price number or not
+ * @param {number | string} value
+ * @returns {number}
+ */
+export const priceNumberCheck = (value: number | string | null | undefined) => {
+  return value.replace(/[^0-9\.]/g,'');
+};

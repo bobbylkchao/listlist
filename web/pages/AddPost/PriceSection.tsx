@@ -7,6 +7,7 @@ import { FormCheck } from "react-bootstrap";
 
 // listlist
 import styles from './styles.module.scss';
+import { priceNumberCheck } from '../../src/utils';
 
 const PriceSectionWrapper = styled.div`
   padding-right: 10%;
@@ -15,7 +16,6 @@ const PriceSectionWrapper = styled.div`
 const PriceOptionValueWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 10px;
 
   input{
     margin-left: 10px;
@@ -25,6 +25,8 @@ const PriceOptionValueWrapper = styled.div`
 
 const PriceSection = () => {
   const [currentChecked, setCurrentChecked] = React.useState<number>(1);
+  const [priceValue, setPriceValue] = React.useState<number|undefined>();
+  const [bidStartPriceValue, setBidStartPriceValue] = React.useState<number|undefined>();
 
   return(
     <PriceSectionWrapper>
@@ -35,6 +37,7 @@ const PriceSection = () => {
           </Form.Label>
           <Col sm={9}>
 
+            {/**option: price */}
             <FormCheck style={{marginBottom: 20}}>
               <FormCheck.Input
                 type="radio"
@@ -49,16 +52,17 @@ const PriceSection = () => {
                 }}
               />
               <PriceOptionValueWrapper>
-                <span>$</span>
+                <FormCheck.Label>$</FormCheck.Label>
                 <Form.Control
                   type="number"
-                  placeholder=""
                   name="addPost_price_value"
+                  onKeyUp={(e:any) => e.target.value = priceNumberCheck(e.target.value)}
                   disabled={currentChecked === 1 ? false : true}
                 />
               </PriceOptionValueWrapper>
             </FormCheck>
-
+            
+            {/**option: bid */}
             <FormCheck style={{marginBottom: 10}}>
               <FormCheck.Input
                 type="radio"
@@ -73,23 +77,25 @@ const PriceSection = () => {
                 }}
               />
               <PriceOptionValueWrapper>
-                <span
+                <FormCheck.Label
                   style={{cursor: 'default'}}
                   onClick={() => {
                     if(currentChecked !== 2){
                       setCurrentChecked(2);
                     }
                   }}
-                >Bid, starting from $</span>
+                >Bid, starting from $</FormCheck.Label>
                 <Form.Control
                   type="number"
                   placeholder=""
                   name="addPost_price_bidstartfrom"
+                  onKeyUp={(e:any) => e.target.value = priceNumberCheck(e.target.value)}
                   disabled={currentChecked === 2 ? false : true}
                 />
               </PriceOptionValueWrapper>
             </FormCheck>
 
+            {/**option: contact */}
             <FormCheck style={{marginBottom: 10}}>
               <FormCheck.Input
                 type="radio"
@@ -112,6 +118,7 @@ const PriceSection = () => {
               >Please Contact</FormCheck.Label>
             </FormCheck>
 
+            {/**option: swap/trade */}
             <FormCheck style={{marginBottom: 10}}>
               <FormCheck.Input
                 type="radio"
