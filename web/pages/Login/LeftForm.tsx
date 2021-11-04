@@ -5,7 +5,9 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import GoogleLogin from "react-google-login";
 
+// listlist
 import styles from "./styles.module.scss";
 import Button from "../../src/components/Button";
 import { H3 } from "../../src/components/Heading";
@@ -29,6 +31,13 @@ const BottomDiv = styled.div`
 
 const ForgotPwdWrapper = styled.div`
   margin-bottom: 10px;
+`;
+
+const GoogleLoginWrapper = styled.div`
+  border-top: 1px solid #ececec;
+  margin-top: 30px;
+  padding-top: 30px;
+  text-align: center;
 `;
 
 const LeftForm = () => {
@@ -146,6 +155,10 @@ const LeftForm = () => {
     });
   };
 
+  const responseGoogle = (res: any) => {
+    console.log(res);
+  };
+
   return(
     <LeftFormWrapper>
       <H3 style={{ marginBottom: 20 }}>Login</H3>
@@ -251,6 +264,16 @@ const LeftForm = () => {
         </Button>
 
       </Form>
+
+      <GoogleLoginWrapper>
+        <GoogleLogin
+          clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+          buttonText="Login"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
+      </GoogleLoginWrapper>
     </LeftFormWrapper>
   );
 };

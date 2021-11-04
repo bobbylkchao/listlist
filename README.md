@@ -52,6 +52,8 @@ Socket: Socket.io
 4. Run `npm run api`, then visit graphQL http://localhost:4000 in your browser.
 5. Run `npm run web`, then visit http://localhost:3000 in your browser
 
+**REMEMBER to read every README.MD in different folders, eg. /web/README.MD, /api/README.MD, /app/README.MD**
+
 # Purpose
 
 Skills practice and proof of skills
