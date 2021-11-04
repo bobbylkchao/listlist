@@ -164,7 +164,7 @@ export const userAuthLSInfos = {
       createdAt: ls.get('createdAt') ?? null,
     };
   },
-  clear: () => {
+  clear: (dispatch?: () => void) => {
     userAuthLSInfos.set({
       executed: true,
       auth: false,
@@ -174,6 +174,7 @@ export const userAuthLSInfos = {
       userID: null,
       headnav: 'default',
       createdAt: null,
+      reduxDispatch: dispatch ? dispatch : '',
     });
   },
 };

@@ -26,6 +26,7 @@ const MyListList = () => {
   const router = useHistory();
 
   const logOut = () => {
+    // set flash message
     reduxDispatch({
       type: "setGlobalNoticeMessage",
       value: {
@@ -33,12 +34,8 @@ const MyListList = () => {
         'message': 'You have successfully signed out.',
       }
     });
-
-    userAuthLSInfos.clear();
-    
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 500);
+    // clear localstorage and redux state
+    userAuthLSInfos.clear(reduxDispatch);
   };
 
   return(
