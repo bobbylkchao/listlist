@@ -13,7 +13,7 @@
 
 **Current Finished:** 
 
-- Web: Basic structure, Router, Reducer(category list, category selected, global, theme, userAuth and userGeo), Header, Login, Register, Logout, Authorized Wrapper Container
+- Web: Basic structure, Router, Reducer(category list, category selected, global, theme, userAuth and userGeo), Header, Login, Google Login, Register, Logout, Authorized Wrapper Container
 
 - API: ip geo query, login, register, jwt token, category list query, token validation query.
 
