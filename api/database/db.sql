@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 24/10/2021 02:31:15
+ Date: 04/11/2021 17:52:13
 */
 
 SET NAMES utf8mb4;
@@ -253,25 +253,25 @@ CREATE TABLE `user` (
   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `headnav` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'default',
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `reg_channel` int DEFAULT '1' COMMENT '1:listlist 2:google 3:facebook',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reg_channel` varchar(10) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'listlist' COMMENT '1:listlist 2:google 3:facebook',
   `review_rating` int DEFAULT NULL,
   `status` int DEFAULT '1' COMMENT '1:active 2:inactive',
   `createdAt` int NOT NULL COMMENT 'utc timestamp',
   `updatedAt` int DEFAULT NULL COMMENT 'utc timestamp',
-  PRIMARY KEY (`email`,`id`) USING BTREE,
+  PRIMARY KEY (`email`) USING BTREE,
   KEY `id` (`id`),
   KEY `email` (`email`),
   KEY `pwd` (`password`),
   KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=5000003 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5000019 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES (5000001, 'Candy R. Kim', 'CandyRKim@teleworm.us', 'default', '$2b$10$EL2Jy2tky6wLjVA9ZcOHce/HxX7XNMuiOX7yRSNKrzrLINKzALiwa', 1, NULL, 1, 1635060428, NULL);
-INSERT INTO `user` VALUES (5000002, 'Donna J. Snyder', 'DonnaJSnyder@teleworm.us', 'default', '$2b$10$cr0pIfWpXebCXTZeVqO.kOtuLbGhCHXuKQezZKd1M2j9DiJD5poD2', 1, NULL, 1, 1635060442, NULL);
+INSERT INTO `user` VALUES (5000001, 'Candy R. Kim', 'CandyRKim@teleworm.us', 'default', '$2b$10$EL2Jy2tky6wLjVA9ZcOHce/HxX7XNMuiOX7yRSNKrzrLINKzALiwa', 'listlist', NULL, 1, 1635060428, NULL);
+INSERT INTO `user` VALUES (5000002, 'Donna J. Snyder', 'DonnaJSnyder@teleworm.us', 'default', '$2b$10$cr0pIfWpXebCXTZeVqO.kOtuLbGhCHXuKQezZKd1M2j9DiJD5poD2', 'listlist', NULL, 1, 1635060442, NULL);
 COMMIT;
 
 -- ----------------------------
