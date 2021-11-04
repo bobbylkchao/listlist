@@ -12,9 +12,13 @@ import { config, library } from '@fortawesome/fontawesome-svg-core';
 import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ThemeProvider } from 'styled-components';
 
+// listlist context
+import { GlobalContext } from '../src/context/global.context';
+
 // listlist containers, components
 import Wrapper from '../src/containers/Wrapper';
 import HeaderComponent from "../src/components/Header";
+import Toast from '../src/components/Toast';
 
 // listlist pages
 import HomePage from "./Home";
@@ -41,6 +45,10 @@ const Main = () => {
   const getReduxStoreState = useSelector((state:any) => state);
   const [tokenValidateStatus, setTokenValidateStatus] = React.useState<boolean>(false);
 
+  // Refs
+  const ToastRef = React.createRef<any>();
+
+  // fontawesome icons
   library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle, faPlus, faTimes);
 
   React.useEffect(() => {
@@ -50,25 +58,30 @@ const Main = () => {
 
   return(
     <ThemeProvider theme={{ theme: getReduxStoreState['theme']['state'] && getReduxStoreState['theme']['state']['darkmode'] ? 'dark' : 'light' }}>
-      <Router>
-        <Wrapper>
-          <HeaderComponent marginTop={15}/>
-
-          <Switch>
-            <Route path="/register"><RegisterPage /></Route>
-            <Route path="/login"><LoginPage /></Route>
-            <Route path="/category/:id"><CategoryPage /></Route>
-            <Route path="/message"><MessagePage /></Route>
-            <Route path="/post/:id"><PostPage /></Route>
-            <Route path="/search/:key"><SearchPage /></Route>
-            <Route path="/m-profile"><MProfilePage /></Route>
-            <Route path="/o-profile/:id"><OProfilePage /></Route>
-            <Route path="/add-post"><AddPostPage /></Route>
-            <Route exact path="/"><HomePage /></Route>
-            <Route path="*"><NotFoundPage /></Route>
-          </Switch>
-        </Wrapper>
-      </Router>
+      <GlobalContext.Provider value={{
+        showToast: (title?: string) => ToastRef.current.show(title),// show toast component
+        hideToast: () => ToastRef.current.hide(),// hide toast component
+      }}>
+        <Router>
+          <Wrapper>
+            <HeaderComponent marginTop={15}/>
+            <Switch>
+              <Route path="/register"><RegisterPage /></Route>
+              <Route path="/login"><LoginPage /></Route>
+              <Route path="/category/:id"><CategoryPage /></Route>
+              <Route path="/message"><MessagePage /></Route>
+              <Route path="/post/:id"><PostPage /></Route>
+              <Route path="/search/:key"><SearchPage /></Route>
+              <Route path="/m-profile"><MProfilePage /></Route>
+              <Route path="/o-profile/:id"><OProfilePage /></Route>
+              <Route path="/add-post"><AddPostPage /></Route>
+              <Route exact path="/"><HomePage /></Route>
+              <Route path="*"><NotFoundPage /></Route>
+            </Switch>
+          </Wrapper>
+        </Router>
+        <Toast onRef={ToastRef}/>
+      </GlobalContext.Provider>
     </ThemeProvider>
   );
 };
