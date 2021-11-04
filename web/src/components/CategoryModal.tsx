@@ -16,20 +16,31 @@ const Wrapper = styled.div`
     display: flex;
     flex: 1;
     margin-right: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+
+    >option{
+      padding: 10px;
+    }
   }
 `;
 
 const CategoryModal = (props: { onRef: any }) => {
   const categoryReducerState = useSelector((state:any) => state.categoryList.state);
+  const [categoryId, setCategoryId] = React.useState<number|null>(null);
   const [visible, setVisible] = React.useState<boolean>(false);
 
-  const [selectedCategoryOneId, setSelectedCategoryOneId] = React.useState<number|null>();
-  const [selectedCategoryOneIndex, setSelectedCategoryOneIndex] = React.useState<number|null>();
+  // for first category select, record `value` and `index`
+  const [selectedCategoryOneId, setSelectedCategoryOneId] = React.useState<number|null>(null);
+  const [selectedCategoryOneIndex, setSelectedCategoryOneIndex] = React.useState<number|null>(null);
 
-  const [selectedCategoryTwoId, setSelectedCategoryTwoId] = React.useState<number|null>();
-  const [selectedCategoryTwoIndex, setSelectedCategoryTwoIndex] = React.useState<number|null>();
+  // for second category select, record `value` and `index`
+  const [selectedCategoryTwoId, setSelectedCategoryTwoId] = React.useState<number|null>(null);
+  const [selectedCategoryTwoIndex, setSelectedCategoryTwoIndex] = React.useState<number|null>(null);
 
-  const [selectedCategoryThreeId, setSelectedCategoryThreeId] = React.useState<number|null>();
+  // for third category select, record `value` and `index`
+  const [selectedCategoryThreeId, setSelectedCategoryThreeId] = React.useState<number|null>(null);
 
   React.useImperativeHandle(props.onRef, () => {
     return {
@@ -58,9 +69,23 @@ const CategoryModal = (props: { onRef: any }) => {
           setSelectedCategoryTwoIndex(null);
           setSelectedCategoryTwoId(null);
         }}
+        onFocus={(e:any) => {
+          // if the selected option without `items`, set categoryId to this value
+          if(categoryReducerState[e.target.selectedOptions[0].attributes['attr-index'].value].items.length === 0){
+            setTimeout(() => setCategoryId(e.target.value), 100);
+          }
+        }}
       >
         {
-          categoryReducerState.map((item:any, index:number) => <option key={index} attr-index={index} value={item.id}>{ item.name }</option>)
+          categoryReducerState.map((item:any, index:number) => {
+            return(
+              <option
+                key={index}
+                attr-index={index}
+                value={item.id}
+              >{ item.name }</option>
+            );
+          })
         }
       </select>
     );
@@ -75,11 +100,25 @@ const CategoryModal = (props: { onRef: any }) => {
       onChange={(e:any) => {
         setSelectedCategoryTwoIndex(e.target.selectedOptions[0].attributes['attr-index'].value);
         setSelectedCategoryTwoId(e.target.value);
-        setSelectedCategoryThreeId(null);
+        setSelectedCategoryThreeId(null);   
+      }}
+      onFocus={(e:any) => {
+        // if the selected option without `items`, set categoryId to this value
+        if(categoryReducerState[selectedCategoryOneIndex].items[e.target.selectedOptions[0].attributes['attr-index'].value].items.length === 0){
+          setTimeout(() => setCategoryId(e.target.value), 100);
+        }
       }}
     >
       {
-        selectedCategoryOneId && selectedCategoryOneIndex ? categoryReducerState[selectedCategoryOneIndex].items.map((item:any, index:number) => <option key={index} attr-index={index} value={item.id}>{ item.name }</option>) : null
+        selectedCategoryOneId && selectedCategoryOneIndex ? categoryReducerState[selectedCategoryOneIndex].items.map((item:any, index:number) => {
+          return(
+            <option
+              key={index}
+              attr-index={index}
+              value={item.id}
+            >{ item.name }</option>
+          );
+        }) : null
       }
     </select>
   );
@@ -91,6 +130,9 @@ const CategoryModal = (props: { onRef: any }) => {
       size="10"
       value={selectedCategoryThreeId}
       onChange={(e:any) => setSelectedCategoryThreeId(e.target.value)}
+      onFocus={(e:any) => {
+        setTimeout(() => setCategoryId(e.target.value), 100);
+      }}
     >
       {
         selectedCategoryTwoId && selectedCategoryTwoIndex ? categoryReducerState[selectedCategoryOneIndex]['items'][selectedCategoryTwoIndex].items.map((item:any, index:number) => <option key={index} attr-index={index} value={item.id}>{ item.name }</option>) : null
