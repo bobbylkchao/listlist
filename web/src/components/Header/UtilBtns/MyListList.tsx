@@ -18,6 +18,7 @@ const MyHeadNav = styled.div`
   width: 35px;
   border-radius: 50%;
   line-height: 35px;
+  overflow: hidden;
 `;
 
 const MyListList = () => {
@@ -43,7 +44,11 @@ const MyListList = () => {
       <Dropdown>
         <Dropdown.Toggle className={styles.header_component_mylistlist_dropdown}>
           <MyHeadNav>
-            { getReduxStoreState['userAuth']['state']['name'].substring(0,1).toUpperCase() }
+            {
+              getReduxStoreState['userAuth']['state']['headnav'] === 'default'
+              ? <span>{ getReduxStoreState['userAuth']['state']['name'].substring(0,1).toUpperCase() }</span>
+              : <img className={styles.header_component_mylistlist_headnav_img} src={`${getReduxStoreState['userAuth']['state']['headnav']}`} referrerpolicy="no-referrer"/>
+            }
           </MyHeadNav>
         </Dropdown.Toggle>
 

@@ -8,6 +8,8 @@ import { useHistory } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 
 // listlist
+import config from "../../src/web.config";
+import { GlobalContext } from "../../src/context/global.context";
 import styles from "./styles.module.scss";
 import Button from "../../src/components/Button";
 import { H3 } from "../../src/components/Heading";
@@ -41,6 +43,7 @@ const GoogleLoginWrapper = styled.div`
 `;
 
 const LeftForm = () => {
+  const context = React.useContext(GlobalContext);
   const fromWhichPage = getQueryVariable("from");
   const reduxDispatch = useDispatch();
   const router = useHistory();
@@ -71,48 +74,71 @@ const LeftForm = () => {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+  const handleSubmit = (event?, googleLogin: {email: string, name: string, headnav: string}) => {
+    let email = "";
+    let password = "";
+    let channel = "listlist";
+    let channelName = "";
+    let channelHeadNav = "";
 
-    /**
-     * Validation Check
-     */
-    for(const formValidItem in formValid){
-      if(formValid[formValidItem].isInvalid) return;
-      if(!formValid[formValidItem].value){
+    if(googleLogin){
+      /**
+       * GOOGLE LOGIN LOGICS
+       */
+      email = googleLogin.email;
+      channel = "google";
+      channelName = googleLogin.name;
+      channelHeadNav = googleLogin.headnav;
 
-        if(formValidItem === 'email'){
-          setFormValid(prevState => ({
-            ...prevState,
-            email: {
-              isInvalid: true,
-              message: 'Please enter the email',
-            },
-          }));
+    }else{
+      /**
+       * LISTLIST WEB LOGIN LOGICS
+       */
+      event.preventDefault();
+      event.stopPropagation();
+  
+      /**
+       * Validation Check
+       */
+      for(const formValidItem in formValid){
+        if(formValid[formValidItem].isInvalid) return;
+        if(!formValid[formValidItem].value){
+  
+          if(formValidItem === 'email'){
+            setFormValid(prevState => ({
+              ...prevState,
+              email: {
+                isInvalid: true,
+                message: 'Please enter the email',
+              },
+            }));
+          }
+  
+          if(formValidItem === 'password'){
+            setFormValid(prevState => ({
+              ...prevState,
+              password: {
+                isInvalid: true,
+                message: 'Please enter the password',
+              },
+            }));
+          }
+  
+          return;
         }
-
-        if(formValidItem === 'password'){
-          setFormValid(prevState => ({
-            ...prevState,
-            password: {
-              isInvalid: true,
-              message: 'Please enter the password',
-            },
-          }));
-        }
-
-        return;
       }
+  
+      email = event.currentTarget.elements.email.value;
+      password = event.currentTarget.elements.password.value;
     }
-
-    const email = event.currentTarget.elements.email.value;
-    const password = event.currentTarget.elements.password.value;
 
     setIsSubmitting(true);
     userLoginReq({
       email: email,
       password: password,
+      channel: channel,
+      channelName: channelName,
+      channelHeadNav: channelHeadNav,
     }, (result: any) => {
       if(result.errors){
         setAlertInfos({ variant: 'danger', message: `Oops! Something went wrong, please try again later. (${result.errors[0] ? result.errors[0].message : '' })`, visible: true });
@@ -156,7 +182,13 @@ const LeftForm = () => {
   };
 
   const responseGoogle = (res: any) => {
-    console.log(res);
+    if(res.profileObj){
+      handleSubmit(null, {
+        email: res.profileObj.email,
+        name: res.profileObj.name,
+        headnav: res.profileObj.imageUrl,
+      });
+    }
   };
 
   return(
@@ -267,13 +299,16 @@ const LeftForm = () => {
 
       <GoogleLoginWrapper>
         <GoogleLogin
-          clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+          clientId={config.googleLoginClientID}
           buttonText="Login"
           onSuccess={responseGoogle}
-          onFailure={responseGoogle}
+          onFailure={(res: any) => {
+            console.error(res);
+          }}
           cookiePolicy={'single_host_origin'}
         />
       </GoogleLoginWrapper>
+
     </LeftFormWrapper>
   );
 };

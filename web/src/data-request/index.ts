@@ -84,14 +84,20 @@ export const userRegisterReq = (params: UserRegReqInterface, callback: (res: any
  */
 interface UserLoginReqInterface{
   email: string;
-  password: string;
+  password?: string;
+  channel: string;
+  channelName?: string;
+  channelHeadNav?: string;
 }
 export const userLoginReq = (params: UserLoginReqInterface, callback: (result:any) => void) => {
   getGraphQL(`
     query{
       auth(
         email: "${params.email}",
-        password: "${params.password}"
+        password: "${params.password}",
+        channel: "${params.channel}",
+        channelName: "${params.channelName}",
+        channelHeadNav: "${params.channelHeadNav}",
       ){
         code,
         message,

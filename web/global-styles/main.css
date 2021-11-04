@@ -28,6 +28,16 @@ html, body{
   font-weight: 500 !important;
 }
 
+.toastModal .modal-sm{
+  -webkit-touch-callout:none;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  max-width: 150px !important;
+}
+
 /* Bootstrap Form global styles */
 button[class*="CategorySelect"].btn-success:hover,
 .dropdown-toggle{
@@ -109,6 +119,10 @@ textarea:focus.form-control{
 
 .form-group.row{
   align-items: center;
+}
+
+.alert{
+  word-break: break-word !important;
 }
 
 /* Bootstrap missing */
