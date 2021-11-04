@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import styles from './styles.module.scss';
 import Button from '../../src/components/Button';
 import Link from '../../src/components/Link';
+import CategoryModal from '../../src/components/CategoryModal';
 import { regexLetterNumberSpace } from '../../src/utils';
 
 const AdDetailsSectionWrapper = styled.div`
@@ -27,10 +28,12 @@ const TagsWrapper = styled.div`
 const AdDetailsSection = () => {
   const [tags, setTags] = React.useState<[]>([]);
   const [tagTyping, setTagTyping] = React.useState<string | number | null | undefined>('');
+  const CategoryModalRef = React.createRef<any>();
 
   return(
     <AdDetailsSectionWrapper>
       {/**category */}
+      <CategoryModal onRef={CategoryModalRef}/>
       <Form.Group as={Row} className="mb-3" controlId="addPost_category">
         <Form.Label column sm={3}>
           Select Category
@@ -38,8 +41,10 @@ const AdDetailsSection = () => {
         <Col sm={9} className={styles.add_post_form_category_flex}>
           <span>Buy & Sell</span>
           <span>></span>
-          <span>Clothing</span>
-          <Link>Change category</Link>
+          <span>Computers</span>
+          <span>></span>
+          <span>Desktop Computers</span>
+          <Link onClick={() => CategoryModalRef.current.show()}>Change category</Link>
         </Col>
       </Form.Group>
 
@@ -234,6 +239,7 @@ const AdDetailsSection = () => {
                     }else{
                       e.target.value=''
                     }
+                    setTagTyping('');
                   }
                 }}
               />

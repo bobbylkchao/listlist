@@ -39,7 +39,7 @@ const AgreementWrapper = styled.div`
 
 const AddPostPage = () => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-
+  
   const handleSubmit = (event: any) => {
     event.preventDefault();
     event.stopPropagation();
