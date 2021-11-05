@@ -47,7 +47,7 @@ const MyListList = () => {
             {
               getReduxStoreState['userAuth']['state']['headnav'] === 'default'
               ? <span>{ getReduxStoreState['userAuth']['state']['name'].substring(0,1).toUpperCase() }</span>
-              : <img className={styles.header_component_mylistlist_headnav_img} src={`${getReduxStoreState['userAuth']['state']['headnav']}`} referrerpolicy="no-referrer"/>
+              : <img className={styles.header_component_mylistlist_headnav_img} src={`${getReduxStoreState['userAuth']['state']['headnav']}`} referrerPolicy="no-referrer"/>
             }
           </MyHeadNav>
         </Dropdown.Toggle>
