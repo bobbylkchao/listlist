@@ -13,7 +13,7 @@
 
 **Current Finished:** 
 
-- Web: Basic Structure, Router, Reducer(Category List, Category Selected, Global, Theme, UserAuth and UserGeo), Context(Toast), Header, Login, Google Login, Register, Logout, Authorized Wrapper Container
+- Web: Basic Structure, Router, Reducer(Category List, Category Selected, Global, Theme, UserAuth and UserGeo), Context(Toast), Header, Login, Login with Google, Login with Facebook, Register, Logout, Authorized Wrapper Container
 
 - API: ip geo query, login, register, jwt token, category list query, token validation query.
 
