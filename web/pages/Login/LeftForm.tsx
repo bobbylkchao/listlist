@@ -9,7 +9,6 @@ import GoogleLogin from "react-google-login";
 
 // listlist
 import config from "../../src/web.config";
-import { GlobalContext } from "../../src/context/global.context";
 import styles from "./styles.module.scss";
 import Button from "../../src/components/Button";
 import { H3 } from "../../src/components/Heading";
@@ -43,7 +42,6 @@ const GoogleLoginWrapper = styled.div`
 `;
 
 const LeftForm = () => {
-  const context = React.useContext(GlobalContext);
   const fromWhichPage = getQueryVariable("from");
   const reduxDispatch = useDispatch();
   const router = useHistory();
