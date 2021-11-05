@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 import { ThemeProvider } from 'styled-components';
 
 // listlist context
@@ -49,7 +50,7 @@ const Main = () => {
   const ToastRef = React.createRef<any>();
 
   // fontawesome icons
-  library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle, faPlus, faTimes);
+  library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle, faPlus, faTimes, fab);
 
   React.useEffect(() => {
     debugLog(`Route is loaded...`);

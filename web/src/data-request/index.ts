@@ -88,6 +88,7 @@ interface UserLoginReqInterface{
   channel: string;
   channelName?: string;
   channelHeadNav?: string;
+  channelID?: string;
 }
 export const userLoginReq = (params: UserLoginReqInterface, callback: (result:any) => void) => {
   getGraphQL(`
@@ -98,6 +99,7 @@ export const userLoginReq = (params: UserLoginReqInterface, callback: (result:an
         channel: "${params.channel}",
         channelName: "${params.channelName}",
         channelHeadNav: "${params.channelHeadNav}",
+        channelID: "${params.channelID}",
       ){
         code,
         message,

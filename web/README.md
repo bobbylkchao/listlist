@@ -20,3 +20,8 @@
 
 1. Follow steps on `https://developers.google.com/identity/sign-in/web/sign-in`
 2. Change `googleLoginClientID` in `src/web.config.ts` file
+
+## About Facebook Login
+
+1. Follow steps on `https://developers.facebook.com`
+2. Change `facebookAppID` in `src/web.config.ts` file
