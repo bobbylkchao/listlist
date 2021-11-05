@@ -1,6 +1,14 @@
 /**
  * Category Selection Modal
  * @desc Use `Ref` to call the function show() or hide()
+ * @param onRef createRef
+ * @param callback callback function
+ * @returns {object}
+ *  { 
+ *    one: {id, index, title}, // This is finally selected level one category
+ *    two: {id, index, title}, // This is finally selected level two category
+ *    three: {id, index, title} // This is finally selected level three category
+ *  }
  */
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -26,31 +34,50 @@ const Wrapper = styled.div`
   }
 `;
 
-const CategoryModal = (props: { onRef: any }) => {
+const CategoryModal = (props: { onRef: any, callback: () => void }) => {
   const categoryReducerState = useSelector((state:any) => state.categoryList.state);
-  const [categoryId, setCategoryId] = React.useState<number|null>(null);
   const [visible, setVisible] = React.useState<boolean>(false);
-
+  
   // for first category select, record `value` and `index`
-  const [selectedCategoryOneId, setSelectedCategoryOneId] = React.useState<number|null>(null);
-  const [selectedCategoryOneIndex, setSelectedCategoryOneIndex] = React.useState<number|null>(null);
+  const [selectdCategoryOneInfos, setSelectdCategoryOneInfos] = React.useState<{
+    index: null | number,
+    id: null | number,
+    title: null | string,
+  }>({
+    index: null,
+    id: null,
+    title: null,
+  });
 
   // for second category select, record `value` and `index`
-  const [selectedCategoryTwoId, setSelectedCategoryTwoId] = React.useState<number|null>(null);
-  const [selectedCategoryTwoIndex, setSelectedCategoryTwoIndex] = React.useState<number|null>(null);
+  const [selectdCategoryTwoInfos, setSelectdCategoryTwoInfos] = React.useState<{
+    index: null | number,
+    id: null | number,
+    title: null | string,
+  }>({
+    index: null,
+    id: null,
+    title: null,
+  });
 
   // for third category select, record `value` and `index`
-  const [selectedCategoryThreeId, setSelectedCategoryThreeId] = React.useState<number|null>(null);
+  const [selectdCategoryThreeInfos, setSelectdCategoryThreeInfos] = React.useState<{
+    index: null | number,
+    id: null | number,
+    title: null | string,
+  }>({
+    index: null,
+    id: null,
+    title: null,
+  });
 
   React.useImperativeHandle(props.onRef, () => {
     return {
       show: () => {
         setVisible(true);
-        setSelectedCategoryOneId(null);
-        setSelectedCategoryOneIndex(null);
-        setSelectedCategoryTwoId(null);
-        setSelectedCategoryTwoIndex(null);
-        setSelectedCategoryThreeId(null);
+        setSelectdCategoryOneInfos({index: null, id: null, title: null});
+        setSelectdCategoryTwoInfos({index: null, id: null, title: null});
+        setSelectdCategoryThreeInfos({index: null, id: null, title: null});
       },
       hide: () => setVisible(false),
     }
@@ -62,22 +89,38 @@ const CategoryModal = (props: { onRef: any }) => {
         name="categoryLevelOne"
         id="categoryLevelOne"
         size="10"
-        value={selectedCategoryOneId}
+        value={selectdCategoryOneInfos.id}
         onChange={(e:any) => {
-          setSelectedCategoryOneIndex(e.target.selectedOptions[0].attributes['attr-index'].value);
-          setSelectedCategoryOneId(e.target.value);
-          setSelectedCategoryTwoIndex(null);
-          setSelectedCategoryTwoId(null);
+          // new
+          setSelectdCategoryOneInfos({
+            index: e.target.selectedOptions[0].attributes['attr-index'].value,
+            id: e.target.value,
+            title: e.target.selectedOptions[0].innerText
+          });
+          setSelectdCategoryTwoInfos({index: null, id: null, title: null});
         }}
         onFocus={(e:any) => {
           // if the selected option without `items`, set categoryId to this value
-          if(categoryReducerState[e.target.selectedOptions[0].attributes['attr-index'].value].items.length === 0){
-            setTimeout(() => setCategoryId(e.target.value), 100);
+          if(e.target.selectedOptions[0]){
+            if(categoryReducerState[e.target.selectedOptions[0].attributes['attr-index'].value].items.length === 0){
+              setTimeout(() => {
+                props.callback({
+                  one:{
+                    index: e.target.selectedOptions ? e.target.selectedOptions[0].attributes['attr-index'].value : null,
+                    id: e.target.value,
+                    title: e.target.selectedOptions ? e.target.selectedOptions[0].innerText : null,
+                  },
+                  two:{},
+                  three:{},
+                });
+                setVisible(false);
+              }, 100);
+            }
           }
         }}
       >
         {
-          categoryReducerState.map((item:any, index:number) => {
+          categoryReducerState ? categoryReducerState.map((item:any, index:number) => {
             return(
               <option
                 key={index}
@@ -85,7 +128,7 @@ const CategoryModal = (props: { onRef: any }) => {
                 value={item.id}
               >{ item.name }</option>
             );
-          })
+          }) : null
         }
       </select>
     );
@@ -96,21 +139,37 @@ const CategoryModal = (props: { onRef: any }) => {
       name="categoryLevelTwo"
       id="categoryLevelTwo"
       size="10"
-      value={selectedCategoryTwoId}
+      value={selectdCategoryTwoInfos.id}
       onChange={(e:any) => {
-        setSelectedCategoryTwoIndex(e.target.selectedOptions[0].attributes['attr-index'].value);
-        setSelectedCategoryTwoId(e.target.value);
-        setSelectedCategoryThreeId(null);   
+        setSelectdCategoryTwoInfos({
+          index: e.target.selectedOptions[0].attributes['attr-index'].value,
+          id: e.target.value,
+          title: e.target.selectedOptions[0].innerText,
+        });
+        setSelectdCategoryThreeInfos({index: null, id: null, title: null}); 
       }}
       onFocus={(e:any) => {
         // if the selected option without `items`, set categoryId to this value
-        if(categoryReducerState[selectedCategoryOneIndex].items[e.target.selectedOptions[0].attributes['attr-index'].value].items.length === 0){
-          setTimeout(() => setCategoryId(e.target.value), 100);
+        if(e.target.selectedOptions[0]){
+          if(categoryReducerState[selectdCategoryOneInfos.index].items[e.target.selectedOptions[0].attributes['attr-index'].value].items.length === 0){
+            setTimeout(() => {
+              props.callback({
+                one:selectdCategoryOneInfos,
+                two:{
+                  index: e.target.selectedOptions ? e.target.selectedOptions[0].attributes['attr-index'].value : null,
+                  id: e.target.value,
+                  title: e.target.selectedOptions ? e.target.selectedOptions[0].innerText : null,
+                },
+                three:{},
+              });
+              setVisible(false);
+            }, 100);
+          }
         }
       }}
     >
       {
-        selectedCategoryOneId && selectedCategoryOneIndex ? categoryReducerState[selectedCategoryOneIndex].items.map((item:any, index:number) => {
+        selectdCategoryOneInfos.id && selectdCategoryOneInfos.index ? categoryReducerState[selectdCategoryOneInfos.index].items.map((item:any, index:number) => {
           return(
             <option
               key={index}
@@ -128,14 +187,33 @@ const CategoryModal = (props: { onRef: any }) => {
       name="categoryLevelThree"
       id="categoryLevelThree"
       size="10"
-      value={selectedCategoryThreeId}
-      onChange={(e:any) => setSelectedCategoryThreeId(e.target.value)}
+      value={selectdCategoryThreeInfos.id}
+      onChange={(e:any) => {
+        setSelectdCategoryThreeInfos({
+          index: e.target.selectedOptions[0].attributes['attr-index'].value,
+          id: e.target.value,
+          title: e.target.selectedOptions[0].innerText,
+        });
+      }}
       onFocus={(e:any) => {
-        setTimeout(() => setCategoryId(e.target.value), 100);
+        if(e.target.selectedOptions[0]){
+          setTimeout(() => {
+            props.callback({
+              one:selectdCategoryOneInfos,
+              two:selectdCategoryTwoInfos,
+              three:{
+                index: e.target.selectedOptions ? e.target.selectedOptions[0].attributes['attr-index'].value : null,
+                id: e.target.value,
+                title: e.target.selectedOptions ? e.target.selectedOptions[0].innerText : null,
+              },
+            });
+            setVisible(false);
+          }, 100);
+        }
       }}
     >
       {
-        selectedCategoryTwoId && selectedCategoryTwoIndex ? categoryReducerState[selectedCategoryOneIndex]['items'][selectedCategoryTwoIndex].items.map((item:any, index:number) => <option key={index} attr-index={index} value={item.id}>{ item.name }</option>) : null
+        selectdCategoryTwoInfos.id && selectdCategoryTwoInfos.index ? categoryReducerState[selectdCategoryOneInfos.index]['items'][selectdCategoryTwoInfos.index].items.map((item:any, index:number) => <option key={index} attr-index={index} value={item.id}>{ item.name }</option>) : null
       }
     </select>
   );
@@ -149,7 +227,7 @@ const CategoryModal = (props: { onRef: any }) => {
       backdrop="static"
       onHide={() => setVisible(false)}
     >
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>Select the Category</Modal.Title>
       </Modal.Header>
 

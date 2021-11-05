@@ -26,24 +26,56 @@ const TagsWrapper = styled.div`
 `;
 
 const AdDetailsSection = () => {
+  // tags
   const [tags, setTags] = React.useState<[]>([]);
   const [tagTyping, setTagTyping] = React.useState<string | number | null | undefined>('');
+  // category
+  const [currentCategory, setCurrentCategory] = React.useState<{
+    one: {
+      id?: string,
+      index?: string,
+      title?: string,
+    },
+    two: {
+      id?: string,
+      index?: string,
+      title?: string,
+    },
+    three: {
+      id?: string,
+      index?: string,
+      title?: string,
+    },
+  }>({
+    one: {},
+    two: {},
+    three: {},
+  });
+  // categroy modal
   const CategoryModalRef = React.createRef<any>();
+  const categoryModalCallback = (res: any) => {
+    setCurrentCategory(res);
+  };
+
+  // after render show category selection modal
+  React.useEffect(() => {
+    CategoryModalRef.current.show();
+  }, []);
 
   return(
     <AdDetailsSectionWrapper>
       {/**category */}
-      <CategoryModal onRef={CategoryModalRef}/>
+      <CategoryModal onRef={CategoryModalRef} callback={categoryModalCallback}/>
       <Form.Group as={Row} className="mb-3" controlId="addPost_category">
         <Form.Label column sm={3}>
           Select Category
         </Form.Label>
         <Col sm={9} className={styles.add_post_form_category_flex}>
-          <span>Buy & Sell</span>
-          <span>></span>
-          <span>Computers</span>
-          <span>></span>
-          <span>Desktop Computers</span>
+          <span>{ currentCategory.one ? currentCategory.one.title : '' }</span>
+          <span>{ currentCategory.two.title ? '>' : '' }</span>
+          <span>{ currentCategory.two ? currentCategory.two.title : '' }</span>
+          <span>{ currentCategory.three.title ? '>' : '' }</span>
+          <span>{ currentCategory.three ? currentCategory.three.title : '' }</span>
           <Link onClick={() => CategoryModalRef.current.show()}>Change category</Link>
         </Col>
       </Form.Group>
