@@ -13,8 +13,9 @@ const queryAuth = {
     channel: { type: new GraphQLNonNull(GraphQLString) },
     channelName: { type: GraphQLString },
     channelHeadNav: { type: GraphQLString },
+    channelID: { type: GraphQLString },
   },
-  async resolve(_, { email, password, channel, channelName, channelHeadNav }){
+  async resolve(_, { email, password, channel, channelName, channelHeadNav, channelID }){
     if(channel === "listlist"){
       /**
        * Login from Listlist
@@ -68,9 +69,9 @@ const queryAuth = {
         return {code: 500, message: 'Email or password does not match', token: null};
       }
       
-    }else if(channel === "google"){
+    }else{
       /**
-       * Login from Google
+       * Login from Google or Facebook
        */
 
       // Validation
@@ -96,14 +97,14 @@ const queryAuth = {
           userID: res[0].id,
           headnav: res[0].headnav,
           createdAt: res[0].createdAt,
-          channel: "google",
+          channel: channel,
         });
 
       }else{
         // user is not exist
         // create user first then go next;
         const currentTimestamp = getTimeStamp();
-        let createTheUser = await dbQuery(`insert into User (email, name, headnav, reg_channel, createdAt) values ('${email}', '${channelName}', '${channelHeadNav}', 'google',${currentTimestamp})`);
+        let createTheUser = await dbQuery(`insert into User (email, name, headnav, reg_channel, channel_userID, createdAt) values ('${email}', '${channelName}', '${channelHeadNav}', '${channel}', '${channelID}',${currentTimestamp})`);
 
         resUserInfos = JSON.stringify({
           name: channelName,
@@ -111,7 +112,7 @@ const queryAuth = {
           userID: createTheUser.insertId,
           headnav: channelHeadNav,
           createdAt: currentTimestamp,
-          channel: "google",
+          channel: channel,
         });
       }
 

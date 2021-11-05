@@ -5,7 +5,10 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+// 3rd login
 import GoogleLogin from "react-google-login";
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 // listlist
 import config from "../../src/web.config";
@@ -34,11 +37,39 @@ const ForgotPwdWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
-const GoogleLoginWrapper = styled.div`
+const OthersLoginWrapper = styled.div`
   border-top: 1px solid #ececec;
   margin-top: 30px;
   padding-top: 30px;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+`;
+
+const FacebookBtn = styled.a`
+  display: flex;
+  height: 40px;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  background-color: #0070cc;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 5px;
+  font-weight: 500;
+  padding: 0 10px;
+  margin-left: 20px;
+
+  >span{
+    margin-left: 15px;
+  }
+
+  &:hover{
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+  }
 `;
 
 const LeftForm = () => {
@@ -72,21 +103,21 @@ const LeftForm = () => {
     }
   };
 
-  const handleSubmit = (event?, googleLogin: {email: string, name: string, headnav: string}) => {
+  const handleSubmit = (event?, othersLogin: {from: string, email: string, name: string, headnav: string, channelID: string|number}) => {
     let email = "";
     let password = "";
     let channel = "listlist";
     let channelName = "";
     let channelHeadNav = "";
+    let channelID = "";
 
-    if(googleLogin){
-      /**
-       * GOOGLE LOGIN LOGICS
-       */
-      email = googleLogin.email;
-      channel = "google";
-      channelName = googleLogin.name;
-      channelHeadNav = googleLogin.headnav;
+    if(othersLogin){
+      
+      channel = othersLogin.from;
+      email = othersLogin.email;
+      channelName = othersLogin.name;
+      channelHeadNav = othersLogin.headnav;
+      channelID = othersLogin.channelID;
 
     }else{
       /**
@@ -137,6 +168,7 @@ const LeftForm = () => {
       channel: channel,
       channelName: channelName,
       channelHeadNav: channelHeadNav,
+      channelID: channelID,
     }, (result: any) => {
       if(result.errors){
         setAlertInfos({ variant: 'danger', message: `Oops! Something went wrong, please try again later. (${result.errors[0] ? result.errors[0].message : '' })`, visible: true });
@@ -182,9 +214,23 @@ const LeftForm = () => {
   const responseGoogle = (res: any) => {
     if(res.profileObj){
       handleSubmit(null, {
+        from: 'google',
         email: res.profileObj.email,
         name: res.profileObj.name,
-        headnav: res.profileObj.imageUrl,
+        headnav: res.profileObj.imageUrl ?? 'default',
+        channelID: res.profileObj.googleId,
+      });
+    }
+  };
+
+  const responseFacebook = (res:any) => {
+    if(res){
+      handleSubmit(null, {
+        from: 'facebook',
+        email: res.email,
+        name: res.name,
+        headnav: res.picture.data.url ?? 'default',
+        channelID: res.userID,
       });
     }
   };
@@ -295,17 +341,33 @@ const LeftForm = () => {
 
       </Form>
 
-      <GoogleLoginWrapper>
+      <OthersLoginWrapper>
         <GoogleLogin
           clientId={config.googleLoginClientID}
-          buttonText="Login"
           onSuccess={responseGoogle}
           onFailure={(res: any) => {
             console.error(res);
           }}
           cookiePolicy={'single_host_origin'}
+          style={{
+            borderRadius: 5
+          }}
         />
-      </GoogleLoginWrapper>
+        
+        <FacebookLogin
+          appId={config.facebookAppID}
+          autoLoad={false}
+          fields="name,email,picture"
+          icon="fa-facebook"
+          callback={responseFacebook}
+          render={(renderProps:any) => (
+            <FacebookBtn onClick={renderProps.onClick}>
+              <FontAwesomeIcon icon={['fab', 'facebook-f']} />
+              <span>Sign in with Facebook</span>
+            </FacebookBtn>
+          )}
+        />
+      </OthersLoginWrapper>
 
     </LeftFormWrapper>
   );
