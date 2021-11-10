@@ -12,23 +12,34 @@ import Link from '../../../src/components/Link';
 import CategoryModal from '../../../src/components/CategoryModal';
 import { regexLetterNumberSpace } from '../../../src/utils';
 import { AdDetailsSectionWrapper, Gap, TagsWrapper } from './styled';
+import {
+  categoryCallback,
+  adTitleCallback,
+  adTypeCallback,
+  forSaleByCallback,
+  adDescriptionCallback,
+  fulfillmentCallback,
+} from './callback';
 
 const AdDetailsSection = (params: {callback: (res: any) => void}) => {
+  // values
+  const [adTypeCheckedValue, setAdTypeCheckedValue] = React.useState<number>(1);
+  const [forSaleByCheckedValue, setForSaleByCheckedValue] = React.useState<number>(1);
+  const [fulfillmentCheckedValue, setFulfillmentCheckedValue] = React.useState<[string]>(['']);
+
   // validation
   const [formValid, setFormValid] = React.useState<{
     title: { valid: boolean, message: string },
-    adtype: { valid: boolean, message: string },
-    forsaleby: { valid: boolean, message: string },
     description: { valid: boolean, message: string },
   }>({
     title: { valid: true, message: '' },
-    adtype: { valid: true, message: '' },
-    forsaleby: { valid: true, message: '' },
     description:  { valid: true, message: '' },
   });
+
   // tags
   const [tags, setTags] = React.useState<[]>([]);
   const [tagTyping, setTagTyping] = React.useState<string | number | null | undefined>('');
+
   // category
   const [currentCategory, setCurrentCategory] = React.useState<{
     one: {
@@ -55,22 +66,9 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
   // categroy modal
   const CategoryModalRef = React.createRef<any>();
 
-  // callback
   const categoryModalCallback = (res: any) => {
     setCurrentCategory(res);
-    params.callback((previousData:any) => ({
-      ...previousData,
-      categoryID: parseInt(res.three.id ?? res.two.id ?? res.one.id),
-    }));
-  };
-
-  const adTitleCallback = (value: string) => {
-    if(value){
-      params.callback((previousData:any) => ({
-        ...previousData,
-        title: value,
-      }));
-    }
+    categoryCallback(res, params);
   };
 
   // after render show category selection modal
@@ -133,7 +131,7 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
 
               // form data callback
               if(validStatus){
-                adTitleCallback(e.target.value);
+                adTitleCallback(e.target.value, params);
               }
 
             }}
@@ -158,15 +156,34 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
               label="I'm offering"
               name="addPost_adtype"
               id="addPost_adtype_offering"
+              value={1}
               className={styles.add_post_form_adtype_o1}
-              checked={true}
+              onChange={(e:any) => {
+                if(e.target.checked){
+                  adTypeCallback(e.target.value, params);
+                }
+                if(e.target.checked && e.target.value !== 1){
+                  setAdTypeCheckedValue(1);
+                }
+              }}
+              checked={adTypeCheckedValue===1 ? true : false}
             />
             <Form.Check
               type="radio"
               label="I want to find"
               name="addPost_adtype"
               id="addPost_adtype_buy"
+              value={2}
               className={styles.add_post_form_adtype_o2}
+              onChange={(e:any) => {
+                if(e.target.checked){
+                  adTypeCallback(e.target.value, params);
+                }
+                if(e.target.checked && e.target.value !== 2){
+                  setAdTypeCheckedValue(2);
+                }
+              }}
+              checked={adTypeCheckedValue===2 ? true : false}
             />
           </Col>
         </Form.Group>
@@ -186,13 +203,32 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
               label="Owner"
               name="addPost_forsaleby"
               id="addPost_forsaleby_owner"
-              checked={true}
+              value={1}
+              onChange={(e:any) => {
+                if(e.target.checked){
+                  forSaleByCallback(e.target.value, params);
+                }
+                if(e.target.checked && e.target.value !== 1){
+                  setForSaleByCheckedValue(1);
+                }
+              }}
+              checked={forSaleByCheckedValue===1 ? true : false}
             />
             <Form.Check
               type="radio"
               label="Business"
               name="addPost_forsaleby"
               id="addPost_forsaleby_business"
+              value={2}
+              onChange={(e:any) => {
+                if(e.target.checked){
+                  forSaleByCallback(e.target.value, params);
+                }
+                if(e.target.checked && e.target.value !== 2){
+                  setForSaleByCheckedValue(2);
+                }
+              }}
+              checked={forSaleByCheckedValue===2 ? true : false}
             />
           </Col>
         </Form.Group>
@@ -206,7 +242,46 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
           Description
         </Form.Label>
         <Col sm={9}>
-          <Form.Control as="textarea" type="text" placeholder="" size="lg" style={{height: 180}}/>
+          <Form.Control
+            as="textarea"
+            type="text"
+            placeholder=""
+            size="lg"
+            style={{ height: 180 }}
+            isInvalid={!formValid.description.valid}
+            required
+            onBlur={(e:any) => {
+
+              // init variables
+              let validationMessage: string = '';
+              let validStatus: boolean = true;
+
+              // validate
+              if(!e.target.value){
+                validationMessage = 'Please input your ad description';
+                validStatus = false;
+              }else if(e.target.value.length <= 10){
+                validationMessage = 'Description must be 10 or more characters';
+                validStatus = false;
+              }
+
+              // update state
+              setFormValid((previousData:any) => ({
+                ...previousData,
+                description: {
+                  valid: validStatus,
+                  message: validationMessage,
+                }
+              }));
+
+              // form data callback
+              if(validStatus){
+                adDescriptionCallback(e.target.value, params);
+              }
+
+            }}
+          />
+          <Form.Control.Feedback type="invalid">{ formValid.description.message }</Form.Control.Feedback>
         </Col>
       </Form.Group>
 
@@ -228,18 +303,63 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
               label="Willing to drop-off / deliver"
               name="addPost_fulfillment"
               id="addPost_fulfillment_1"
+              value={1}
+              onChange={(e:any) => {
+                if(fulfillmentCheckedValue.length === 1 && fulfillmentCheckedValue[0] === ''){
+                  setFulfillmentCheckedValue([e.target.value]);
+                  fulfillmentCallback(JSON.stringify([e.target.value]), params);
+                  return;
+                }
+
+                let newArray = fulfillmentCheckedValue.filter((item: any) => item !== e.target.value);
+                if(e.target.checked && newArray.length > 0){
+                  newArray = [...newArray, e.target.value];
+                }
+                setFulfillmentCheckedValue(newArray);
+                fulfillmentCallback(JSON.stringify(newArray), params);
+              }}
             />
             <Form.Check
               type="checkbox"
               label="Willing to ship the item"
               name="addPost_fulfillment"
               id="addPost_fulfillment_2"
+              value={2}
+              onChange={(e:any) => {
+                if(fulfillmentCheckedValue.length === 1 && fulfillmentCheckedValue[0] === ''){
+                  setFulfillmentCheckedValue([e.target.value]);
+                  fulfillmentCallback(JSON.stringify([e.target.value]), params);
+                  return;
+                }
+
+                let newArray = fulfillmentCheckedValue.filter((item: any) => item !== e.target.value);
+                if(e.target.checked && newArray.length > 0){
+                  newArray = [...newArray, e.target.value];
+                }
+                setFulfillmentCheckedValue(newArray);
+                fulfillmentCallback(JSON.stringify(newArray), params);
+              }}
             />
             <Form.Check
               type="checkbox"
               label="Offer curbside pick up"
               name="addPost_fulfillment"
               id="addPost_fulfillment_3"
+              value={3}
+              onChange={(e:any) => {
+                if(fulfillmentCheckedValue.length === 1 && fulfillmentCheckedValue[0] === ''){
+                  setFulfillmentCheckedValue([e.target.value]);
+                  fulfillmentCallback(JSON.stringify([e.target.value]), params);
+                  return;
+                }
+                
+                let newArray = fulfillmentCheckedValue.filter((item: any) => item !== e.target.value);
+                if(e.target.checked && newArray.length > 0){
+                  newArray = [...newArray, e.target.value];
+                }
+                setFulfillmentCheckedValue(newArray);
+                fulfillmentCallback(JSON.stringify(newArray), params);
+              }}
             />
           </Col>
         </Form.Group>

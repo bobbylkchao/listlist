@@ -42,8 +42,8 @@ const AddPostPage = () => {
   const [formData, setFormData] = React.useState<{
     userID: null | number,
     categoryID: null | number,
-    adtype: null | number,
-    forsaleby: null | number,
+    adtype: number,
+    forsaleby:number,
     title: null | string,
     description: null | string,
     price: null | number,
@@ -63,8 +63,8 @@ const AddPostPage = () => {
   }>({
     userID: null,
     categoryID: null,
-    adtype: null,
-    forsaleby: null,
+    adtype: 1,
+    forsaleby: 1,
     title: null,
     description: null,
     price: null,

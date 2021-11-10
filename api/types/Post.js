@@ -49,7 +49,7 @@ const PostType = new GraphQLObjectType({
         description: "User's address.",
       },
       fulfillment: {
-        type: GraphQLInt,
+        type: GraphQLString,
         description: "Fulfillment options, 1:Willing to drop-off / deliver 2:Willing to ship the item 3:Offer curbside pick up.",
       },
       cashless_pay: {
