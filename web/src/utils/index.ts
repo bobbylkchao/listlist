@@ -280,5 +280,5 @@ export const phonNumberTransform = (value: string | number | null | undefined) =
  * @returns {string | number} new value
  */
 export const regexLetterNumberSpace = (value: string | number) => {
-  return value.trim().replace(/[^a-z0-9À-ÿ ]/gi, '');
+  return value.replace(/[^a-z0-9À-ÿ ]/gi, '');
 };

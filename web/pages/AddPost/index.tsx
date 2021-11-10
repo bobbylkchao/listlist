@@ -84,6 +84,7 @@ const AddPostPage = () => {
     event.preventDefault();
     event.stopPropagation();
     alert('submitted...');
+    // trim()
   };
 
   return(
