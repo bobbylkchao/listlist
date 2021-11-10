@@ -39,6 +39,46 @@ const AgreementWrapper = styled.div`
 
 const AddPostPage = () => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [formData, setFormData] = React.useState<{
+    userID: null | number,
+    categoryID: null | number,
+    adtype: null | number,
+    forsaleby: null | number,
+    title: null | string,
+    description: null | string,
+    price: null | number,
+    price_value: null | number,
+    address: null | string,
+    fulfillment: null | number,
+    cashless_pay: null | number,
+    condition: null | number,
+    tags: null | string,
+    youtube: null | string,
+    websitelink: null | string,
+    phonenumber: null | number,
+    uploadImages: null | [{
+      img: string,
+      main: boolean,
+    }],
+  }>({
+    userID: null,
+    categoryID: null,
+    adtype: null,
+    forsaleby: null,
+    title: null,
+    description: null,
+    price: null,
+    price_value: null,
+    address: null,
+    fulfillment: null,
+    cashless_pay: null,
+    condition: null,
+    tags: null,
+    youtube: null,
+    websitelink: null,
+    phonenumber: null,
+    uploadImages: null,
+  })
   
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -56,13 +96,17 @@ const AddPostPage = () => {
         >
           <GlobalNoticeMsg />
 
+          {
+            JSON.stringify(formData)
+          }
+
           <Form
             noValidate
             onSubmit={!isSubmitting ? handleSubmit : null}
             className={styles.add_post_form}
           >
             <SectionComponent no={1} title="Ad Details">
-              <AdDetailsSection/>
+              <AdDetailsSection callback={setFormData}/>
             </SectionComponent>
             
             <SectionComponent no={2} title="Media">

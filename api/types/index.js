@@ -5,6 +5,7 @@ const GeoType = require('./Geo');
 const VisitType = require('./Visit');
 const DefaultType = require('./response/Default');
 const AuthType = require('./response/Auth');
+const UploadImagesType = require('./UploadImages');
 
 module.exports = {
   PostType,
@@ -14,4 +15,5 @@ module.exports = {
   VisitType,
   DefaultType,
   AuthType,
+  UploadImagesType,
 }

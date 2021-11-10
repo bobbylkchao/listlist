@@ -12,13 +12,13 @@ const PostImageType = new GraphQLObjectType({
       type: GraphQLInt,
       description: "The post id.",
     },
-    thumbnail: {
+    url: {
       type: GraphQLString,
-      description: "The thumbnail image address.",
+      description: "The image address.",
     },
-    original: {
-      type: GraphQLString,
-      description: "The orininal image address.",
+    main: {
+      type: GraphQLInt,
+      description: "Main image of images",
     },
   }
 });

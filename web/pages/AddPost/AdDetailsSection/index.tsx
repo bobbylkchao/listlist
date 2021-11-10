@@ -4,28 +4,28 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Badge from 'react-bootstrap/Badge';
 import CloseButton from 'react-bootstrap/CloseButton';
-import styled from 'styled-components';
 
 // listlist
-import styles from './styles.module.scss';
-import Button from '../../src/components/Button';
-import Link from '../../src/components/Link';
-import CategoryModal from '../../src/components/CategoryModal';
-import { regexLetterNumberSpace } from '../../src/utils';
+import styles from '../styles.module.scss';
+import Button from '../../../src/components/Button';
+import Link from '../../../src/components/Link';
+import CategoryModal from '../../../src/components/CategoryModal';
+import { regexLetterNumberSpace } from '../../../src/utils';
+import { AdDetailsSectionWrapper, Gap, TagsWrapper } from './styled';
 
-const AdDetailsSectionWrapper = styled.div`
-  padding-right: 10%;
-`;
-
-const Gap = styled.div`
-  height: 10px;
-`;
-
-const TagsWrapper = styled.div`
-  margin-top: 10px;
-`;
-
-const AdDetailsSection = () => {
+const AdDetailsSection = (params: {callback: (res: any) => void}) => {
+  // validation
+  const [formValid, setFormValid] = React.useState<{
+    title: { valid: boolean, message: string },
+    adtype: { valid: boolean, message: string },
+    forsaleby: { valid: boolean, message: string },
+    description: { valid: boolean, message: string },
+  }>({
+    title: { valid: true, message: '' },
+    adtype: { valid: true, message: '' },
+    forsaleby: { valid: true, message: '' },
+    description:  { valid: true, message: '' },
+  });
   // tags
   const [tags, setTags] = React.useState<[]>([]);
   const [tagTyping, setTagTyping] = React.useState<string | number | null | undefined>('');
@@ -51,10 +51,26 @@ const AdDetailsSection = () => {
     two: {},
     three: {},
   });
+  
   // categroy modal
   const CategoryModalRef = React.createRef<any>();
+
+  // callback
   const categoryModalCallback = (res: any) => {
     setCurrentCategory(res);
+    params.callback((previousData:any) => ({
+      ...previousData,
+      categoryID: parseInt(res.three.id ?? res.two.id ?? res.one.id),
+    }));
+  };
+
+  const adTitleCallback = (value: string) => {
+    if(value){
+      params.callback((previousData:any) => ({
+        ...previousData,
+        title: value,
+      }));
+    }
   };
 
   // after render show category selection modal
@@ -88,7 +104,43 @@ const AdDetailsSection = () => {
           Ad title
         </Form.Label>
         <Col sm={9}>
-          <Form.Control type="text" placeholder="" />
+          <Form.Control
+            type="text"
+            placeholder=""
+            onBlur={(e:any) => {
+
+              // init variables
+              let validationMessage: string = '';
+              let validStatus: boolean = true;
+
+              // validate
+              if(!e.target.value){
+                validationMessage = 'Please input your ad title';
+                validStatus = false;
+              }else if(e.target.value.length <= 4){
+                validationMessage = 'Your ad title length is too short';
+                validStatus = false;
+              }
+
+              // update state
+              setFormValid((previousData:any) => ({
+                ...previousData,
+                title: {
+                  valid: validStatus,
+                  message: validationMessage,
+                }
+              }));
+
+              // form data callback
+              if(validStatus){
+                adTitleCallback(e.target.value);
+              }
+
+            }}
+            isInvalid={!formValid.title.valid}
+            required
+          />
+          <Form.Control.Feedback type="invalid">{ formValid.title.message }</Form.Control.Feedback>
         </Col>
       </Form.Group>
 
@@ -107,6 +159,7 @@ const AdDetailsSection = () => {
               name="addPost_adtype"
               id="addPost_adtype_offering"
               className={styles.add_post_form_adtype_o1}
+              checked={true}
             />
             <Form.Check
               type="radio"
@@ -133,6 +186,7 @@ const AdDetailsSection = () => {
               label="Owner"
               name="addPost_forsaleby"
               id="addPost_forsaleby_owner"
+              checked={true}
             />
             <Form.Check
               type="radio"
