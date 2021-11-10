@@ -56,7 +56,7 @@ const AddPostPage = () => {
     youtube: null | string,
     websitelink: null | string,
     phonenumber: null | number,
-    uploadImages: null | [{
+    uploadImages: [] | [{
       img: string,
       main: boolean,
     }],
@@ -77,7 +77,7 @@ const AddPostPage = () => {
     youtube: null,
     websitelink: null,
     phonenumber: null,
-    uploadImages: null,
+    uploadImages: [],
   })
   
   const handleSubmit = (event: any) => {
@@ -110,19 +110,19 @@ const AddPostPage = () => {
             </SectionComponent>
             
             <SectionComponent no={2} title="Media">
-              <MediaSection/>
+              <MediaSection callback={setFormData}/>
             </SectionComponent>
 
             <SectionComponent no={3} title="Location">
-              <LocationSection/>
+              <LocationSection callback={setFormData}/>
             </SectionComponent>
 
             <SectionComponent no={4} title="Price">
-              <PriceSection/>
+              <PriceSection callback={setFormData}/>
             </SectionComponent>
 
             <SectionComponent no={5} title="Contact Information">
-              <ContactSection/>
+              <ContactSection callback={setFormData}/>
             </SectionComponent>
 
             <AgreementWrapper>
