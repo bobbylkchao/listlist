@@ -49,7 +49,7 @@ const AddPostPage = () => {
     price: null | number,
     price_value: null | number,
     address: null | string,
-    fulfillment: null | number,
+    fulfillment: null | string,
     cashless_pay: null | number,
     condition: null | number,
     tags: null | string,

@@ -19,7 +19,10 @@ import {
   forSaleByCallback,
   adDescriptionCallback,
   fulfillmentCallback,
-} from './callback';
+  cashlessCallback,
+  conditionCallback,
+  tagsCallback,
+} from './callback';// these callbacks are used to pass this form elements' value to main form hook state
 
 const AdDetailsSection = (params: {callback: (res: any) => void}) => {
   // values
@@ -305,16 +308,21 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
               id="addPost_fulfillment_1"
               value={1}
               onChange={(e:any) => {
-                if(fulfillmentCheckedValue.length === 1 && fulfillmentCheckedValue[0] === ''){
-                  setFulfillmentCheckedValue([e.target.value]);
-                  fulfillmentCallback(JSON.stringify([e.target.value]), params);
-                  return;
-                }
-
+                // get array set except e.target.value
                 let newArray = fulfillmentCheckedValue.filter((item: any) => item !== e.target.value);
-                if(e.target.checked && newArray.length > 0){
+
+                if(e.target.checked){
+                  // if checked, add value to array set
+                  if(newArray.length === 1 && newArray[0] === ''){
+                    // if array set with nothing
+                    setFulfillmentCheckedValue([e.target.value]);
+                    fulfillmentCallback(JSON.stringify([e.target.value]), params);
+                    return;
+                  }
                   newArray = [...newArray, e.target.value];
                 }
+
+                // update
                 setFulfillmentCheckedValue(newArray);
                 fulfillmentCallback(JSON.stringify(newArray), params);
               }}
@@ -326,16 +334,21 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
               id="addPost_fulfillment_2"
               value={2}
               onChange={(e:any) => {
-                if(fulfillmentCheckedValue.length === 1 && fulfillmentCheckedValue[0] === ''){
-                  setFulfillmentCheckedValue([e.target.value]);
-                  fulfillmentCallback(JSON.stringify([e.target.value]), params);
-                  return;
-                }
-
+                // get array set except e.target.value
                 let newArray = fulfillmentCheckedValue.filter((item: any) => item !== e.target.value);
-                if(e.target.checked && newArray.length > 0){
+
+                if(e.target.checked){
+                  // if checked, add value to array set
+                  if(newArray.length === 1 && newArray[0] === ''){
+                    // if array set with nothing
+                    setFulfillmentCheckedValue([e.target.value]);
+                    fulfillmentCallback(JSON.stringify([e.target.value]), params);
+                    return;
+                  }
                   newArray = [...newArray, e.target.value];
                 }
+
+                // update
                 setFulfillmentCheckedValue(newArray);
                 fulfillmentCallback(JSON.stringify(newArray), params);
               }}
@@ -347,16 +360,21 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
               id="addPost_fulfillment_3"
               value={3}
               onChange={(e:any) => {
-                if(fulfillmentCheckedValue.length === 1 && fulfillmentCheckedValue[0] === ''){
-                  setFulfillmentCheckedValue([e.target.value]);
-                  fulfillmentCallback(JSON.stringify([e.target.value]), params);
-                  return;
-                }
-                
+                // get array set except e.target.value
                 let newArray = fulfillmentCheckedValue.filter((item: any) => item !== e.target.value);
-                if(e.target.checked && newArray.length > 0){
+
+                if(e.target.checked){
+                  // if checked, add value to array set
+                  if(newArray.length === 1 && newArray[0] === ''){
+                    // if array set with nothing
+                    setFulfillmentCheckedValue([e.target.value]);
+                    fulfillmentCallback(JSON.stringify([e.target.value]), params);
+                    return;
+                  }
                   newArray = [...newArray, e.target.value];
                 }
+
+                // update
                 setFulfillmentCheckedValue(newArray);
                 fulfillmentCallback(JSON.stringify(newArray), params);
               }}
@@ -383,6 +401,14 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
               label="Offer cashless payment"
               name="addPost_payment"
               id="addPost_payment"
+              value={1}
+              onChange={(e:any) => {
+                if(e.target.checked){
+                  cashlessCallback(1, params);
+                }else{
+                  cashlessCallback(null, params);
+                }
+              }}
             />
           </Col>
         </Form.Group>
@@ -403,12 +429,15 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
           <Form.Control
             as="select"
             style={{ width: 180 }}
+            onChange={(e:any) => {
+              conditionCallback(e.target.value === "" ? null : e.target.value, params);
+            }}
           >
-            <option>- Select -</option>
-            <option value="1">New</option>
-            <option value="2">Used - Like new</option>
-            <option value="3">Used - Good</option>
-            <option value="4">Used - Fair</option>
+            <option value="">- Select -</option>
+            <option value={1}>New</option>
+            <option value={2}>Used - Like new</option>
+            <option value={3}>Used - Good</option>
+            <option value={4}>Used - Fair</option>
           </Form.Control>
         </Col>
       </Form.Group>
@@ -440,7 +469,11 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
                     e.stopPropagation();
                     const newValue = regexLetterNumberSpace(e.target.value);
                     if(newValue){
-                      setTags((tags: any) => [...tags, newValue]);
+                      setTags((tags: []) => {
+                        const newArraySet = [...tags, newValue];
+                        tagsCallback(JSON.stringify(newArraySet), params);
+                        return newArraySet;
+                      });
                       setTimeout(() => e.target.value='', 100);
                     }else{
                       e.target.value=''
@@ -460,7 +493,11 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
                   if(tagTyping){
                     const newValue = regexLetterNumberSpace(tagTyping);
                     if(newValue){
-                      setTags((tags: any) => [...tags, newValue]);
+                      setTags((tags: []) => {
+                        const newArraySet = [...tags, newValue];
+                        tagsCallback(JSON.stringify(newArraySet), params);
+                        return newArraySet;
+                      });
                     }
                     setTagTyping('');
                   }
@@ -479,7 +516,9 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
                   >
                     <span>{ item }</span>
                     <a className="closeInline" onClick={() => setTags((tags: []) => {
-                      return tags.filter((item: any, index: number) => index !== key)
+                      const newArraySet = tags.filter((item: any, index: number) => index !== key);
+                      tagsCallback(JSON.stringify(newArraySet), params);
+                      return newArraySet;
                     })}></a>
                   </Badge>
                 )) : null

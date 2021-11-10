@@ -50,3 +50,25 @@ export const fulfillmentCallback = (value: string, params: {callback: (res: any)
     }));
   }
 };
+
+export const cashlessCallback = (value: null | number, params: {callback: (res: any) => void}) => {
+  params.callback((previousData:any) => ({
+    ...previousData,
+    cashless_pay: value,
+  }));
+};
+
+export const conditionCallback = (value: null | number, params: {callback: (res: any) => void}) => {
+  params.callback((previousData:any) => ({
+    ...previousData,
+    condition: value,
+  }));
+};
+
+export const tagsCallback = (value: null | string, params: {callback: (res: any) => void}) => {
+  params.callback((previousData:any) => ({
+    ...previousData,
+    tags: JSON.parse(value).length===0 ? null : value,
+  }));
+};
+
