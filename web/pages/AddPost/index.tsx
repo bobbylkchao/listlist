@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "react-bootstrap/Form";
 import styles from "./styles.module.scss";
@@ -38,6 +40,8 @@ const AgreementWrapper = styled.div`
 `;
 
 const AddPostPage = () => {
+  const router = useHistory();
+  const userAuthState = useSelector((state:any) => state.userAuth.state);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [formData, setFormData] = React.useState<{
     userID: null | number,
@@ -46,7 +50,7 @@ const AddPostPage = () => {
     forsaleby:number,
     title: null | string,
     description: null | string,
-    price: null | number,
+    price: number,
     price_value: null | number,
     address: null | string,
     fulfillment: null | string,
@@ -55,7 +59,7 @@ const AddPostPage = () => {
     tags: null | string,
     youtube: null | string,
     websitelink: null | string,
-    phonenumber: null | number,
+    phonenumber: null | string,
     uploadImages: [] | [{
       img: string,
       main: boolean,
@@ -67,7 +71,7 @@ const AddPostPage = () => {
     forsaleby: 1,
     title: null,
     description: null,
-    price: null,
+    price: 1,
     price_value: null,
     address: null,
     fulfillment: null,
@@ -78,13 +82,30 @@ const AddPostPage = () => {
     websitelink: null,
     phonenumber: null,
     uploadImages: [],
-  })
+  });
+
+  React.useEffect(() => {
+    if(userAuthState){
+      setFormData((previous: any) => ({
+        ...previous,
+        userID: userAuthState.userID,
+      }));
+    }
+  }, [userAuthState]);
   
   const handleSubmit = (event: any) => {
     event.preventDefault();
     event.stopPropagation();
-    alert('submitted...');
     // trim()
+    if(!formData.userID){
+      router.replace({
+        pathname: "/login",
+        search: `?from=${encodeURIComponent(location.pathname)}`,
+      });
+      return;
+    }
+
+
   };
 
   return(

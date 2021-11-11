@@ -23,10 +23,34 @@ const PriceOptionValueWrapper = styled.div`
   }
 `;
 
-const PriceSection = () => {
+// callback
+const priceCallback = (value: number, params: {callback: (res: any) => void}) => {
+  params.callback((previousData:any) => ({
+    ...previousData,
+    price: value,
+  }));
+};
+
+const priceValueCallback = (value: null | number, params: {callback: (res: any) => void}) => {
+  params.callback((previousData:any) => ({
+    ...previousData,
+    price_value: value === '' ? null : parseInt(value),
+  }));
+};
+
+const PriceSection = (params: {callback: (res: any) => void}) => {
   const [currentChecked, setCurrentChecked] = React.useState<number>(1);
-  const [priceValue, setPriceValue] = React.useState<number|undefined>();
-  const [bidStartPriceValue, setBidStartPriceValue] = React.useState<number|undefined>();
+  const [priceValue, setPriceValue] = React.useState<number | string>('');
+  const [bidStartPriceValue, setBidStartPriceValue] = React.useState<number | string>('');
+
+  // validation
+  const [valid, setValid] = React.useState<{
+    status: boolean,
+    message: string,
+  }>({
+    status: true,
+    message: '',
+  });
 
   return(
     <PriceSectionWrapper>
@@ -48,15 +72,26 @@ const PriceSection = () => {
                 onChange={(e: any) => {
                   if(e.target.checked && currentChecked !== 1){
                     setCurrentChecked(1);
+                    setPriceValue('');
+                    setBidStartPriceValue('');
+                    priceCallback(1, params);
+                    priceValueCallback(null, params);
                   }
                 }}
+                
               />
               <PriceOptionValueWrapper>
                 <FormCheck.Label>$</FormCheck.Label>
                 <Form.Control
-                  type="number"
+                  type="text"
+                  placeholder=""
                   name="addPost_price_value"
-                  onKeyUp={(e:any) => e.target.value = priceNumberCheck(e.target.value)}
+                  value={priceValue}
+                  onChange={(e:any) => {
+                    const value = priceNumberCheck(e.target.value);
+                    setPriceValue(value);
+                    priceValueCallback(value, params);
+                  }}
                   disabled={currentChecked === 1 ? false : true}
                 />
               </PriceOptionValueWrapper>
@@ -73,8 +108,13 @@ const PriceSection = () => {
                 onChange={(e: any) => {
                   if(e.target.checked && currentChecked !== 2){
                     setCurrentChecked(2);
+                    setPriceValue('');
+                    setBidStartPriceValue('');
+                    priceCallback(2, params);
+                    priceValueCallback(null, params);
                   }
                 }}
+                
               />
               <PriceOptionValueWrapper>
                 <FormCheck.Label
@@ -82,14 +122,23 @@ const PriceSection = () => {
                   onClick={() => {
                     if(currentChecked !== 2){
                       setCurrentChecked(2);
+                      setPriceValue('');
+                      setBidStartPriceValue('');
+                      priceCallback(2, params);
+                      priceValueCallback(null, params);
                     }
                   }}
                 >Bid, starting from $</FormCheck.Label>
                 <Form.Control
-                  type="number"
-                  placeholder=""
+                  type="text"
                   name="addPost_price_bidstartfrom"
-                  onKeyUp={(e:any) => e.target.value = priceNumberCheck(e.target.value)}
+                  value={bidStartPriceValue}
+                  onChange={(e:any) => {
+                    const value = priceNumberCheck(e.target.value);
+                    setBidStartPriceValue(value);
+                    priceValueCallback(value, params);
+                  }}
+                  
                   disabled={currentChecked === 2 ? false : true}
                 />
               </PriceOptionValueWrapper>
@@ -106,13 +155,22 @@ const PriceSection = () => {
                 onChange={(e: any) => {
                   if(e.target.checked && currentChecked !== 3){
                     setCurrentChecked(3);
+                    setPriceValue('');
+                    setBidStartPriceValue('');
+                    priceCallback(3, params);
+                    priceValueCallback(null, params);
                   }
                 }}
+                
               />
               <FormCheck.Label
                 onClick={() => {
                   if(currentChecked !== 3){
                     setCurrentChecked(3);
+                    setPriceValue('');
+                    setBidStartPriceValue('');
+                    priceCallback(3, params);
+                    priceValueCallback(null, params);
                   }
                 }}
               >Please Contact</FormCheck.Label>
@@ -129,17 +187,28 @@ const PriceSection = () => {
                 onChange={(e: any) => {
                   if(e.target.checked && currentChecked !== 4){
                     setCurrentChecked(4);
+                    setPriceValue('');
+                    setBidStartPriceValue('');
+                    priceCallback(4, params);
+                    priceValueCallback(null, params);
                   }
                 }}
+                
               />
               <FormCheck.Label
                 onClick={() => {
                   if(currentChecked !== 4){
                     setCurrentChecked(4);
+                    setPriceValue('');
+                    setBidStartPriceValue('');
+                    priceCallback(4, params);
+                    priceValueCallback(null, params);
                   }
                 }}
               >Swap/Trade</FormCheck.Label>
             </FormCheck>
+
+            <Form.Control.Feedback type="invalid">{ valid.message }</Form.Control.Feedback>
 
           </Col>
         </Form.Group>

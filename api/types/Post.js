@@ -73,7 +73,7 @@ const PostType = new GraphQLObjectType({
         description: "Website link.",
       },
       phonenumber: {
-        type: GraphQLInt,
+        type: GraphQLString,
         description: "Phonenumber of the post.",
       },
       thumbnailURL: {
