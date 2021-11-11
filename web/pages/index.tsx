@@ -20,6 +20,7 @@ import { GlobalContext } from '../src/context/global.context';
 import Wrapper from '../src/containers/Wrapper';
 import HeaderComponent from "../src/components/Header";
 import Toast from '../src/components/Toast';
+import Notice from '../src/components/Notice';
 
 // listlist pages
 import HomePage from "./Home";
@@ -48,6 +49,7 @@ const Main = () => {
 
   // Refs
   const ToastRef = React.createRef<any>();
+  const NoticeRef = React.createRef<any>();
 
   // fontawesome icons
   library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle, faPlus, faTimes, fab);
@@ -62,6 +64,8 @@ const Main = () => {
       <GlobalContext.Provider value={{
         showToast: (title?: string) => ToastRef.current.show(title),// show toast component
         hideToast: () => ToastRef.current.hide(),// hide toast component
+        showNotice: (title: string) => NoticeRef.current.show(title),// show notice component
+        hideNotice: (title: string) => NoticeRef.current.hide(),// hide notice component
       }}>
         <Router>
           <Wrapper>
@@ -82,6 +86,7 @@ const Main = () => {
           </Wrapper>
         </Router>
         <Toast onRef={ToastRef}/>
+        <Notice onRef={NoticeRef}/>
       </GlobalContext.Provider>
     </ThemeProvider>
   );

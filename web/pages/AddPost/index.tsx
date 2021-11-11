@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "react-bootstrap/Form";
 import styles from "./styles.module.scss";
@@ -38,12 +40,72 @@ const AgreementWrapper = styled.div`
 `;
 
 const AddPostPage = () => {
+  const router = useHistory();
+  const userAuthState = useSelector((state:any) => state.userAuth.state);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [formData, setFormData] = React.useState<{
+    userID: null | number,
+    categoryID: null | number,
+    adtype: number,
+    forsaleby:number,
+    title: null | string,
+    description: null | string,
+    price: number,
+    price_value: null | number,
+    address: null | string,
+    fulfillment: null | string,
+    cashless_pay: null | number,
+    condition: null | number,
+    tags: null | string,
+    youtube: null | string,
+    websitelink: null | string,
+    phonenumber: null | string,
+    uploadImages: [] | [{
+      img: string,
+      main: boolean,
+    }],
+  }>({
+    userID: null,
+    categoryID: null,
+    adtype: 1,
+    forsaleby: 1,
+    title: null,
+    description: null,
+    price: 1,
+    price_value: null,
+    address: null,
+    fulfillment: null,
+    cashless_pay: null,
+    condition: null,
+    tags: null,
+    youtube: null,
+    websitelink: null,
+    phonenumber: null,
+    uploadImages: [],
+  });
+
+  React.useEffect(() => {
+    if(userAuthState){
+      setFormData((previous: any) => ({
+        ...previous,
+        userID: userAuthState.userID,
+      }));
+    }
+  }, [userAuthState]);
   
   const handleSubmit = (event: any) => {
     event.preventDefault();
     event.stopPropagation();
-    alert('submitted...');
+    // trim()
+    if(!formData.userID){
+      router.replace({
+        pathname: "/login",
+        search: `?from=${encodeURIComponent(location.pathname)}`,
+      });
+      return;
+    }
+
+
   };
 
   return(
@@ -56,29 +118,33 @@ const AddPostPage = () => {
         >
           <GlobalNoticeMsg />
 
+          {
+            JSON.stringify(formData)
+          }
+
           <Form
             noValidate
             onSubmit={!isSubmitting ? handleSubmit : null}
             className={styles.add_post_form}
           >
             <SectionComponent no={1} title="Ad Details">
-              <AdDetailsSection/>
+              <AdDetailsSection callback={setFormData}/>
             </SectionComponent>
             
             <SectionComponent no={2} title="Media">
-              <MediaSection/>
+              <MediaSection callback={setFormData}/>
             </SectionComponent>
 
             <SectionComponent no={3} title="Location">
-              <LocationSection/>
+              <LocationSection callback={setFormData}/>
             </SectionComponent>
 
             <SectionComponent no={4} title="Price">
-              <PriceSection/>
+              <PriceSection callback={setFormData}/>
             </SectionComponent>
 
             <SectionComponent no={5} title="Contact Information">
-              <ContactSection/>
+              <ContactSection callback={setFormData}/>
             </SectionComponent>
 
             <AgreementWrapper>

@@ -41,12 +41,24 @@ const PostType = new GraphQLObjectType({
         description: "Price type of post, eg. 1: hasPrice 2: bid/auction 3:free 4:please contact 5:swpe/trade.",
       },
       price_value: {
-        type: GraphQLFloat,
+        type: GraphQLInt,
         description: "Value of price.",
       },
       address: {
         type: GraphQLString,
         description: "User's address.",
+      },
+      fulfillment: {
+        type: GraphQLString,
+        description: "Fulfillment options, 1:Willing to drop-off / deliver 2:Willing to ship the item 3:Offer curbside pick up.",
+      },
+      cashless_pay: {
+        type: GraphQLInt,
+        description: "If is 1, means can offer cashless payment.",
+      },
+      condition: {
+        type: GraphQLInt,
+        description: "Condition. 1:new 2:used-like new 3:used-good 3:used-fair.",
       },
       tags: {
         type: GraphQLString,
@@ -61,8 +73,12 @@ const PostType = new GraphQLObjectType({
         description: "Website link.",
       },
       phonenumber: {
-        type: GraphQLInt,
+        type: GraphQLString,
         description: "Phonenumber of the post.",
+      },
+      thumbnailURL: {
+        type: GraphQLString,
+        description: "Thumbnail URL.",
       },
       visit: {
         type: GraphQLInt,

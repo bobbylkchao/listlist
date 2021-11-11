@@ -20,8 +20,25 @@ const RemarkWrapper = styled.div`
   margin-top: 5px;
 `;
 
-const ContactSection = () => {
+// callback
+const phonenumberCallback = (value: null | string, params: {callback: (res: any) => void}) => {
+  params.callback((previousData:any) => ({
+    ...previousData,
+    phonenumber: value === "" ? null : value,
+  }));
+};
+
+const ContactSection = (params: {callback: (res: any) => void}) => {
+  const [phone, setPhone] = React.useState<string>('');
   const userReducerState = useSelector((state:any) => state.userAuth.state);
+
+  const [valid, setValid] = React.useState<{
+    status: boolean,
+    message: string,
+  }>({
+    status: true,
+    message: '',
+  });
 
   return(
     <ContactSectionWrapper>
@@ -38,9 +55,29 @@ const ContactSection = () => {
           <Form.Control
             type="text"
             maxLength="12"
-            onKeyUp={(e: any) => e.target.value = phonNumberTransform(e.target.value)}
-            onDrop={(e: any) => setTimeout(() => {e.target.value = phonNumberTransform(e.target.value)}, 50)}
+            value={phone}
+            onChange={(e: any) => {
+              e.target.value = phonNumberTransform(e.target.value);
+              setPhone(e.target.value);
+              phonenumberCallback(e.target.value, params);
+            }}
+            onDrop={(e: any) => {
+              setTimeout(() => {
+                e.target.value = phonNumberTransform(e.target.value);
+                setPhone(e.target.value);
+                phonenumberCallback(e.target.value, params);
+              }, 50)
+            }}
+            onBlur={(e:any) => {
+              if(e.target.value === '' || e.target.value.length === 12){
+                setValid({status: true, message: ''});
+              }else{
+                setValid({status: false, message: 'Please enter a valid phone number'});
+              }
+            }}
+            isInvalid={!valid.status}
           />
+          <Form.Control.Feedback type="invalid">{ valid.message }</Form.Control.Feedback>
           <RemarkWrapper>Your phone number will show up on your Ad.</RemarkWrapper>
         </Col>
       </Form.Group>
