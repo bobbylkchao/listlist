@@ -24,7 +24,7 @@ const addressCallback = (value: string, params: {callback: (res: any) => void}) 
   }));
 };
 
-const LocationSection = (params: {callback: (res: any) => void}) => {
+const LocationSection = (params: {onRef: any, callback: (res: any) => void}) => {
   const [valid, setValid] = React.useState<{
     status: boolean,
     message: string,
@@ -33,13 +33,27 @@ const LocationSection = (params: {callback: (res: any) => void}) => {
     message: '',
   });
 
+  // create interfaces to main form component to set validation via ref
+  React.useImperativeHandle(params.onRef, () => {
+    return{
+      valid: {
+        validAddress: (valid: boolean, message?: string) => {
+          setValid({
+            status: valid,
+            message: message ?? '',
+          });
+        },
+      }
+    }
+  });
+
   return(
     <LocationSectionWrapper>
       <InsideLeft>
         <Form.Group
           as={Row}
           className={`mb-3 ${styles.alignTopWithoutGap}`}
-          controlId="addPost_contact_phonenumber"
+          controlId="addPost_location_address"
         >
           <Form.Label column sm={3}>
             Address
@@ -50,7 +64,7 @@ const LocationSection = (params: {callback: (res: any) => void}) => {
           <Col sm={9}>
             <Form.Control
               type="text"
-              maxLength="200"
+              maxLength="50"
               onBlur={(e: any) => e.target.value = e.target.value.trim()}
               onKeyUp={(e: any) => {
                 if(e.target.value){

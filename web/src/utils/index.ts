@@ -282,3 +282,27 @@ export const phonNumberTransform = (value: string | number | null | undefined) =
 export const regexLetterNumberSpace = (value: string | number) => {
   return value.replace(/[^a-z0-9À-ÿ ]/gi, '');
 };
+
+/**
+ * scroll to top
+ * @param {number} top optional, top postion
+ * @param {number} left optional, left postion
+ */
+export const scrollToTop = (top?: number, left?: number) => {
+  window.scrollTo({
+    top: top ?? 0,
+    left: left ?? 0,
+    behavior: 'smooth'
+  });
+};
+
+/**
+ * scroll to specified element
+ * @param {string} elementID
+ */
+export const scrollToEle = (elementID: string) => {
+  document.getElementById(elementID).scrollIntoView({
+    block: 'start',
+    behavior: 'smooth',
+  });
+};

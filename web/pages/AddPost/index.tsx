@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Form from "react-bootstrap/Form";
@@ -15,6 +15,7 @@ import Hline from "../../src/components/Hline";
 import Link from "../../src/components/Link";
 import GlobalNoticeMsg from "../../src/components/GlobalNoticeMsg";
 import Button from "../../src/components/Button";
+import { scrollToTop, scrollToEle } from "../../src/utils";
 
 // each section component
 import SectionComponent from "./SectionComponent";
@@ -41,6 +42,7 @@ const AgreementWrapper = styled.div`
 
 const AddPostPage = () => {
   const router = useHistory();
+  const reduxDispatch = useDispatch();
   const userAuthState = useSelector((state:any) => state.userAuth.state);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [formData, setFormData] = React.useState<{
@@ -84,6 +86,10 @@ const AddPostPage = () => {
     uploadImages: [],
   });
 
+  // Ref from child components
+  const adDetailsSectionRef = React.createRef<any>();
+  const locationSectionRef = React.createRef<any>();
+
   React.useEffect(() => {
     if(userAuthState){
       setFormData((previous: any) => ({
@@ -96,7 +102,8 @@ const AddPostPage = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     event.stopPropagation();
-    // trim()
+
+    // UserID validation
     if(!formData.userID){
       router.replace({
         pathname: "/login",
@@ -105,6 +112,51 @@ const AddPostPage = () => {
       return;
     }
 
+    // categoryID validation
+    if(!formData.categoryID){
+      reduxDispatch({
+        type: "setGlobalNoticeMessage",
+        value: {
+          'type': 'danger',
+          'message': 'Please select the category',
+        }
+      });
+      scrollToTop();
+      return;
+    }
+
+    // title validation
+    if(!formData.title?.trim()){
+      adDetailsSectionRef.current.valid.validTitle(false, "Please input your ad title");
+      scrollToTop();
+      return;
+    }
+
+    if(formData.title && formData.title?.trim().length <= 4){
+      adDetailsSectionRef.current.valid.validTitle(false, "Your ad title length is too short");
+      scrollToTop();
+      return;
+    }
+
+    // description validation
+    if(!formData.description?.trim()){
+      adDetailsSectionRef.current.valid.validDesc(false, "Please input your ad description");
+      scrollToTop();
+      return;
+    }
+
+    if(formData.description && formData.title?.trim().length <= 10){
+      adDetailsSectionRef.current.valid.validDesc(false, "Description must be 10 or more characters");
+      scrollToTop();
+      return;
+    }
+
+    // address validation
+    if(!formData.address?.trim()){
+      locationSectionRef.current.valid.validAddress(false, "Please enter a valid postal code or street address");
+      scrollToEle('addPost_location_address');
+      return;
+    }
 
   };
 
@@ -128,7 +180,10 @@ const AddPostPage = () => {
             className={styles.add_post_form}
           >
             <SectionComponent no={1} title="Ad Details">
-              <AdDetailsSection callback={setFormData}/>
+              <AdDetailsSection
+                callback={setFormData}
+                onRef={adDetailsSectionRef}
+              />
             </SectionComponent>
             
             <SectionComponent no={2} title="Media">
@@ -136,7 +191,10 @@ const AddPostPage = () => {
             </SectionComponent>
 
             <SectionComponent no={3} title="Location">
-              <LocationSection callback={setFormData}/>
+              <LocationSection
+                callback={setFormData}
+                onRef={locationSectionRef}
+              />
             </SectionComponent>
 
             <SectionComponent no={4} title="Price">

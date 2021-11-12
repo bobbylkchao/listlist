@@ -24,7 +24,7 @@ import {
   tagsCallback,
 } from './callback';// these callbacks are used to pass this form elements' value to main form hook state
 
-const AdDetailsSection = (params: {callback: (res: any) => void}) => {
+const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) => {
   // values
   const [adTypeCheckedValue, setAdTypeCheckedValue] = React.useState<number>(1);
   const [forSaleByCheckedValue, setForSaleByCheckedValue] = React.useState<number>(1);
@@ -78,6 +78,32 @@ const AdDetailsSection = (params: {callback: (res: any) => void}) => {
   React.useEffect(() => {
     CategoryModalRef.current.show();
   }, []);
+
+  // create interfaces to main form component to set validation via ref
+  React.useImperativeHandle(params.onRef, () => {
+    return{
+      valid: {
+        validTitle: (valid: boolean, message?: string) => {
+          setFormValid((previous: any) => ({
+            ...previous,
+            title: {
+              valid: valid,
+              message: message ?? '',
+            }
+          }));
+        },
+        validDesc: (valid: boolean, message?: string) => {
+          setFormValid((previous: any) => ({
+            ...previous,
+            description: {
+              valid: valid,
+              message: message ?? '',
+            }
+          }));
+        },
+      }
+    }
+  });
 
   return(
     <AdDetailsSectionWrapper>
