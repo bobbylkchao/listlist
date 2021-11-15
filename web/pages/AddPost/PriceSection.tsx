@@ -109,6 +109,7 @@ const PriceSection = (params: {onRef: any, callback: (res: any) => void}) => {
                   disabled={currentChecked === 1 ? false : true}
                   isInvalid={!valid.status && currentChecked === 1}
                 />
+                <Form.Control.Feedback type="invalid" style={{marginLeft: 10}}>{ valid.message }</Form.Control.Feedback>
               </PriceOptionValueWrapper>
             </FormCheck>
             
@@ -156,6 +157,7 @@ const PriceSection = (params: {onRef: any, callback: (res: any) => void}) => {
                   disabled={currentChecked === 2 ? false : true}
                   isInvalid={!valid.status && currentChecked === 2}
                 />
+                <Form.Control.Feedback type="invalid" style={{marginLeft: 10}}>{ valid.message }</Form.Control.Feedback>
               </PriceOptionValueWrapper>
             </FormCheck>
 
