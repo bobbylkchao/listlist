@@ -8,7 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // listlist
 import webConfig from '../../../src/web.config';
 import styles from '../styles.module.scss';
-import { getImageBase64, urlValidation } from '../../../src/utils';
+import {
+  getImageBase64,
+  urlValidation,
+  compressionImage,
+  thumbnailImage,
+} from '../../../src/utils';
 import {
   AddImageWrapper,
   AddPostFileUploadPureBtn,
@@ -28,6 +33,7 @@ import {
 const MediaSection = (params: {callback: (res: any) => void}) => {
   const [images, setImages] = React.useState<any>([]);
   const [youtubeValidation, setYoutubeValidation] = React.useState<boolean>(true);
+  const [websiteURLValidation, setWebsiteURLValidation] = React.useState<boolean>(true);
 
   const getUploadFiles = async(e: any) => {
     if(images.length >= webConfig.maxUploadPhotos) return alert('Maximum 10 photos');
@@ -35,10 +41,16 @@ const MediaSection = (params: {callback: (res: any) => void}) => {
     if(e.files){
       for(let i = 0; i < webConfig.maxUploadPhotos; i++) {
         if(e.files[i]){
-          const base64Result = await getImageBase64(e.files[i]);
+          const compressedFile = await compressionImage(e.files[i]);// create compressed file
+          const base64Result = await getImageBase64(compressedFile);// compressed file to base64
+
+          const thumbnailFile = await thumbnailImage(compressedFile);// create thumnnail file based on compressed file
+          const thumbnailBase64Result = await getImageBase64(thumbnailFile);// thumnnail file to base64
+          
           setImages((preImages: any) => {
             const newArraySet = [...preImages, {
               img: base64Result,
+              thumbnail: thumbnailBase64Result,
               main: images.length === 0 && i === 0 ? true : false,// if no image, then set first image as the main
             }];
             uploadImagesCallback(newArraySet, params);
@@ -160,8 +172,24 @@ const MediaSection = (params: {callback: (res: any) => void}) => {
           <Form.Control
             type="text"
             placeholder=""
-            onKeyUp={(e:any) => websitelinkCallback(e.target.value, params)}
+            onKeyUp={(e:any) => {
+              websitelinkCallback(e.target.value, params)
+              if(e.target.value){
+                setWebsiteURLValidation(urlValidation(e.target.value));
+              }else{
+                setWebsiteURLValidation(true);
+              }
+            }}
+            onBlur={(e:any) => {
+              if(e.target.value){
+                setWebsiteURLValidation(urlValidation(e.target.value));
+              }else{
+                setWebsiteURLValidation(true);
+              }
+            }}
+            isInvalid={!websiteURLValidation}
           />
+          <Form.Control.Feedback type="invalid">Please enter a valid URL</Form.Control.Feedback>
         </Col>
       </Form.Group>
     </>

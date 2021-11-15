@@ -15,7 +15,7 @@ import Hline from "../../src/components/Hline";
 import Link from "../../src/components/Link";
 import GlobalNoticeMsg from "../../src/components/GlobalNoticeMsg";
 import Button from "../../src/components/Button";
-import { scrollToTop, scrollToEle } from "../../src/utils";
+import { scrollToTop, scrollToEle, priceNumberCheck } from "../../src/utils";
 
 // each section component
 import SectionComponent from "./SectionComponent";
@@ -64,6 +64,7 @@ const AddPostPage = () => {
     phonenumber: null | string,
     uploadImages: [] | [{
       img: string,
+      thumbnail: string,
       main: boolean,
     }],
   }>({
@@ -161,8 +162,11 @@ const AddPostPage = () => {
 
     // price validation
     if(formData.price === 1 || formData.price === 2){
-      if(!formData.price_value || formData.price_value === ""){
+      if(!formData.price_value || formData.price_value === "" || isNaN(formData.price_value) || formData.price_value === "null"){
         priceSectionRef.current.valid.validPrice(false, 'Please enter a price without decimals');
+        return;
+      }else{
+        priceSectionRef.current.valid.validPrice(true, '');
       }
     }
 

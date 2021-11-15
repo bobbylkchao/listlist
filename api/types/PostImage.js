@@ -14,7 +14,11 @@ const PostImageType = new GraphQLObjectType({
     },
     url: {
       type: GraphQLString,
-      description: "The image address.",
+      description: "The image url.",
+    },
+    thumbnailUrl: {
+      type: GraphQLString,
+      description: "The thumbnail image url.",
     },
     main: {
       type: GraphQLInt,
