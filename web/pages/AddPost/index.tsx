@@ -89,6 +89,7 @@ const AddPostPage = () => {
   // Ref from child components
   const adDetailsSectionRef = React.createRef<any>();
   const locationSectionRef = React.createRef<any>();
+  const priceSectionRef = React.createRef<any>();
 
   React.useEffect(() => {
     if(userAuthState){
@@ -145,7 +146,7 @@ const AddPostPage = () => {
       return;
     }
 
-    if(formData.description && formData.title?.trim().length <= 10){
+    if(formData.description && formData.description?.trim().length <= 10){
       adDetailsSectionRef.current.valid.validDesc(false, "Description must be 10 or more characters");
       scrollToTop();
       return;
@@ -157,6 +158,22 @@ const AddPostPage = () => {
       scrollToEle('addPost_location_address');
       return;
     }
+
+    // price validation
+    if(formData.price === 1 || formData.price === 2){
+      if(!formData.price_value || formData.price_value === ""){
+        priceSectionRef.current.valid.validPrice(false, 'Please enter a price without decimals');
+      }
+    }
+
+    // escape by using `encodeURIComponent()`
+    formData.title = encodeURIComponent(formData.title);
+    formData.description = encodeURIComponent(formData.description);
+    formData.websitelink = formData.websitelink ? encodeURIComponent(formData.websitelink) : formData.websitelink;
+    formData.youtube = formData.youtube ? encodeURIComponent(formData.youtube) : formData.youtube;
+
+    console.log(formData);
+    
 
   };
 
@@ -198,7 +215,10 @@ const AddPostPage = () => {
             </SectionComponent>
 
             <SectionComponent no={4} title="Price">
-              <PriceSection callback={setFormData}/>
+              <PriceSection
+                callback={setFormData}
+                onRef={priceSectionRef}
+              />
             </SectionComponent>
 
             <SectionComponent no={5} title="Contact Information">
