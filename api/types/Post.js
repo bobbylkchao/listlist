@@ -76,10 +76,6 @@ const PostType = new GraphQLObjectType({
         type: GraphQLString,
         description: "Phonenumber of the post.",
       },
-      thumbnailURL: {
-        type: GraphQLString,
-        description: "Thumbnail URL.",
-      },
       visit: {
         type: GraphQLInt,
         description: "Visit number of the post.",
