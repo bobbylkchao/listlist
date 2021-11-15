@@ -1,4 +1,4 @@
-export const uploadImagesCallback = (value: null | [{ img: string, main: boolean }], params: {callback: (res: any) => void}) => {
+export const uploadImagesCallback = (value: null | [{ img: string, thumbnail: string, main: boolean }], params: {callback: (res: any) => void}) => {
   params.callback((previousData:any) => ({
     ...previousData,
     uploadImages: value,

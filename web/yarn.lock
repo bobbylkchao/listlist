@@ -1763,6 +1763,14 @@
   "resolved" "https://registry.npmjs.org/brorand/-/brorand-1.1.0.tgz"
   "version" "1.1.0"
 
+"browser-image-compression@^1.0.17":
+  "integrity" "sha512-TMDh3gyNlVA5Vvn0D0AdWr33s2ftIeokHK406z8cYlLJ4ANAq1x6eMaSzqedDoZwUGyTVB+0rhNVaSFgM3YAZg=="
+  "resolved" "https://registry.npmjs.org/browser-image-compression/-/browser-image-compression-1.0.17.tgz"
+  "version" "1.0.17"
+  dependencies:
+    "core-js" "^3.16.1"
+    "uzip" "0.20201231.0"
+
 "browserify-aes@^1.0.0", "browserify-aes@^1.0.4":
   "integrity" "sha512-+7CHXqGuspUn/Sl5aO7Ea0xWGAtETPXNSAjHo48JfLdPWcMng33Xe4znFvQweqc/uzk5zSOI3H52CYnjCfb5hA=="
   "resolved" "https://registry.npmjs.org/browserify-aes/-/browserify-aes-1.2.0.tgz"
@@ -2051,6 +2059,11 @@
   "integrity" "sha512-qfskyO/KjtbYn09bn1IPkuhHl5PlJ6IzJ9s9sraJ1EqcuGyLGKzhSM1cY0zgyL9hx42eulQLZ6WaeK5ycJCkqw=="
   "resolved" "https://registry.npmjs.org/core-js-pure/-/core-js-pure-3.18.3.tgz"
   "version" "3.18.3"
+
+"core-js@^3.16.1":
+  "integrity" "sha512-Tnc7E9iKd/b/ff7GFbhwPVzJzPztGrChB8X8GLqoYGdEOG8IpLnK1xPyo3ZoO3HsK6TodJS58VGPOxA+hLHQMg=="
+  "resolved" "https://registry.npmjs.org/core-js/-/core-js-3.19.1.tgz"
+  "version" "3.19.1"
 
 "core-util-is@~1.0.0":
   "integrity" "sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ=="
@@ -5111,6 +5124,11 @@
   "version" "0.10.3"
   dependencies:
     "inherits" "2.0.1"
+
+"uzip@0.20201231.0":
+  "integrity" "sha512-OZeJfZP+R0z9D6TmBgLq2LHzSSptGMGDGigGiEe0pr8UBe/7fdflgHlHBNDASTXB5jnFuxHpNaJywSg8YFeGng=="
+  "resolved" "https://registry.npmjs.org/uzip/-/uzip-0.20201231.0.tgz"
+  "version" "0.20201231.0"
 
 "v8-compile-cache@^2.0.3":
   "integrity" "sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA=="

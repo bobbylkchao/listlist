@@ -1,3 +1,4 @@
+import imageCompression from 'browser-image-compression';
 import webConfig from "../web.config";
 
 /**
@@ -256,12 +257,12 @@ export const urlValidation = (value: string) => {
 
 /**
  * priceNumberCheck
- * @desc Check the input value is a valid price number or not
+ * @desc Check the input value is a valid price number or not (without dot)
  * @param {number | string} value
  * @returns {number}
  */
 export const priceNumberCheck = (value: number | string | null | undefined) => {
-  return value.replace(/[^0-9\.]/g,'');
+  return value.replace(/[^0-9]/g,'');
 };
 
 /**
@@ -315,5 +316,46 @@ export const scrollToEle = (elementID: string) => {
   document.getElementById(elementID).scrollIntoView({
     block: 'start',
     behavior: 'smooth',
+  });
+};
+
+/**
+ * compression image
+ * @param {object} file eg. e.files[0]
+ * @returns {object} compressedFile
+ */
+export const compressionImage = (file: any) => {
+  return new Promise((resolve: any) => {
+    (async () => {
+      // console.log(`originalFile size ${file.size / 1024} KB`);
+      const options = {
+        maxSizeMB: webConfig.photoCompressionMaxMB,
+        maxWidthOrHeight: webConfig.photoCompressionMaxWidthOrHeight,
+        useWebWorker: true,
+      };
+      const compressedFile = await imageCompression(file, options);
+      // console.log(`compressedFile size ${compressedFile.size / 1024} KB`);
+      resolve(compressedFile);
+    })();
+  });
+};
+
+/**
+ * create thumbnail image
+ * @param {object} file eg. e.files[0]
+ * @returns {object} thumbnail image
+ */
+ export const thumbnailImage = (file: any) => {
+  return new Promise((resolve: any) => {
+    (async () => {
+      const options = {
+        maxSizeMB: webConfig.photoThumbnailCompressionMaxMB,
+        maxWidthOrHeight: webConfig.photoThumbnailCompressionMaxWidthOrHeight,
+        useWebWorker: true,
+      };
+      const compressedFile = await imageCompression(file, options);
+      console.log(`thumbnail file size ${compressedFile.size / 1024} KB`);
+      resolve(compressedFile);
+    })();
   });
 };

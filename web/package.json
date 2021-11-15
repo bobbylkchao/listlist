@@ -17,6 +17,7 @@
     "@svgr/webpack": "5.5.0",
     "@types/styled-components": "^5.1.15",
     "bootstrap": "5.1.1",
+    "browser-image-compression": "^1.0.17",
     "graphql": "^15.6.1",
     "next": "11.1.2",
     "react": "17.0.2",
