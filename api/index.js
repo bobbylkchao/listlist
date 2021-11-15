@@ -4,8 +4,11 @@ const cors = require("cors");
 const compression = require("compression");
 const http = require("http");
 const schema = require("./schema");
-
 const app = express();
+
+// config upload size
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
 
 const loggingMiddleware = (req, res, next) => {
   let reqIP = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
