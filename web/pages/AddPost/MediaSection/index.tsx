@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // listlist
 import webConfig from '../../../src/web.config';
 import styles from '../styles.module.scss';
-import { getImageBase64 } from '../../../src/utils';
+import { getImageBase64, urlValidation } from '../../../src/utils';
 import {
   AddImageWrapper,
   AddPostFileUploadPureBtn,
@@ -27,6 +27,7 @@ import {
 
 const MediaSection = (params: {callback: (res: any) => void}) => {
   const [images, setImages] = React.useState<any>([]);
+  const [youtubeValidation, setYoutubeValidation] = React.useState<boolean>(true);
 
   const getUploadFiles = async(e: any) => {
     if(images.length >= webConfig.maxUploadPhotos) return alert('Maximum 10 photos');
@@ -125,8 +126,24 @@ const MediaSection = (params: {callback: (res: any) => void}) => {
           <Form.Control
             type="text"
             placeholder=""
-            onKeyUp={(e:any) => youtubeCallback(e.target.value, params)}
+            onKeyUp={(e:any) => {
+              youtubeCallback(e.target.value, params);
+              if(e.target.value){
+                setYoutubeValidation(urlValidation(e.target.value));
+              }else{
+                setYoutubeValidation(true);
+              }
+            }}
+            onBlur={(e:any) => {
+              if(e.target.value){
+                setYoutubeValidation(urlValidation(e.target.value));
+              }else{
+                setYoutubeValidation(true);
+              }
+            }}
+            isInvalid={!youtubeValidation}
           />
+          <Form.Control.Feedback type="invalid">Please enter a valid URL</Form.Control.Feedback>
           <YoutubeVideoRemarkWrapper>
             <div>Add a YouTube video to your ad.</div>
             <div>Example: http://www.youtube.com/watch?v=&lt;your video id&gt;</div>

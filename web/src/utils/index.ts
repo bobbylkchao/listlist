@@ -244,6 +244,17 @@ export const getImageBase64 = (file: any) => {
 }
 
 /**
+ * URL format validation
+ * @param {string} value 
+ * @returns {boolean}
+ */
+export const urlValidation = (value: string) => {
+  if(!value) return false;
+  const expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+  return value.match(new RegExp(expression)) ? true : false;
+};
+
+/**
  * priceNumberCheck
  * @desc Check the input value is a valid price number or not
  * @param {number | string} value

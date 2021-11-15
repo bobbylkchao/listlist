@@ -38,7 +38,7 @@ const priceValueCallback = (value: null | number, params: {callback: (res: any) 
   }));
 };
 
-const PriceSection = (params: {callback: (res: any) => void}) => {
+const PriceSection = (params: {onRef: any, callback: (res: any) => void}) => {
   const [currentChecked, setCurrentChecked] = React.useState<number>(1);
   const [priceValue, setPriceValue] = React.useState<number | string>('');
   const [bidStartPriceValue, setBidStartPriceValue] = React.useState<number | string>('');
@@ -50,6 +50,20 @@ const PriceSection = (params: {callback: (res: any) => void}) => {
   }>({
     status: true,
     message: '',
+  });
+
+  //  create interfaces to main form component to set validation via ref
+  React.useImperativeHandle(params.onRef, () => {
+    return{
+      valid: {
+        validPrice: (status: boolean, message?: string) => {
+          setValid({
+            status: status,
+            message: message ?? '',
+          });
+        }
+      }
+    }
   });
 
   return(
@@ -93,6 +107,7 @@ const PriceSection = (params: {callback: (res: any) => void}) => {
                     priceValueCallback(value, params);
                   }}
                   disabled={currentChecked === 1 ? false : true}
+                  isInvalid={!valid.status && currentChecked === 1}
                 />
               </PriceOptionValueWrapper>
             </FormCheck>
@@ -138,8 +153,8 @@ const PriceSection = (params: {callback: (res: any) => void}) => {
                     setBidStartPriceValue(value);
                     priceValueCallback(value, params);
                   }}
-                  
                   disabled={currentChecked === 2 ? false : true}
+                  isInvalid={!valid.status && currentChecked === 2}
                 />
               </PriceOptionValueWrapper>
             </FormCheck>
