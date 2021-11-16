@@ -189,3 +189,61 @@ export const getAllCategories = (callback: (params: any) => void) => (
     callback(r);
   })
 );
+
+/**
+ * add post request
+ */
+interface SubmitAddPostParamsInterface{
+  userID: number,
+  categoryID: number,
+  adtype: number,
+  forsaleby:number,
+  title: string,
+  description: string,
+  price: number,
+  price_value: null | number,
+  address: string,
+  fulfillment: null | string,
+  cashless_pay: null | number,
+  condition: null | number,
+  tags: null | string,
+  youtube: null | string,
+  websitelink: null | string,
+  phonenumber: null | string,
+  uploadImages: [] | [{
+    img: string,
+    thumbnail: string,
+    main: boolean,
+  }],
+}
+export const submitAddPost = (params: SubmitAddPostParamsInterface, callback: (res: any) => void) => {
+  console.log(params.uploadImages);
+  getGraphQL(`
+    mutation{
+      addPost(
+        userID: ${params.userID},
+        categoryID: ${params.categoryID},
+        adtype: ${params.adtype},
+        forsaleby: ${params.forsaleby},
+        title: "${params.title}",
+        description: "${params.description}",
+        price: ${params.price},
+        price_value: ${params.price_value},
+        address: "${params.address}",
+        fulfillment: "${params.fulfillment}",
+        cashless_pay: ${params.cashless_pay},
+        condition: ${params.condition},
+        tags: "${params.tags}",
+        youtube: "${params.youtube}",
+        websitelink: "${params.websitelink}",
+        phonenumber: "${params.phonenumber}",
+        uploadImages: ${JSON.stringify(params.uploadImages)}
+      ){
+        code,
+        message
+      }
+    }
+  `, (res: any) => {
+    callback(res);
+  });
+};

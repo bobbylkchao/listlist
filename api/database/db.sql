@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 04/11/2021 17:52:13
+ Date: 15/11/2021 20:56:43
 */
 
 SET NAMES utf8mb4;
@@ -77,14 +77,14 @@ DROP TABLE IF EXISTS `favourite`;
 CREATE TABLE `favourite` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userID` int NOT NULL,
-  `postID` int NOT NULL,
+  `postID` bigint NOT NULL,
   `createdAt` int NOT NULL COMMENT 'utc timestamp',
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `postID` (`postID`),
   KEY `userID` (`userID`),
   KEY `createdAt` (`createdAt`),
-  CONSTRAINT `Favourite.postID` FOREIGN KEY (`postID`) REFERENCES `post` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fav.postid` FOREIGN KEY (`postID`) REFERENCES `post` (`id`) ON DELETE CASCADE,
   CONSTRAINT `Favourite.userID` FOREIGN KEY (`userID`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -166,7 +166,7 @@ CREATE TABLE `notification` (
 -- ----------------------------
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` bigint NOT NULL AUTO_INCREMENT,
   `userID` int NOT NULL,
   `categoryID` int NOT NULL,
   `adtype` int NOT NULL COMMENT '1: offer 2: want to find',
@@ -174,12 +174,15 @@ CREATE TABLE `post` (
   `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `price` int NOT NULL COMMENT '1: hasPrice 2: bid/auction 3:free 4:please contact 5:swpe/trade',
-  `price_value` decimal(10,2) DEFAULT '0.00',
+  `price_value` int DEFAULT '0',
   `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `tags` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fulfillment` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '[\\"1\\",\\"3\\",\\"2\\"] 1:Willing to drop-off / deliver 2:Willing to ship the item 3:Offer curbside pick up',
+  `cashless_pay` int DEFAULT NULL COMMENT '1:Offer cashless payment',
+  `condition` int DEFAULT NULL COMMENT '1:new 2:used-like new 3:used-good 4:used-fair',
+  `tags` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `youtube` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `websitelink` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `phonenumber` int DEFAULT NULL,
+  `phonenumber` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `visit` int DEFAULT '0',
   `status` int DEFAULT '1' COMMENT '1:active 2:inactive',
   `createdAt` int NOT NULL COMMENT 'utc timestamp',
@@ -197,17 +200,12 @@ CREATE TABLE `post` (
   KEY `visit` (`visit`),
   KEY `status` (`status`),
   KEY `createat` (`createdAt`),
-  KEY `updateat` (`updatedAt`)
-) ENGINE=InnoDB AUTO_INCREMENT=16002003 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- ----------------------------
--- Records of post
--- ----------------------------
-BEGIN;
-INSERT INTO `post` VALUES (16002000, 1, 3, 1, 1, 'Gaming pc', 'RTX 1050 6gbs of ram, i5 intel its in good condition\\nAnd you can run up to 100 to 400 FPS depending on the game!', 1, 1200.00, 'Winnipeg, MB R3T 3G1', '\'pc\',\'gaming\'', NULL, NULL, NULL, 0, 1, 1634001827, NULL);
-INSERT INTO `post` VALUES (16002001, 2, 3, 1, 1, 'Apple iMac 27\" Intel i7 3.5GHz, 32GB Ram, Office 2019, Dual SSDs', 'Model A1419 (EMC 2639)\\nhttps://everymac.com/systems/apple/imac/specs/\\nimac-core-i7-3.5-27-inch-aluminum-late-2013-specs.html\\n3.5 GHz Intel Quad Core, Late 2013\\n3.9GHz with Turbo Boost\\nIOS Catalina\\n27 Inch, 2560x1440\\n32GB Ram\\nDual HDDs, 256GB SSD & 500GB SSD\\nNVIDIA GeForce GTX 775M graphics processor with 2 GB of dedicated GDDR5 memory\\nBuilt-in \"FaceTime HD\" video camera and built-in stereo speakers\\nGigabit Ethernet,\\nBluetooth 4.0\\n4x USB 3.0\\n2x Thunderbolt port\\nMicrosoft Office Pro 2019\\nPrice is Firm, sorry but I will not reply to lower offers.\\nNo Trades\\nThe iMac will be set up and running at time of purchase plus you will be given 7 days to verify that everything is properly functioning.\\nThis ad will be deleted immediately after computer is sold', 1, 850.00, 'Winnipeg, MB R3T 4B4', NULL, NULL, NULL, NULL, 0, 1, 1634002037, NULL);
-INSERT INTO `post` VALUES (16002002, 3, 3, 1, 1, 'Dell Optiplex 7040 i5 6500 3.2GHz OR i7 6700 3.4GHz Quad Core', 'I have this model in i5 or i7 outside of CPU, and RAM specs are the same.\\ni5 - $200\ni7 with 8GB RAM - $300\\nIntel i5 6500 3.2ghz Quad Core (6th Gen) OR\\nIntel i7 6700 3.4GHz Quad Core (6th Gen)\n**Small form factor***\\nOnboard Video Intel HD Graphics 530\\n2x Display Port\\n1x HDMI\\ni5 - 4GB DDR4 Ram, i7- 8GB DDR4 RAM\\n250GB SSD (SSD\'s are 10x faster and way more reliable then regular HDD\'s https://www.digitaltrends.com/computing/what-is-an-ssd/ )\\nDvdrw\\n1x PCIe 3.0x16; 1x PCIe 3.0x4,\\nGigabit Ethernet\\nFront and Rear Audio\\n6x USB 3.0 4x USB 2.0\\nWindows 10 Pro 64bit, Licensed and Updated\\nWindows Defender (free antivirus)\\nMicrosoft Office 2016 Pro\\nAdd 150Mbps Wi-Fi Adapter - $10 (Unavailable until June 28th)\\nAdd 1200Mbps 2.4/5GHz - $25\\nPrice is firm sorry, but I will not reply to lower offers.\\nNo Trades\\nThe computer will be set up and running at time of purchase plus you will be given 7 days to verify that everything is properly functioning, otherwise all sales are final.\\nClick on \"View Map\" for my approximate location\\nThis ad will be deleted immediately after computer is sold\\nPlease check my other ads', 1, 200.00, 'Winnipeg, MB R3T 4B4', NULL, NULL, NULL, NULL, 0, 1, 1634002208, NULL);
-COMMIT;
+  KEY `updateat` (`updatedAt`),
+  KEY `address` (`address`),
+  KEY `fulfillment` (`fulfillment`),
+  KEY `cashless_pay` (`cashless_pay`),
+  KEY `condition` (`condition`)
+) ENGINE=InnoDB AUTO_INCREMENT=16001002 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for postimage
@@ -215,14 +213,16 @@ COMMIT;
 DROP TABLE IF EXISTS `postimage`;
 CREATE TABLE `postimage` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `postID` int NOT NULL,
-  `thumbnail` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `original` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `postID` bigint NOT NULL,
+  `url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `thumbnailUrl` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `main` int DEFAULT '0' COMMENT 'main image? 0:false 1:true',
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `postid` (`postID`),
-  CONSTRAINT `postID` FOREIGN KEY (`postID`) REFERENCES `post` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `main` (`main`),
+  CONSTRAINT `postimage.postid` FOREIGN KEY (`postID`) REFERENCES `post` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for reviews
@@ -230,7 +230,7 @@ CREATE TABLE `postimage` (
 DROP TABLE IF EXISTS `reviews`;
 CREATE TABLE `reviews` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `postID` int NOT NULL,
+  `postID` bigint NOT NULL,
   `userID` int NOT NULL,
   `star` int NOT NULL,
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
@@ -241,7 +241,7 @@ CREATE TABLE `reviews` (
   KEY `userID` (`userID`),
   KEY `star` (`star`),
   KEY `createdAt` (`createdAt`),
-  CONSTRAINT `Reviews.postID` FOREIGN KEY (`postID`) REFERENCES `post` (`id`) ON DELETE CASCADE
+  CONSTRAINT `reviews.postid` FOREIGN KEY (`postID`) REFERENCES `post` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
@@ -255,6 +255,7 @@ CREATE TABLE `user` (
   `headnav` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'default',
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `reg_channel` varchar(10) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'listlist' COMMENT '1:listlist 2:google 3:facebook',
+  `channel_userID` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `review_rating` int DEFAULT NULL,
   `status` int DEFAULT '1' COMMENT '1:active 2:inactive',
   `createdAt` int NOT NULL COMMENT 'utc timestamp',
@@ -263,15 +264,18 @@ CREATE TABLE `user` (
   KEY `id` (`id`),
   KEY `email` (`email`),
   KEY `pwd` (`password`),
-  KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=5000019 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `status` (`status`),
+  KEY `reg_channel` (`reg_channel`)
+) ENGINE=InnoDB AUTO_INCREMENT=5000024 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES (5000001, 'Candy R. Kim', 'CandyRKim@teleworm.us', 'default', '$2b$10$EL2Jy2tky6wLjVA9ZcOHce/HxX7XNMuiOX7yRSNKrzrLINKzALiwa', 'listlist', NULL, 1, 1635060428, NULL);
-INSERT INTO `user` VALUES (5000002, 'Donna J. Snyder', 'DonnaJSnyder@teleworm.us', 'default', '$2b$10$cr0pIfWpXebCXTZeVqO.kOtuLbGhCHXuKQezZKd1M2j9DiJD5poD2', 'listlist', NULL, 1, 1635060442, NULL);
+INSERT INTO `user` VALUES (5000022, 'Bobby Chao', 'bobbylkchao@gmail.com', 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10216636384462559&height=50&width=50&ext=1639288350&hash=AeRKqDTh8OOg_iCdxJ0', NULL, 'facebook', '10216636384462559', NULL, 1, 1636075207, NULL);
+INSERT INTO `user` VALUES (5000001, 'Candy R. Kim', 'CandyRKim@teleworm.us', 'default', '$2b$10$EL2Jy2tky6wLjVA9ZcOHce/HxX7XNMuiOX7yRSNKrzrLINKzALiwa', 'listlist', NULL, NULL, 1, 1635060428, NULL);
+INSERT INTO `user` VALUES (5000002, 'Donna J. Snyder', 'DonnaJSnyder@teleworm.us', 'default', '$2b$10$cr0pIfWpXebCXTZeVqO.kOtuLbGhCHXuKQezZKd1M2j9DiJD5poD2', 'listlist', NULL, NULL, 1, 1635060442, NULL);
+INSERT INTO `user` VALUES (5000023, 'test', 'test@test.com', 'default', '$2b$10$Y2J9phaPGAx2asdy6XjdpuuP.69/MStg0M4R2tkPRDEsEkDFFZRmi', 'listlist', NULL, NULL, 1, 1636696316, NULL);
 COMMIT;
 
 -- ----------------------------

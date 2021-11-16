@@ -11,9 +11,13 @@
 4. Ok, done, run it `node index.js`.
 5. Visit `http://localhost:4000` in your browser.
 
-## About Token
+## Next Step: Create Token
 1. Run `node.js createToken.js` to generate a token secret.
 2. Copy and parse token secret from command line to .env file.
+
+## Next Step: Modify AWS Configuration
+1. In this project, i am using AWS S3 as cloud storage service
+2. Modify AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_S3_BUCKET in .env file.
 
 ## Folder description
 

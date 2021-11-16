@@ -46,7 +46,7 @@ export const fulfillmentCallback = (value: string, params: {callback: (res: any)
   if(value){
     params.callback((previousData:any) => ({
       ...previousData,
-      fulfillment: value,
+      fulfillment: JSON.parse(value).length === 0 ? null : value,
     }));
   }
 };
@@ -61,7 +61,7 @@ export const cashlessCallback = (value: null | number, params: {callback: (res: 
 export const conditionCallback = (value: null | number, params: {callback: (res: any) => void}) => {
   params.callback((previousData:any) => ({
     ...previousData,
-    condition: value,
+    condition: value ? parseInt(value) : value,
   }));
 };
 

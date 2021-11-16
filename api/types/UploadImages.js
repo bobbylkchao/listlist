@@ -7,6 +7,10 @@ const UploadImagesType = new GraphQLInputObjectType({
       type: GraphQLString,
       description: "Base64 of image",
     },
+    thumbnail: {
+      type: GraphQLString,
+      description: "Base64 of image thumbnail",
+    },
     main: {
       type: GraphQLBoolean,
       description: "Main image of images, true or false",
