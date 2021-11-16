@@ -5,11 +5,13 @@ const compression = require("compression");
 const http = require("http");
 const schema = require("./schema");
 const app = express();
+const { addPost } = require('./libs/prehandle');
 
 // config upload size
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 
+// logging middleware
 const loggingMiddleware = (req, res, next) => {
   let reqIP = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   if (reqIP.substr(0, 7) === "::ffff:") {
@@ -26,6 +28,15 @@ const loggingMiddleware = (req, res, next) => {
 
 app.use(loggingMiddleware);
 
+// prehandle
+const preHandle = (req, res, next) => {
+  addPost(req);// for `add post` mutation
+  next();
+};
+
+app.use(preHandle);
+
+// token middleware
 const tokenMiddleware = (req, res, next) => {
   global.token = req.headers['authorization'] ?? null;
   next();
