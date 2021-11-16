@@ -55,9 +55,24 @@ const passwordValidation = (value) => {
   return { status: true, message: '' };
 };
 
+
+/**
+ * Generate randomly uppercase letters
+ */
+const randomlyUpperLetters = () => {
+  const list = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
+  let res = "";
+  for(let i = 0; i < 12; i++) {
+    const rnd = Math.floor(Math.random() * list.length);
+    res = res + list.charAt(rnd);
+  }
+  return res ?? getTimeStamp();
+};
+
 module.exports = {
   getTimeStamp,
   emailValidation,
   usernameValidation,
   passwordValidation,
+  randomlyUpperLetters,
 };
