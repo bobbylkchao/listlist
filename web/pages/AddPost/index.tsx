@@ -16,6 +16,7 @@ import Link from "../../src/components/Link";
 import GlobalNoticeMsg from "../../src/components/GlobalNoticeMsg";
 import Button from "../../src/components/Button";
 import { scrollToTop, scrollToEle, priceNumberCheck } from "../../src/utils";
+import { submitAddPost } from "../../src/data-request";
 
 // each section component
 import SectionComponent from "./SectionComponent";
@@ -128,6 +129,7 @@ const AddPostPage = () => {
     }
 
     // title validation
+    formData.title = formData.title?.trim();
     if(!formData.title?.trim()){
       adDetailsSectionRef.current.valid.validTitle(false, "Please input your ad title");
       scrollToTop();
@@ -141,6 +143,7 @@ const AddPostPage = () => {
     }
 
     // description validation
+    formData.description = formData.description?.trim();
     if(!formData.description?.trim()){
       adDetailsSectionRef.current.valid.validDesc(false, "Please input your ad description");
       scrollToTop();
@@ -166,7 +169,12 @@ const AddPostPage = () => {
         priceSectionRef.current.valid.validPrice(false, 'Please enter a price without decimals');
         return;
       }else{
-        priceSectionRef.current.valid.validPrice(true, '');
+        if(formData.price_value === 0 || formData.price_value === "0"){
+          priceSectionRef.current.valid.validPrice(false, 'Price cannot be 0');
+          return;
+        }else{
+          priceSectionRef.current.valid.validPrice(true, '');
+        }
       }
     }
 
@@ -176,9 +184,49 @@ const AddPostPage = () => {
     formData.websitelink = formData.websitelink ? encodeURIComponent(formData.websitelink) : formData.websitelink;
     formData.youtube = formData.youtube ? encodeURIComponent(formData.youtube) : formData.youtube;
 
-    console.log(formData);
-    
-
+    // submit
+    setIsSubmitting(true);
+    submitAddPost(formData, (res:any) => {
+      if(res.data && res.data.addPost){
+        if(res.data.addPost.code === 200){
+          // published successfully
+          reduxDispatch({
+            type: "setGlobalNoticeMessage",
+            value: {
+              'type': 'success',
+              'message': 'You ad has been published successfully!',
+            }
+          });
+          setTimeout(() => {
+            router.push(`/post/${parseInt(res.data.addPost.message)}`);
+          }, 500);
+        }else if(res.data.addPost.code === 400){
+          reduxDispatch({
+            type: "setGlobalNoticeMessage",
+            value: {
+              'type': 'danger',
+              'message': 'Sorry, your ad publish failed, please try again later.',
+            }
+          });
+          scrollToTop();
+        }else{
+          router.replace({
+            pathname: "/login",
+            search: `?from=${encodeURIComponent(location.pathname)}`,
+          });
+        }
+      }else{
+        reduxDispatch({
+          type: "setGlobalNoticeMessage",
+          value: {
+            'type': 'danger',
+            'message': 'Sorry, your ad publish failed, please try again later.',
+          }
+        });
+        scrollToTop();
+      }
+      setIsSubmitting(false);
+    });
   };
 
   return(
@@ -241,8 +289,9 @@ const AddPostPage = () => {
                 fontWeight="bold"
                 type="submit"
                 style={{ marginRight: 20}}
+                disabled={isSubmitting}
               >
-                Post Your Ad
+                { isSubmitting ?  "Processing..." : "Post Your Ad"}
               </Button>
 
               <Button
@@ -251,7 +300,7 @@ const AddPostPage = () => {
                 bgColor="#ffffff"
                 color="#006bc2"
               >
-                Preview
+                Preview {/**LISTLIST-TODO: post preview */}
               </Button>
             </BottomBtnsWrapper>
           </Form>

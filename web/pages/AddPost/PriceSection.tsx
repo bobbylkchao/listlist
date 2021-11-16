@@ -34,7 +34,7 @@ const priceCallback = (value: number, params: {callback: (res: any) => void}) =>
 const priceValueCallback = (value: null | number, params: {callback: (res: any) => void}) => {
   params.callback((previousData:any) => ({
     ...previousData,
-    price_value: value === '' ? null : parseInt(value),
+    price_value: value === '' || !value ? null : parseInt(value),
   }));
 };
 
@@ -104,7 +104,19 @@ const PriceSection = (params: {onRef: any, callback: (res: any) => void}) => {
                   onChange={(e:any) => {
                     const value = priceNumberCheck(e.target.value);
                     setPriceValue(value);
-                    priceValueCallback(value, params);
+                    if(value === 0 || value === "0"){
+                      priceValueCallback(null, params);
+                      setValid({
+                        status: false,
+                        message: 'Price cannot be 0',
+                      });
+                    }else{
+                      priceValueCallback(value, params);
+                      setValid({
+                        status: true,
+                        message: '',
+                      });
+                    }
                   }}
                   disabled={currentChecked === 1 ? false : true}
                   isInvalid={!valid.status && currentChecked === 1}
@@ -130,7 +142,6 @@ const PriceSection = (params: {onRef: any, callback: (res: any) => void}) => {
                     priceValueCallback(null, params);
                   }
                 }}
-                
               />
               <PriceOptionValueWrapper>
                 <FormCheck.Label
@@ -152,7 +163,19 @@ const PriceSection = (params: {onRef: any, callback: (res: any) => void}) => {
                   onChange={(e:any) => {
                     const value = priceNumberCheck(e.target.value);
                     setBidStartPriceValue(value);
-                    priceValueCallback(value, params);
+                    if(value === 0 || value === "0"){
+                      priceValueCallback(null, params);
+                      setValid({
+                        status: false,
+                        message: 'Price cannot be 0',
+                      });
+                    }else{
+                      priceValueCallback(value, params);
+                      setValid({
+                        status: true,
+                        message: '',
+                      });
+                    }
                   }}
                   disabled={currentChecked === 2 ? false : true}
                   isInvalid={!valid.status && currentChecked === 2}
@@ -225,7 +248,37 @@ const PriceSection = (params: {onRef: any, callback: (res: any) => void}) => {
               >Swap/Trade</FormCheck.Label>
             </FormCheck>
 
-            <Form.Control.Feedback type="invalid">{ valid.message }</Form.Control.Feedback>
+             {/**option: free */}
+            <FormCheck style={{marginBottom: 10}}>
+              <FormCheck.Input
+                type="radio"
+                name="addPost_price_option"
+                id="addPost_price_option_5"
+                value={5}
+                checked={currentChecked === 5 ? true : false}
+                onChange={(e: any) => {
+                  if(e.target.checked && currentChecked !== 5){
+                    setCurrentChecked(5);
+                    setPriceValue('');
+                    setBidStartPriceValue('');
+                    priceCallback(5, params);
+                    priceValueCallback(null, params);
+                  }
+                }}
+                
+              />
+              <FormCheck.Label
+                onClick={() => {
+                  if(currentChecked !== 5){
+                    setCurrentChecked(5);
+                    setPriceValue('');
+                    setBidStartPriceValue('');
+                    priceCallback(5, params);
+                    priceValueCallback(null, params);
+                  }
+                }}
+              >Free</FormCheck.Label>
+            </FormCheck>
 
           </Col>
         </Form.Group>

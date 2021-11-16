@@ -1,4 +1,10 @@
-import { getGraphQL, ls, userAuthLSInfos, debugLog } from "../utils";
+import {
+  getGraphQL,
+  ls,
+  userAuthLSInfos,
+  debugLog,
+  getGraphQLWithParams
+} from "../utils";
 
 /**
  * getGetInfo()
@@ -217,7 +223,6 @@ interface SubmitAddPostParamsInterface{
   }],
 }
 export const submitAddPost = (params: SubmitAddPostParamsInterface, callback: (res: any) => void) => {
-  console.log(params.uploadImages);
   getGraphQL(`
     mutation{
       addPost(
@@ -230,10 +235,10 @@ export const submitAddPost = (params: SubmitAddPostParamsInterface, callback: (r
         price: ${params.price},
         price_value: ${params.price_value},
         address: "${params.address}",
-        fulfillment: "${params.fulfillment}",
+        fulfillment: ${JSON.stringify(params.fulfillment)},
         cashless_pay: ${params.cashless_pay},
         condition: ${params.condition},
-        tags: "${params.tags}",
+        tags: ${JSON.stringify(params.tags)},
         youtube: "${params.youtube}",
         websitelink: "${params.websitelink}",
         phonenumber: "${params.phonenumber}",
