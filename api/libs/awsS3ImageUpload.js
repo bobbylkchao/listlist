@@ -9,10 +9,10 @@
  */
 const { randomlyUpperLetters } = require('../libs/utils');
  
-const awsS3ImageUpload = async(postID, base64) => {
+const awsS3ImageUpload = async(uniqueID, mainFolderName, filenamePrefix, base64) => {
   if(!base64) return;
-  if(!postID) return;
-  
+  if(!uniqueID) return;
+
   // You can either "yarn add aws-sdk" or "npm i aws-sdk"
   const AWS = require('aws-sdk');
 
@@ -34,13 +34,13 @@ const awsS3ImageUpload = async(postID, base64) => {
   const type = base64.split(';')[0].split('/')[1];
 
   // Filename
-  const filename = `${randomlyUpperLetters()}.${type}`;
+  const filename = `${randomlyUpperLetters()}-${filenamePrefix}.${type}`;
 
   // With this setup, each time your user uploads an image, will be overwritten.
   // To prevent this, use a different Key each time.
   // This won't be needed if they're uploading their avatar, hence the filename, userAvatar.js.
   const params = {
-    Bucket: `${AWS_S3_BUCKET}/posts/${postID}`,
+    Bucket: `${AWS_S3_BUCKET}/${mainFolderName}/${uniqueID}`,
     Key: `${filename}`, // type is not required
     Body: base64Data,
     ACL: 'public-read',
