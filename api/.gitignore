@@ -51,3 +51,4 @@ Thumbs.db
 # ListList
 package-lock.json
 config/db.config.js
+.env
