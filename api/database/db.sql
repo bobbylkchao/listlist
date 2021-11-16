@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 15/11/2021 13:10:40
+ Date: 15/11/2021 20:56:43
 */
 
 SET NAMES utf8mb4;
@@ -205,7 +205,7 @@ CREATE TABLE `post` (
   KEY `fulfillment` (`fulfillment`),
   KEY `cashless_pay` (`cashless_pay`),
   KEY `condition` (`condition`)
-) ENGINE=InnoDB AUTO_INCREMENT=16002010 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16001002 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for postimage
@@ -222,7 +222,7 @@ CREATE TABLE `postimage` (
   KEY `postid` (`postID`),
   KEY `main` (`main`),
   CONSTRAINT `postimage.postid` FOREIGN KEY (`postID`) REFERENCES `post` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for reviews
