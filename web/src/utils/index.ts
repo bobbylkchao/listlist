@@ -381,3 +381,50 @@ export const compressionImage = (file: any) => {
     })();
   });
 };
+
+/**
+ * based on a category, get its category tree
+ * @param {number} categoryID
+ * @param {object} categoryList
+ * @returns {object} {one: { id: null | number, name: null | string }, two: { id: null | number, name: null | string }, three: { id: null | number, name: null | string } }
+ */
+export const getCategoryTree = (categoryID: number, categoryList: any) => {
+  let res = {
+    one: { id: null, name: null },
+    two: { id: null, name: null },
+    three: { id: null, name: null },
+  };
+
+  categoryList.map((levelOneItem: any, levelOneKey: number) => {
+
+    // if found in level one
+    if(parseInt(levelOneItem.id) === parseInt(categoryID)){
+      res.one.id = levelOneItem.id;
+      res.one.name = levelOneItem.name;
+    }else{
+      levelOneItem.items.map((levelTwoItem: any, levelTwoKey: number) => {
+        // if found in level two
+        if(parseInt(levelTwoItem.id) === parseInt(categoryID)){
+          res.one.id = levelOneItem.id;
+          res.one.name = levelOneItem.name;
+          res.two.id = levelTwoItem.id;
+          res.two.name = levelTwoItem.name;
+        }else{
+          levelTwoItem.items.map((levelThreeItem: any, levelThreeKey: number) => {
+            if(parseInt(levelThreeItem.id) === parseInt(categoryID)){
+              // if found in level three
+              res.one.id = levelOneItem.id;
+              res.one.name = levelOneItem.name;
+              res.two.id = levelTwoItem.id;
+              res.two.name = levelTwoItem.name;
+              res.three.id = levelThreeItem.id;
+              res.three.name = levelThreeItem.name;
+            }
+          });
+        }
+      });
+    }
+  });
+
+  return res;
+};
