@@ -4,21 +4,19 @@
 
 *More screenshots at bottom of this page.*
 
-# Status
+# Status, Progress and Update
 
-**Current status:** Web development -> Category List Page
+Please see [Project Progress](https://github.com/users/bobbylkchao/projects/1/views/1?groupedBy%5BcolumnId%5D=303996)
 
-**Current development sequence:** Web & API -> Mobile App
+# Author
 
-**Current Finished:** 
+Bobby Chao
 
-- Web: Basic Structure, Router, Reducer(Category List, Category Selected, Global, Theme, UserAuth and UserGeo), Context(Toast), Header, Login, Login with Google, Login with Facebook, Register, Logout, Authorized Wrapper Container, Post Ad
+Senior full-stack engineer and system architect, facebook related technologies believer, more than 10 years experiences, focusing on building high-performance, scalable and distributed applications. Currently looking for new job opportunities in Winnipeg, Canada.
 
-- API: ip geo query, login, register, jwt token, category list query, token validation query, post ad.
+[Linkedin](https://www.linkedin.com/in/bobbylkchao/)
 
-- APP: None.
-
-**Contributors:** Bobby Chao (bobbylkchao@gmail.com)
+[Email](bobbylkchao@gmail.com)
 
 # Introduction
 
