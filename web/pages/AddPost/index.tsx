@@ -257,11 +257,6 @@ const AddPostPage = () => {
           style={{ maxWidth: 900 }}
         >
           <GlobalNoticeMsg />
-
-          {
-            JSON.stringify(formData)
-          }
-
           <Form
             noValidate
             onSubmit={!isSubmitting ? handleSubmit : null}
