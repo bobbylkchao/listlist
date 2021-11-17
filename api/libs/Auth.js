@@ -24,7 +24,7 @@ const diffHash = (pwdInput, pwdInDB) => {
 const AuthToken = {
   generate: (email) => {
     // @default The expiration time is 7 days by default 7d
-    return email ? jwt.sign({ email: email }, process.env.TOKEN_SECRET, { expiresIn: '1h' }) : false;
+    return email ? jwt.sign({ email: email }, process.env.TOKEN_SECRET, { expiresIn: '2d' }) : false;
   },
   verify: (token) => {
     try{

@@ -3,7 +3,7 @@ import {
   ls,
   userAuthLSInfos,
   debugLog,
-  getGraphQLWithParams
+  getGraphQLWithVariables
 } from "../utils";
 
 /**
@@ -223,32 +223,72 @@ interface SubmitAddPostParamsInterface{
   }],
 }
 export const submitAddPost = (params: SubmitAddPostParamsInterface, callback: (res: any) => void) => {
-  getGraphQL(`
-    mutation{
+  const graphQLAddPostQuery = `
+    mutation(
+      $userID: Int!,
+      $categoryID: Int!,
+      $adtype: Int!,
+      $forsaleby: Int!,
+      $title: String!,
+      $description: String!,
+      $price: Int!,
+      $price_value: Int,
+      $address: String!,
+      $fulfillment: String,
+      $cashless_pay: Int,
+      $condition: Int,
+      $tags: String,
+      $youtube: String,
+      $websitelink: String,
+      $phonenumber: String,
+      $uploadImages: String
+    ){
       addPost(
-        userID: ${params.userID},
-        categoryID: ${params.categoryID},
-        adtype: ${params.adtype},
-        forsaleby: ${params.forsaleby},
-        title: "${params.title}",
-        description: "${params.description}",
-        price: ${params.price},
-        price_value: ${params.price_value},
-        address: "${params.address}",
-        fulfillment: ${JSON.stringify(params.fulfillment)},
-        cashless_pay: ${params.cashless_pay},
-        condition: ${params.condition},
-        tags: ${JSON.stringify(params.tags)},
-        youtube: "${params.youtube}",
-        websitelink: "${params.websitelink}",
-        phonenumber: "${params.phonenumber}",
-        uploadImages: ${JSON.stringify(params.uploadImages)}
+        userID: $userID,
+        categoryID: $categoryID,
+        adtype: $adtype,
+        forsaleby: $forsaleby,
+        title: $title,
+        description: $description,
+        price: $price,
+        price_value: $price_value,
+        address: $address,
+        fulfillment: $fulfillment,
+        cashless_pay: $cashless_pay,
+        condition: $condition,
+        tags: $tags,
+        youtube: $youtube,
+        websitelink: $websitelink,
+        phonenumber: $phonenumber,
+        uploadImages: $uploadImages
       ){
         code,
         message
       }
     }
-  `, (res: any) => {
+  `;
+
+  const graphQLAddPostVariables = {
+    userID: params.userID,
+    categoryID: params.categoryID,
+    adtype: params.adtype,
+    forsaleby: params.forsaleby,
+    title: params.title,
+    description: params.description,
+    price: params.price,
+    price_value: params.price_value,
+    address: params.address,
+    fulfillment: JSON.stringify(params.fulfillment),
+    cashless_pay: params.cashless_pay,
+    condition: params.condition,
+    tags: JSON.stringify(params.tags),
+    youtube: params.youtube,
+    websitelink: params.websitelink,
+    phonenumber: params.phonenumber,
+    uploadImages: JSON.stringify(params.uploadImages)
+  };
+
+  getGraphQLWithVariables(graphQLAddPostQuery, graphQLAddPostVariables, (res: any) => {
     callback(res);
   });
 };

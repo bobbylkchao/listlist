@@ -15,7 +15,7 @@ import Hline from "../../src/components/Hline";
 import Link from "../../src/components/Link";
 import GlobalNoticeMsg from "../../src/components/GlobalNoticeMsg";
 import Button from "../../src/components/Button";
-import { scrollToTop, scrollToEle, priceNumberCheck } from "../../src/utils";
+import { scrollToTop, scrollToEle, priceNumberCheck, urlValidation } from "../../src/utils";
 import { submitAddPost } from "../../src/data-request";
 
 // each section component
@@ -78,10 +78,10 @@ const AddPostPage = () => {
     price: 1,
     price_value: null,
     address: null,
-    fulfillment: null,
+    fulfillment: [],
     cashless_pay: null,
     condition: null,
-    tags: null,
+    tags: [],
     youtube: null,
     websitelink: null,
     phonenumber: null,
@@ -92,6 +92,7 @@ const AddPostPage = () => {
   const adDetailsSectionRef = React.createRef<any>();
   const locationSectionRef = React.createRef<any>();
   const priceSectionRef = React.createRef<any>();
+  const mediaSectionRef = React.createRef<any>();
 
   React.useEffect(() => {
     if(userAuthState){
@@ -178,6 +179,24 @@ const AddPostPage = () => {
       }
     }
 
+    // youtube url validation
+    if(formData.youtube && !urlValidation(formData.youtube)){
+      mediaSectionRef.current.valid.validYoutubeURL(false);
+      scrollToEle('AddImageWrapper');
+      return;
+    }else{
+      mediaSectionRef.current.valid.validYoutubeURL(true);
+    }
+
+    // website url validation
+    if(formData.websitelink && !urlValidation(formData.websitelink)){
+      mediaSectionRef.current.valid.validWebsiteURL(false);
+      scrollToEle('AddImageWrapper');
+      return;
+    }else{
+      mediaSectionRef.current.valid.validWebsiteURL(true);
+    }
+
     // escape by using `encodeURIComponent()`
     formData.title = encodeURIComponent(formData.title);
     formData.description = encodeURIComponent(formData.description);
@@ -256,7 +275,10 @@ const AddPostPage = () => {
             </SectionComponent>
             
             <SectionComponent no={2} title="Media">
-              <MediaSection callback={setFormData}/>
+              <MediaSection
+                callback={setFormData}
+                onRef={mediaSectionRef}
+              />
             </SectionComponent>
 
             <SectionComponent no={3} title="Location">

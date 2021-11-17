@@ -42,11 +42,11 @@ export const adDescriptionCallback = (value: string, params: {callback: (res: an
   }
 };
 
-export const fulfillmentCallback = (value: string, params: {callback: (res: any) => void}) => {
+export const fulfillmentCallback = (value: [], params: {callback: (res: any) => void}) => {
   if(value){
     params.callback((previousData:any) => ({
       ...previousData,
-      fulfillment: JSON.parse(value).length === 0 ? null : value,
+      fulfillment: value.length === 0 ? null : value,
     }));
   }
 };
@@ -65,9 +65,9 @@ export const conditionCallback = (value: null | number, params: {callback: (res:
   }));
 };
 
-export const tagsCallback = (value: null | string, params: {callback: (res: any) => void}) => {
+export const tagsCallback = (value: null | [], params: {callback: (res: any) => void}) => {
   params.callback((previousData:any) => ({
     ...previousData,
-    tags: JSON.parse(value).length===0 ? null : value,
+    tags: value.length===0 ? null : value,
   }));
 };

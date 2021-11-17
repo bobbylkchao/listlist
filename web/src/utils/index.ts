@@ -23,6 +23,28 @@ export const getGraphQL = (query: string, callback: (res: any) => void) => {
 };
 
 /**
+ * GraphQL request method, with variables
+ */
+ export const getGraphQLWithVariables = (query: string, variables: {}, callback: (res: any) => void) => {
+  fetch(webConfig.apiURL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: ls.get('token'),
+    },
+    body: JSON.stringify({
+      query: query,
+      variables: variables
+    }),
+  })
+  .then(res => res.json())
+  .then(res => callback(res))
+  .catch((error:any) => {
+    // console.error(`getGraphQL error, ${error}`);
+  });
+};
+
+/**
  * Email address validation
 */
 export const emailValidation = (value: string) => {
