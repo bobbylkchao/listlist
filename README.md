@@ -71,11 +71,11 @@ web: React.js project
 
 # Screenshots
 
+**Post Ad Page**
 ![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-post-ad-0.0.4.png)
-(Post Ad)
 
+**graphQL Query APIs**
 ![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/graphQL-query.png)
-(graphQL Queries)
 
+**graphQL Mutation APIs**
 ![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/graphQL-mutation.png)
-(graphQL Mutations)
