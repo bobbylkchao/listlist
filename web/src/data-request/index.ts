@@ -200,6 +200,9 @@ export const getAllCategories = (callback: (params: any) => void) => (
  * add post request
  */
 interface SubmitAddPostParamsInterface{
+  country: string,
+  region: string,
+  city: string,
   userID: number,
   categoryID: number,
   adtype: number,
@@ -225,6 +228,9 @@ interface SubmitAddPostParamsInterface{
 export const submitAddPost = (params: SubmitAddPostParamsInterface, callback: (res: any) => void) => {
   const graphQLAddPostQuery = `
     mutation(
+      $country: String!,
+      $region: String!,
+      $city: String!,
       $userID: Int!,
       $categoryID: Int!,
       $adtype: Int!,
@@ -244,6 +250,9 @@ export const submitAddPost = (params: SubmitAddPostParamsInterface, callback: (r
       $uploadImages: String
     ){
       addPost(
+        country: $country,
+        region: $region,
+        city: $city,
         userID: $userID,
         categoryID: $categoryID,
         adtype: $adtype,
@@ -269,6 +278,9 @@ export const submitAddPost = (params: SubmitAddPostParamsInterface, callback: (r
   `;
 
   const graphQLAddPostVariables = {
+    country: params.country,
+    region: params.region,
+    city: params.city,
     userID: params.userID,
     categoryID: params.categoryID,
     adtype: params.adtype,
