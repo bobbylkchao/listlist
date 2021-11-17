@@ -16,7 +16,7 @@ Senior full-stack engineer and system architect, facebook related technologies b
 
 [Linkedin](https://www.linkedin.com/in/bobbylkchao/)
 
-[Email](bobbylkchao@gmail.com)
+[Email](mailto:bobbylkchao@gmail.com)
 
 # Introduction
 
