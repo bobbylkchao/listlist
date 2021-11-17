@@ -2,20 +2,19 @@
 
 ![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-header.png)
 
+*More screenshots at bottom of this page.*
+
 # Status
 
-**Current status:** Web development -> Post Ad Feature
-
-![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-post-ad-0.0.4.png)
-*(Post Ad Feature)*
+**Current status:** Web development -> Category List Page
 
 **Current development sequence:** Web & API -> Mobile App
 
 **Current Finished:** 
 
-- Web: Basic Structure, Router, Reducer(Category List, Category Selected, Global, Theme, UserAuth and UserGeo), Context(Toast), Header, Login, Login with Google, Login with Facebook, Register, Logout, Authorized Wrapper Container
+- Web: Basic Structure, Router, Reducer(Category List, Category Selected, Global, Theme, UserAuth and UserGeo), Context(Toast), Header, Login, Login with Google, Login with Facebook, Register, Logout, Authorized Wrapper Container, Post Ad
 
-- API: ip geo query, login, register, jwt token, category list query, token validation query.
+- API: ip geo query, login, register, jwt token, category list query, token validation query, post ad.
 
 - APP: None.
 
@@ -69,3 +68,14 @@ api: GraphQL API project
 app: React Native project
 
 web: React.js project
+
+# Screenshoots
+
+![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-post-ad-0.0.4.png)
+(Post Ad)
+
+![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/graphQL-query.png)
+(graphQL Queries)
+
+![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/graphQL-mutation.png)
+(graphQL Mutations)
