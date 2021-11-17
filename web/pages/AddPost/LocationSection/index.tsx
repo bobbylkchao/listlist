@@ -66,7 +66,7 @@ const LocationSection = (params: {onRef: any, callback: (res: any) => void}) => 
               type="text"
               maxLength="50"
               onBlur={(e: any) => e.target.value = e.target.value.trim()}
-              onKeyUp={(e: any) => {
+              onChange={(e: any) => {
                 if(e.target.value){
                   e.target.value = regexLetterNumberSpace(e.target.value);
                   addressCallback(e.target.value, params);

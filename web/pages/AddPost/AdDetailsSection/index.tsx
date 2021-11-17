@@ -28,7 +28,7 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
   // values
   const [adTypeCheckedValue, setAdTypeCheckedValue] = React.useState<number>(1);
   const [forSaleByCheckedValue, setForSaleByCheckedValue] = React.useState<number>(1);
-  const [fulfillmentCheckedValue, setFulfillmentCheckedValue] = React.useState<[string]>(['']);
+  const [fulfillmentCheckedValue, setFulfillmentCheckedValue] = React.useState<[]>([]);
 
   // validation
   const [formValid, setFormValid] = React.useState<{
@@ -335,22 +335,22 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
               value={1}
               onChange={(e:any) => {
                 // get array set except e.target.value
-                let newArray = fulfillmentCheckedValue.filter((item: any) => item !== e.target.value);
+                let newArray = fulfillmentCheckedValue.filter((item: any) => parseInt(item) !== parseInt(e.target.value));
 
                 if(e.target.checked){
                   // if checked, add value to array set
                   if(newArray.length === 1 && newArray[0] === ''){
                     // if array set with nothing
-                    setFulfillmentCheckedValue([e.target.value]);
-                    fulfillmentCallback(JSON.stringify([e.target.value]), params);
+                    setFulfillmentCheckedValue([parseInt(e.target.value)]);
+                    fulfillmentCallback([parseInt(e.target.value)], params);
                     return;
                   }
-                  newArray = [...newArray, e.target.value];
+                  newArray = [...newArray, parseInt(e.target.value)];
                 }
 
                 // update
                 setFulfillmentCheckedValue(newArray);
-                fulfillmentCallback(JSON.stringify(newArray), params);
+                fulfillmentCallback(newArray, params);
               }}
             />
             <Form.Check
@@ -361,22 +361,22 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
               value={2}
               onChange={(e:any) => {
                 // get array set except e.target.value
-                let newArray = fulfillmentCheckedValue.filter((item: any) => item !== e.target.value);
+                let newArray = fulfillmentCheckedValue.filter((item: any) => parseInt(item) !== parseInt(e.target.value));
 
                 if(e.target.checked){
                   // if checked, add value to array set
                   if(newArray.length === 1 && newArray[0] === ''){
                     // if array set with nothing
-                    setFulfillmentCheckedValue([e.target.value]);
-                    fulfillmentCallback(JSON.stringify([e.target.value]), params);
+                    setFulfillmentCheckedValue([parseInt(e.target.value)]);
+                    fulfillmentCallback([parseInt(e.target.value)], params);
                     return;
                   }
-                  newArray = [...newArray, e.target.value];
+                  newArray = [...newArray, parseInt(e.target.value)];
                 }
 
                 // update
                 setFulfillmentCheckedValue(newArray);
-                fulfillmentCallback(JSON.stringify(newArray), params);
+                fulfillmentCallback(newArray, params);
               }}
             />
             <Form.Check
@@ -387,22 +387,22 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
               value={3}
               onChange={(e:any) => {
                 // get array set except e.target.value
-                let newArray = fulfillmentCheckedValue.filter((item: any) => item !== e.target.value);
+                let newArray = fulfillmentCheckedValue.filter((item: any) => parseInt(item) !== parseInt(e.target.value));
 
                 if(e.target.checked){
                   // if checked, add value to array set
                   if(newArray.length === 1 && newArray[0] === ''){
                     // if array set with nothing
-                    setFulfillmentCheckedValue([e.target.value]);
-                    fulfillmentCallback(JSON.stringify([e.target.value]), params);
+                    setFulfillmentCheckedValue([parseInt(e.target.value)]);
+                    fulfillmentCallback([parseInt(e.target.value)], params);
                     return;
                   }
-                  newArray = [...newArray, e.target.value];
+                  newArray = [...newArray, parseInt(e.target.value)];
                 }
 
                 // update
                 setFulfillmentCheckedValue(newArray);
-                fulfillmentCallback(JSON.stringify(newArray), params);
+                fulfillmentCallback(newArray, params);
               }}
             />
           </Col>
@@ -491,13 +491,14 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
                 value={tagTyping}
                 onKeyPress={(e:any) => {
                   if(e.charCode === 13){
+                    // when press enter key
                     e.preventDefault();
                     e.stopPropagation();
                     const newValue = regexLetterNumberSpace(e.target.value);
                     if(newValue){
                       setTags((tags: []) => {
                         const newArraySet = [...tags, newValue];
-                        tagsCallback(JSON.stringify(newArraySet), params);
+                        tagsCallback(newArraySet, params);
                         return newArraySet;
                       });
                       setTimeout(() => e.target.value='', 100);
@@ -521,7 +522,7 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
                     if(newValue){
                       setTags((tags: []) => {
                         const newArraySet = [...tags, newValue];
-                        tagsCallback(JSON.stringify(newArraySet), params);
+                        tagsCallback(newArraySet, params);
                         return newArraySet;
                       });
                     }
@@ -543,7 +544,7 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
                     <span>{ item }</span>
                     <a className="closeInline" onClick={() => setTags((tags: []) => {
                       const newArraySet = tags.filter((item: any, index: number) => index !== key);
-                      tagsCallback(JSON.stringify(newArraySet), params);
+                      tagsCallback(newArraySet, params);
                       return newArraySet;
                     })}></a>
                   </Badge>

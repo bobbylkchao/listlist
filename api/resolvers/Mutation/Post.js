@@ -29,7 +29,7 @@ const insertPost = {
     youtube: { type: GraphQLString },
     websitelink: { type: GraphQLString },
     phonenumber: { type: GraphQLString },
-    uploadImages: { type: new GraphQLList(UploadImagesType) },
+    uploadImages: { type: GraphQLString },
   },
   async resolve(_, {
     userID,
@@ -89,12 +89,12 @@ const insertPost = {
     /**
      * handle image upload
      */
-    let imageUploadStaus = true;
+    uploadImages = JSON.parse(uploadImages);
     if(uploadImages && uploadImages.length > 0){
       uploadImages.map(async(item) => {
         let orgImageUploadRes = await awsS3ImageUpload(res.insertId, 'posts', '640',item.img);
         let thumbnailImageUploadRes = await awsS3ImageUpload(res.insertId, 'posts', '200',item.thumbnail);
-        let postImageSQL = await dbQuery(
+        await dbQuery(
           "INSERT INTO `postimage` (`postID`, `url`, `thumbnailUrl`, `main`) VALUES (?, ?, ?, ?);",
           [
             parseInt(res.insertId),
@@ -103,9 +103,6 @@ const insertPost = {
             item.main
           ]
         );
-        if(!postImageSQL.insertId){
-          imageUploadStaus = false;
-        }
       });
     }
 

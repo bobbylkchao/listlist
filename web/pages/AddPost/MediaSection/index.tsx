@@ -30,10 +30,24 @@ import {
   websitelinkCallback,
 } from './callback';
 
-const MediaSection = (params: {callback: (res: any) => void}) => {
+const MediaSection = (params: {onRef: any, callback: (res: any) => void}) => {
   const [images, setImages] = React.useState<any>([]);
   const [youtubeValidation, setYoutubeValidation] = React.useState<boolean>(true);
   const [websiteURLValidation, setWebsiteURLValidation] = React.useState<boolean>(true);
+
+  // create interfaces to main form component to set validation via ref
+  React.useImperativeHandle(params.onRef, () => {
+    return{
+      valid: {
+        validYoutubeURL: (valid: boolean) => {
+          setYoutubeValidation(valid);
+        },
+        validWebsiteURL: (valid: boolean) => {
+          setWebsiteURLValidation(valid);
+        },
+      }
+    }
+  });
 
   const getUploadFiles = async(e: any) => {
     if(images.length >= webConfig.maxUploadPhotos) return alert('Maximum 10 photos');
@@ -102,6 +116,7 @@ const MediaSection = (params: {callback: (res: any) => void}) => {
         </Title>
         <AddImageWrapper
           style={{display: images.length >= webConfig.maxUploadPhotos ? 'none' : 'flex'}}
+          id="AddImageWrapper"
         >
           <span>+</span>
           <AddPostFileUploadPureBtn
@@ -138,7 +153,7 @@ const MediaSection = (params: {callback: (res: any) => void}) => {
           <Form.Control
             type="text"
             placeholder=""
-            onKeyUp={(e:any) => {
+            onChange={(e:any) => {
               youtubeCallback(e.target.value, params);
               if(e.target.value){
                 setYoutubeValidation(urlValidation(e.target.value));
@@ -172,7 +187,7 @@ const MediaSection = (params: {callback: (res: any) => void}) => {
           <Form.Control
             type="text"
             placeholder=""
-            onKeyUp={(e:any) => {
+            onChange={(e:any) => {
               websitelinkCallback(e.target.value, params)
               if(e.target.value){
                 setWebsiteURLValidation(urlValidation(e.target.value));
