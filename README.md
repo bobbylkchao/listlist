@@ -69,7 +69,7 @@ app: React Native project
 
 web: React.js project
 
-# Screenshoots
+# Screenshots
 
 ![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-post-ad-0.0.4.png)
 (Post Ad)
