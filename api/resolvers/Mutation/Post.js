@@ -13,6 +13,9 @@ const { AuthToken } = require('../../libs/Auth');
 const insertPost = {
   type: DefaultType,
   args: {
+    country: { type: new GraphQLNonNull(GraphQLString) },
+    region: { type: new GraphQLNonNull(GraphQLString) },
+    city: { type: new GraphQLNonNull(GraphQLString) },
     userID: { type: new GraphQLNonNull(GraphQLInt) },
     categoryID: { type: new GraphQLNonNull(GraphQLInt) },
     adtype: { type: new GraphQLNonNull(GraphQLInt) },
@@ -32,6 +35,9 @@ const insertPost = {
     uploadImages: { type: GraphQLString },
   },
   async resolve(_, {
+    country,
+    region,
+    city,
     userID,
     categoryID,
     adtype,
@@ -60,8 +66,11 @@ const insertPost = {
     }
 
     let res = await dbQuery(
-      "INSERT INTO `post` (`userID`, `categoryID`, `adtype`, `forsaleby`, `title`, `description`, `price`, `price_value`, `address`, `fulfillment`, `cashless_pay`, `condition`, `tags`, `youtube`, `websitelink`, `phonenumber`, `createdAt`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO `post` (`country`,`region`,`city`,`userID`, `categoryID`, `adtype`, `forsaleby`, `title`, `description`, `price`, `price_value`, `address`, `fulfillment`, `cashless_pay`, `condition`, `tags`, `youtube`, `websitelink`, `phonenumber`, `createdAt`) VALUES (?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
+        country,
+        region,
+        city,
         parseInt(userID),
         parseInt(categoryID),
         parseInt(adtype),

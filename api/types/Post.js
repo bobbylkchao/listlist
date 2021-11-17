@@ -12,6 +12,18 @@ const PostType = new GraphQLObjectType({
         type: GraphQLInt,
         description: "Post ID.",
       },
+      country: {
+        type: GraphQLString,
+        description: "Publisher's country",
+      },
+      region: {
+        type: GraphQLString,
+        description: "Publisher's region",
+      },
+      city: {
+        type: GraphQLString,
+        description: "Publisher's city",
+      },
       userID: {
         type: GraphQLInt,
         description: "The id of the user of the post.",

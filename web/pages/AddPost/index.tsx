@@ -45,8 +45,12 @@ const AddPostPage = () => {
   const router = useHistory();
   const reduxDispatch = useDispatch();
   const userAuthState = useSelector((state:any) => state.userAuth.state);
+  const userGeoState = useSelector((state:any) => state.userGeo.state);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [formData, setFormData] = React.useState<{
+    country: string,
+    region: string,
+    city: string,
     userID: null | number,
     categoryID: null | number,
     adtype: number,
@@ -69,6 +73,9 @@ const AddPostPage = () => {
       main: boolean,
     }],
   }>({
+    country: userGeoState?.country,
+    region: userGeoState?.region,
+    city: userGeoState?.city,
     userID: null,
     categoryID: null,
     adtype: 1,
@@ -103,6 +110,7 @@ const AddPostPage = () => {
     }
   }, [userAuthState]);
   
+  // handle form submit
   const handleSubmit = (event: any) => {
     event.preventDefault();
     event.stopPropagation();
@@ -203,6 +211,12 @@ const AddPostPage = () => {
     formData.websitelink = formData.websitelink ? encodeURIComponent(formData.websitelink) : formData.websitelink;
     formData.youtube = formData.youtube ? encodeURIComponent(formData.youtube) : formData.youtube;
 
+    // geo validation
+    // LISTLIST-TODO: enable below three comments before launch
+    //if(!formData.country){formData.country = "CA";}
+    //if(!formData.region){formData.region = "MB";}
+    //if(!formData.city){formData.city = "Winnipeg";}
+
     // submit
     setIsSubmitting(true);
     submitAddPost(formData, (res:any) => {
@@ -219,6 +233,7 @@ const AddPostPage = () => {
           setTimeout(() => {
             router.push(`/post/${parseInt(res.data.addPost.message)}`);
           }, 500);
+          return;
         }else if(res.data.addPost.code === 400){
           reduxDispatch({
             type: "setGlobalNoticeMessage",
