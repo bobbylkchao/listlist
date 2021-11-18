@@ -30,7 +30,7 @@ const DropDown = (props:DropDownInterface|any) => {
         // hide sub menu
         setDropDownVisible(false);
         // go to page
-        router.push(`/category/${props.id}`);
+        router.push(`/category/${(props.id*1024)}`);
       }}
       className={styles.MenuDropDownLeftItem}
       onMouseEnter={(e:any) => {
@@ -85,7 +85,7 @@ const DropDown = (props:DropDownInterface|any) => {
             // hide sub menu
             setDropDownVisible(false);
             // go to page
-            router.push(`/category/${currentHoverdCategory.id}`);
+            router.push(`/category/${(currentHoverdCategory.id*1024)}`);
           }} bold={true}>
             { currentHoverdCategory.id === 0 ? `${currentHoverdCategory.name}` : `See all in ${ currentHoverdCategory.name}`}
           </DropDownRightLink>
@@ -94,7 +94,7 @@ const DropDown = (props:DropDownInterface|any) => {
               // hide sub menu
               setDropDownVisible(false);
               // go to page
-              router.push(`/category/${item.id}`);
+              router.push(`/category/${(item.id*1024)}`);
             }}>{ item.name }</DropDownRightLink>) : <></>
           }
         </DropDownRight>
