@@ -23,12 +23,12 @@ import {
   SetMainBtn,
   MainPhoto,
   YoutubeVideoRemarkWrapper,
-} from './styled';
+} from '../../../src/styled/MediaSectionStyled';
 import {
   uploadImagesCallback,
   youtubeCallback,
   websitelinkCallback,
-} from './callback';
+} from '../../../src/utils/callbacks/MediaSectionCallback';
 
 const MediaSection = (params: {onRef: any, callback: (res: any) => void}) => {
   const [images, setImages] = React.useState<any>([]);

@@ -11,7 +11,7 @@ import Button from '../../../src/components/Button';
 import Link from '../../../src/components/Link';
 import CategoryModal from '../../../src/components/CategoryModal';
 import { regexLetterNumberSpace } from '../../../src/utils';
-import { AdDetailsSectionWrapper, Gap, TagsWrapper } from './styled';
+import { AdDetailsSectionWrapper, Gap, TagsWrapper } from '../../../src/styled/AdDetailsSectionStyled';
 import {
   categoryCallback,
   adTitleCallback,
@@ -22,7 +22,7 @@ import {
   cashlessCallback,
   conditionCallback,
   tagsCallback,
-} from './callback';// these callbacks are used to pass this form elements' value to main form hook state
+} from '../../../src/utils/callbacks/AdDetailsSectionCallback';// these callbacks are used to pass this form elements' value to main form hook state
 
 const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) => {
   // values
@@ -456,7 +456,7 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
             as="select"
             style={{ width: 180 }}
             onChange={(e:any) => {
-              conditionCallback(e.target.value === "" ? null : e.target.value, params);
+              conditionCallback(e.target.value === "" ? null : parseInt(e.target.value), params);
             }}
           >
             <option value="">- Select -</option>

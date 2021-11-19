@@ -187,7 +187,7 @@ export const userAuthLSInfos = {
       createdAt: ls.get('createdAt') ?? null,
     };
   },
-  clear: (dispatch?: () => void) => {
+  clear: (dispatch?: (params:any) => void) => {
     userAuthLSInfos.set({
       executed: true,
       auth: false,
@@ -197,7 +197,7 @@ export const userAuthLSInfos = {
       userID: null,
       headnav: 'default',
       createdAt: null,
-      reduxDispatch: dispatch ? dispatch : '',
+      reduxDispatch: dispatch ? dispatch : () => {},
     });
   },
 };
@@ -240,7 +240,7 @@ const getCurrentTime = () => {
  * @param {string} variable
  * @returns {string} Already used decodeURIComponent()
  */
-export const getQueryVariable = (variable) => {
+export const getQueryVariable = (variable: any) => {
   if(!variable) return "";
   const query = window.location.search.substring(1);
   const vars = query.split("&");
@@ -281,10 +281,14 @@ export const urlValidation = (value: string) => {
  * priceNumberCheck
  * @desc Check the input value is a valid price number or not (without dot)
  * @param {number | string} value
- * @returns {number}
+ * @returns {number | ""} res
  */
-export const priceNumberCheck = (value: number | string | null | undefined) => {
-  return value.replace(/[^0-9]/g,'');
+export const priceNumberCheck = (value: number) => {
+  if(!isNaN(value)){
+    return parseInt(value.toString().replace(/[^0-9]/g,''));
+  }else{
+    return "";
+  }
 };
 
 /**
@@ -293,9 +297,10 @@ export const priceNumberCheck = (value: number | string | null | undefined) => {
  * @param {string | number | null | undefined} value
  * @returns {string}
  */
-export const phonNumberTransform = (value: string | number | null | undefined) => {
+export const phonNumberTransform = (value: string | number) => {
+  if(!value) return "";
   // remove all non-numeric first
-  let valueWithoutDash = value.replace(/\D/g,"");
+  let valueWithoutDash = value.toString().replace(/\D/g,"");
   // add `-` behind the number
   let newNumber = valueWithoutDash;
   if(valueWithoutDash.length >= 3){
@@ -314,7 +319,7 @@ export const phonNumberTransform = (value: string | number | null | undefined) =
  * @returns {string | number} new value
  */
 export const regexLetterNumberSpace = (value: string | number) => {
-  return value.replace(/[^a-z0-9À-ÿ ]/gi, '');
+  return value.toString().replace(/[^a-z0-9À-ÿ ]/gi, '');
 };
 
 /**
@@ -335,7 +340,7 @@ export const scrollToTop = (top?: number, left?: number) => {
  * @param {string} elementID
  */
 export const scrollToEle = (elementID: string) => {
-  document.getElementById(elementID).scrollIntoView({
+  document.getElementById(elementID)?.scrollIntoView({
     block: 'start',
     behavior: 'smooth',
   });
@@ -398,20 +403,20 @@ export const getCategoryTree = (categoryID: number, categoryList: any) => {
   categoryList.map((levelOneItem: any, levelOneKey: number) => {
 
     // if found in level one
-    if(parseInt(levelOneItem.id) === parseInt(categoryID)){
+    if(parseInt(levelOneItem.id) === categoryID){
       res.one.id = levelOneItem.id;
       res.one.name = levelOneItem.name;
     }else{
       levelOneItem.items.map((levelTwoItem: any, levelTwoKey: number) => {
         // if found in level two
-        if(parseInt(levelTwoItem.id) === parseInt(categoryID)){
+        if(parseInt(levelTwoItem.id) === categoryID){
           res.one.id = levelOneItem.id;
           res.one.name = levelOneItem.name;
           res.two.id = levelTwoItem.id;
           res.two.name = levelTwoItem.name;
         }else{
           levelTwoItem.items.map((levelThreeItem: any, levelThreeKey: number) => {
-            if(parseInt(levelThreeItem.id) === parseInt(categoryID)){
+            if(parseInt(levelThreeItem.id) === categoryID){
               // if found in level three
               res.one.id = levelOneItem.id;
               res.one.name = levelOneItem.name;

@@ -61,7 +61,7 @@ export const cashlessCallback = (value: null | number, params: {callback: (res: 
 export const conditionCallback = (value: null | number, params: {callback: (res: any) => void}) => {
   params.callback((previousData:any) => ({
     ...previousData,
-    condition: value ? value : value,
+    condition: value,
   }));
 };
 

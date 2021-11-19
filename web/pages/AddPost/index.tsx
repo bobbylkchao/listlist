@@ -15,7 +15,7 @@ import Hline from "../../src/components/Hline";
 import Link from "../../src/components/Link";
 import GlobalNoticeMsg from "../../src/components/GlobalNoticeMsg";
 import Button from "../../src/components/Button";
-import { scrollToTop, scrollToEle, priceNumberCheck, urlValidation } from "../../src/utils";
+import { scrollToTop, scrollToEle, urlValidation } from "../../src/utils";
 import { submitAddPost } from "../../src/data-request";
 
 // each section component
@@ -216,6 +216,11 @@ const AddPostPage = () => {
     //if(!formData.country){formData.country = "CA";}
     //if(!formData.region){formData.region = "MB";}
     //if(!formData.city){formData.city = "Winnipeg";}
+
+    // geo double confirm
+    formData.country = userGeoState.country;
+    formData.region = userGeoState.region;
+    formData.city = userGeoState.city;
 
     // submit
     setIsSubmitting(true);

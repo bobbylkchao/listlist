@@ -40,9 +40,9 @@ const CategoryModal = (props: { onRef: any, callback: (res: any) => void }) => {
   
   // for first category select, record `value` and `index`
   const [selectdCategoryOneInfos, setSelectdCategoryOneInfos] = React.useState<{
-    index: null | number,
-    id: null | number,
-    title: null | string,
+    index: any | number,
+    id: any | number,
+    title: any | string,
   }>({
     index: null,
     id: null,
@@ -51,9 +51,9 @@ const CategoryModal = (props: { onRef: any, callback: (res: any) => void }) => {
 
   // for second category select, record `value` and `index`
   const [selectdCategoryTwoInfos, setSelectdCategoryTwoInfos] = React.useState<{
-    index: null | number,
-    id: null | number,
-    title: null | string,
+    index: any | number,
+    id: any | number,
+    title: any | string,
   }>({
     index: null,
     id: null,
@@ -62,9 +62,9 @@ const CategoryModal = (props: { onRef: any, callback: (res: any) => void }) => {
 
   // for third category select, record `value` and `index`
   const [selectdCategoryThreeInfos, setSelectdCategoryThreeInfos] = React.useState<{
-    index: null | number,
-    id: null | number,
-    title: null | string,
+    index: any | number,
+    id: any | number,
+    title: any | string,
   }>({
     index: null,
     id: null,
@@ -88,7 +88,7 @@ const CategoryModal = (props: { onRef: any, callback: (res: any) => void }) => {
       <select
         name="categoryLevelOne"
         id="categoryLevelOne"
-        size="10"
+        size={10}
         value={selectdCategoryOneInfos.id}
         onChange={(e:any) => {
           // new
@@ -138,7 +138,7 @@ const CategoryModal = (props: { onRef: any, callback: (res: any) => void }) => {
     <select
       name="categoryLevelTwo"
       id="categoryLevelTwo"
-      size="10"
+      size={10}
       value={selectdCategoryTwoInfos.id}
       onChange={(e:any) => {
         setSelectdCategoryTwoInfos({
@@ -186,7 +186,7 @@ const CategoryModal = (props: { onRef: any, callback: (res: any) => void }) => {
     <select
       name="categoryLevelThree"
       id="categoryLevelThree"
-      size="10"
+      size={10}
       value={selectdCategoryThreeInfos.id}
       onChange={(e:any) => {
         setSelectdCategoryThreeInfos({

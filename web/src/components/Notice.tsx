@@ -11,7 +11,7 @@ import styled from 'styled-components';
   
 const Notice = (props: { onRef: any, message?: string }) => {
   const [visible, setVisible] = React.useState<boolean>(false);
-  const [title, setTitle] = React.useState<boolean>(false);
+  const [title, setTitle] = React.useState<string>('');
 
   React.useImperativeHandle(props.onRef, () => {
     return {

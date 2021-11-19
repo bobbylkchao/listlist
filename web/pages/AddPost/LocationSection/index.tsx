@@ -14,7 +14,7 @@ import {
   MapShow,
   RemarkWrapper,
   OrSpan,
-} from './styled';
+} from '../../../src/styled/LocationSectionStyled';
 
 // callback
 const addressCallback = (value: string, params: {callback: (res: any) => void}) => {

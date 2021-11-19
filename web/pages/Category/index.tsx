@@ -18,7 +18,7 @@ import {
   Left,
   Right,
   RightFilterWrapper
-} from "./styled";
+} from "../../src/styled/CategoryStyled";
 
 const CategoryPage = () => {
   const routerParams:{id: string} = useParams();

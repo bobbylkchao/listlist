@@ -82,7 +82,13 @@ const LeftForm = () => {
     message: '',
     visible: false,
   });
-  const [formValid, setFormValid] = React.useState({
+  const [formValid, setFormValid] = React.useState<{
+    [key: string]: {
+      value?: string,
+      isInvalid: boolean,
+      message: string,
+    }
+  }>({
     email: {
       value: '',
       isInvalid: false,
@@ -95,7 +101,7 @@ const LeftForm = () => {
     },
   });
 
-  const handleSubmit = (event:any, othersLogin: {from: string, email: string, name: string, headnav: string, channelID: string}) => {
+  const handleSubmit = (event:any, othersLogin?: {from: string, email: string, name: string, headnav: string, channelID: string}) => {
     let email = "";
     let password = "";
     let channel = "listlist";
@@ -121,7 +127,8 @@ const LeftForm = () => {
       /**
        * Validation Check
        */
-      for(const formValidItem in formValid){
+      let formValidItem: string;
+      for(formValidItem in formValid){
         if(formValid[formValidItem].isInvalid) return;
         if(!formValid[formValidItem].value){
   
@@ -239,7 +246,7 @@ const LeftForm = () => {
       </Alert>
       <Form
         noValidate
-        onSubmit={!isSubmitting ? handleSubmit : null}
+        onSubmit={!isSubmitting ? handleSubmit : () => {}}
         className={styles.login_form}
       >
 
