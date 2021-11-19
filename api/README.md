@@ -12,7 +12,7 @@
 5. Visit `http://localhost:4000` in your browser.
 
 ## Next Step: Create Token
-1. Run `node.js createToken.js` to generate a token secret.
+1. Run `node createToken.js` to generate a token secret.
 2. Copy and parse token secret from command line to .env file.
 
 ## Next Step: Modify AWS Configuration
