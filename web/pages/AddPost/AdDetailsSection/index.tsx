@@ -11,7 +11,7 @@ import Button from '../../../src/components/Button';
 import Link from '../../../src/components/Link';
 import CategoryModal from '../../../src/components/CategoryModal';
 import { regexLetterNumberSpace } from '../../../src/utils';
-import { AdDetailsSectionWrapper, Gap, TagsWrapper } from './styled';
+import { AdDetailsSectionWrapper, Gap, TagsWrapper } from '../../../src/styled/AdDetailsSectionStyled';
 import {
   categoryCallback,
   adTitleCallback,
@@ -22,13 +22,13 @@ import {
   cashlessCallback,
   conditionCallback,
   tagsCallback,
-} from './callback';// these callbacks are used to pass this form elements' value to main form hook state
+} from '../../../src/utils/callbacks/AdDetailsSectionCallback';// these callbacks are used to pass this form elements' value to main form hook state
 
 const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) => {
   // values
   const [adTypeCheckedValue, setAdTypeCheckedValue] = React.useState<number>(1);
   const [forSaleByCheckedValue, setForSaleByCheckedValue] = React.useState<number>(1);
-  const [fulfillmentCheckedValue, setFulfillmentCheckedValue] = React.useState<[]>([]);
+  const [fulfillmentCheckedValue, setFulfillmentCheckedValue] = React.useState<any>([]);
 
   // validation
   const [formValid, setFormValid] = React.useState<{
@@ -40,8 +40,8 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
   });
 
   // tags
-  const [tags, setTags] = React.useState<[]>([]);
-  const [tagTyping, setTagTyping] = React.useState<string | number | null | undefined>('');
+  const [tags, setTags] = React.useState<any>([]);
+  const [tagTyping, setTagTyping] = React.useState<string | number | undefined>('');
 
   // category
   const [currentCategory, setCurrentCategory] = React.useState<{
@@ -456,7 +456,7 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
             as="select"
             style={{ width: 180 }}
             onChange={(e:any) => {
-              conditionCallback(e.target.value === "" ? null : e.target.value, params);
+              conditionCallback(e.target.value === "" ? null : parseInt(e.target.value), params);
             }}
           >
             <option value="">- Select -</option>
@@ -484,9 +484,9 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
             <Col xs="auto">
               <Form.Control
                 type="text"
-                disabled={tags.length === 5 ? true : false}
-                maxLength="30"
-                placeholder={tags.length === 5 ? 'Maximum 5 tags reached' : ''}
+                disabled={tags.length == 5 ? true : false}
+                maxLength={30}
+                placeholder={tags.length == 5 ? 'Maximum 5 tags reached' : ''}
                 onChange={(e:any) => setTagTyping(e.target.value)}
                 value={tagTyping}
                 onKeyPress={(e:any) => {

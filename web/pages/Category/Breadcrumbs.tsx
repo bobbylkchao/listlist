@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { BreadCrumbsWrapper } from "./styled";
+import { BreadCrumbsWrapper } from "../../src/styled/CategoryStyled";
 import Link from "../../src/components/Link";
 
 const BreadCrumbsItem = (params: { id: number, name: string, end: boolean }) => {
@@ -17,7 +17,9 @@ const BreadCrumbsItem = (params: { id: number, name: string, end: boolean }) => 
 };
 
 const Breadcrumbs = (params:{ categoryTree: any }) => {
-  return params.categoryTree && params.categoryTree.two.id ? (
+  const router = useHistory();
+  
+  return params.categoryTree && params.categoryTree.one.id ? (
     <BreadCrumbsWrapper>
       <span>
         <Link onClick={() => router.push('/')}>Home</Link>

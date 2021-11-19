@@ -15,7 +15,7 @@ import Hline from "../../src/components/Hline";
 import Link from "../../src/components/Link";
 import GlobalNoticeMsg from "../../src/components/GlobalNoticeMsg";
 import Button from "../../src/components/Button";
-import { scrollToTop, scrollToEle, priceNumberCheck, urlValidation } from "../../src/utils";
+import { scrollToTop, scrollToEle, urlValidation } from "../../src/utils";
 import { submitAddPost } from "../../src/data-request";
 
 // each section component
@@ -55,15 +55,15 @@ const AddPostPage = () => {
     categoryID: null | number,
     adtype: number,
     forsaleby:number,
-    title: null | string,
-    description: null | string,
+    title: null | string | undefined,
+    description: null | string | undefined,
     price: number,
     price_value: null | number,
     address: null | string,
-    fulfillment: null | string,
+    fulfillment: [] | string[],
     cashless_pay: null | number,
     condition: null | number,
-    tags: null | string,
+    tags: [] | string[],
     youtube: null | string,
     websitelink: null | string,
     phonenumber: null | string,
@@ -174,11 +174,11 @@ const AddPostPage = () => {
 
     // price validation
     if(formData.price === 1 || formData.price === 2){
-      if(!formData.price_value || formData.price_value === "" || isNaN(formData.price_value) || formData.price_value === "null"){
+      if(!formData.price_value || isNaN(formData.price_value)){
         priceSectionRef.current.valid.validPrice(false, 'Please enter a price without decimals');
         return;
       }else{
-        if(formData.price_value === 0 || formData.price_value === "0"){
+        if(formData.price_value === 0){
           priceSectionRef.current.valid.validPrice(false, 'Price cannot be 0');
           return;
         }else{
@@ -216,6 +216,11 @@ const AddPostPage = () => {
     //if(!formData.country){formData.country = "CA";}
     //if(!formData.region){formData.region = "MB";}
     //if(!formData.city){formData.city = "Winnipeg";}
+
+    // geo double confirm
+    formData.country = userGeoState.country;
+    formData.region = userGeoState.region;
+    formData.city = userGeoState.city;
 
     // submit
     setIsSubmitting(true);
@@ -268,13 +273,12 @@ const AddPostPage = () => {
       <AuthorizedWrapper>
         <Hline marginTop="15px" marginBottom="15px"/>
         <InsideWrapper
-          bgcolor="#000"
           style={{ maxWidth: 900 }}
         >
           <GlobalNoticeMsg />
           <Form
             noValidate
-            onSubmit={!isSubmitting ? handleSubmit : null}
+            onSubmit={!isSubmitting ? handleSubmit : () => {}}
             className={styles.add_post_form}
           >
             <SectionComponent no={1} title="Ad Details">

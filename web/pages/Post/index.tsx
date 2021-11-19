@@ -10,7 +10,7 @@ import Link from "../../src/components/Link";
 import GlobalNoticeMsg from "../../src/components/GlobalNoticeMsg";
 
 const PostPage = () => {
-  const { id }:{ id: number } = useParams();
+  const { id }:{ id: string | undefined } = useParams();
 
   React.useEffect(() => {
     window.scrollTo(0, 0);

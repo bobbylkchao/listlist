@@ -31,10 +31,10 @@ const priceCallback = (value: number, params: {callback: (res: any) => void}) =>
   }));
 };
 
-const priceValueCallback = (value: null | number, params: {callback: (res: any) => void}) => {
+const priceValueCallback = (value: "" | number | null, params: {callback: (res: any) => void}) => {
   params.callback((previousData:any) => ({
     ...previousData,
-    price_value: value === '' || !value ? null : parseInt(value),
+    price_value: !value ? null : value,
   }));
 };
 
@@ -104,7 +104,7 @@ const PriceSection = (params: {onRef: any, callback: (res: any) => void}) => {
                   onChange={(e:any) => {
                     const value = priceNumberCheck(e.target.value);
                     setPriceValue(value);
-                    if(value === 0 || value === "0"){
+                    if(value === 0){
                       priceValueCallback(null, params);
                       setValid({
                         status: false,
@@ -163,7 +163,7 @@ const PriceSection = (params: {onRef: any, callback: (res: any) => void}) => {
                   onChange={(e:any) => {
                     const value = priceNumberCheck(e.target.value);
                     setBidStartPriceValue(value);
-                    if(value === 0 || value === "0"){
+                    if(value === 0){
                       priceValueCallback(null, params);
                       setValid({
                         status: false,
@@ -180,7 +180,7 @@ const PriceSection = (params: {onRef: any, callback: (res: any) => void}) => {
                   disabled={currentChecked === 2 ? false : true}
                   isInvalid={!valid.status && currentChecked === 2}
                 />
-                <Form.Control.Feedback type="invalid" style={{marginLeft: 10}}>{ valid.message }</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid" style={{marginLeft: 10, maxWidth: 170}}>{ valid.message }</Form.Control.Feedback>
               </PriceOptionValueWrapper>
             </FormCheck>
 

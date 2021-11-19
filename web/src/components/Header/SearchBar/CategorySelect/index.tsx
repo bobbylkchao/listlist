@@ -7,7 +7,6 @@ import { getGraphQL } from '../../../../utils';
 import CategoryItem from './CategoryItem';
 
 const CategorySelect = (props:{width?: number}) => {
-  const [categories, setCategories] = React.useState<object>({});
   const getReduxStoreState = useSelector((state:any) => state);
   return(
     <Dropdown
@@ -24,7 +23,7 @@ const CategorySelect = (props:{width?: number}) => {
         <div>{ getReduxStoreState['categorySelected']['state'] ? getReduxStoreState['categorySelected']['state']['name'] : 'All Categories' }</div>
       </Dropdown.Toggle>
       <Dropdown.Menu className={styles.searchBar_category_menu}>
-        <CategoryItem items={categories}/>
+        <CategoryItem/>
       </Dropdown.Menu>
     </Dropdown>
   );

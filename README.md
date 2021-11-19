@@ -41,13 +41,17 @@ Database: MySQL
 
 Socket: Socket.io
 
-# How to run?
+# How to start dev env?
 
 1. Clone repo
 2. Create a mysql database, and import the SQL from /api/database/db.sql file.
 3. Modify /api/config/db.config.js file, change the db password and db name.
-4. Run `npm run api`, then visit graphQL http://localhost:4000 in your browser.
-5. Run `npm run web`, then visit http://localhost:3000 in your browser
+4. Go to api folder, then run `node index.js`, then visit graphQL http://localhost:4000 in your browser.
+5. Go to web folder, then run `yarn dev` to start the development environment, then visit http://localhost:3000 in your browser.
+
+# How to build?
+
+1. Go to web folder, then run `yarn build` to build the production files, after finished, run `yarn start` to start the production.
 
 **REMEMBER to read every README.MD in different folders, eg. /web/README.MD, /api/README.MD, /app/README.MD**
 

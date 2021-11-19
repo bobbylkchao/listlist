@@ -165,7 +165,7 @@ const LeftForm = () => {
       </Alert>
       <Form
         noValidate
-        onSubmit={!isSubmitting ? handleSubmit : null}
+        onSubmit={!isSubmitting ? handleSubmit : () => {}}
         className={styles.register_form}
       >
         <Form.Group className="mb-3">

@@ -18,11 +18,11 @@ import {
   Left,
   Right,
   RightFilterWrapper
-} from "./styled";
+} from "../../src/styled/CategoryStyled";
 
 const CategoryPage = () => {
-  const routerParams: {id: number} = useParams();
-  const categoryID = routerParams.id/1024;// real category id
+  const routerParams:{id: string} = useParams();
+  const categoryID = parseInt(routerParams.id)/1024;// real category id
   const categoryListState = useSelector((state:any) => state.categoryList.state);
   const [breadCrumbs, setBreadCrumbs] = React.useState<any>(null);
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { LeftFilterItemWrapper } from "./styled";
+import { LeftFilterItemWrapper } from "../../src/styled/CategoryStyled";
 import Link from "../../src/components/Link";
 
 const LeftFilterItem = (params:{ title: string, children: any }) => {

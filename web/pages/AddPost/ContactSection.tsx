@@ -54,7 +54,7 @@ const ContactSection = (params: {callback: (res: any) => void}) => {
         <Col sm={9}>
           <Form.Control
             type="text"
-            maxLength="12"
+            maxLength={12}
             value={phone}
             onChange={(e: any) => {
               e.target.value = phonNumberTransform(e.target.value);
