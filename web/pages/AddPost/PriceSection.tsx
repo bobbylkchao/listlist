@@ -34,7 +34,7 @@ const priceCallback = (value: number, params: {callback: (res: any) => void}) =>
 const priceValueCallback = (value: null | number, params: {callback: (res: any) => void}) => {
   params.callback((previousData:any) => ({
     ...previousData,
-    price_value: value === '' || !value ? null : parseInt(value),
+    price_value: !value ? null : value,
   }));
 };
 

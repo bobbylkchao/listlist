@@ -95,15 +95,7 @@ const LeftForm = () => {
     },
   });
 
-  const handleValidition = (event) => {
-    const vaildName = usernameValidation(name);
-    if(!vaildName.status){
-      setAlertInfos({ variant: 'warning', message: vaildName.message, visible: true });
-      return;
-    }
-  };
-
-  const handleSubmit = (event?, othersLogin: {from: string, email: string, name: string, headnav: string, channelID: string|number}) => {
+  const handleSubmit = (event:any, othersLogin: {from: string, email: string, name: string, headnav: string, channelID: string}) => {
     let email = "";
     let password = "";
     let channel = "listlist";

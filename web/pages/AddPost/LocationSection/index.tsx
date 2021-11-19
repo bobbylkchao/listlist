@@ -64,7 +64,7 @@ const LocationSection = (params: {onRef: any, callback: (res: any) => void}) => 
           <Col sm={9}>
             <Form.Control
               type="text"
-              maxLength="50"
+              maxLength={50}
               onBlur={(e: any) => e.target.value = e.target.value.trim()}
               onChange={(e: any) => {
                 if(e.target.value){

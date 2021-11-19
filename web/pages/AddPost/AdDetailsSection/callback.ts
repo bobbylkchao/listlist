@@ -19,7 +19,7 @@ export const adTypeCallback = (value: number, params: {callback: (res: any) => v
   if(value){
     params.callback((previousData:any) => ({
       ...previousData,
-      adtype: parseInt(value),
+      adtype: value,
     }));
   }
 };
@@ -28,7 +28,7 @@ export const forSaleByCallback = (value: number, params: {callback: (res: any) =
   if(value){
     params.callback((previousData:any) => ({
       ...previousData,
-      forsaleby: parseInt(value),
+      forsaleby: value,
     }));
   }
 };
@@ -42,7 +42,7 @@ export const adDescriptionCallback = (value: string, params: {callback: (res: an
   }
 };
 
-export const fulfillmentCallback = (value: [], params: {callback: (res: any) => void}) => {
+export const fulfillmentCallback = (value: any, params: {callback: (res: any) => void}) => {
   if(value){
     params.callback((previousData:any) => ({
       ...previousData,
@@ -61,13 +61,13 @@ export const cashlessCallback = (value: null | number, params: {callback: (res: 
 export const conditionCallback = (value: null | number, params: {callback: (res: any) => void}) => {
   params.callback((previousData:any) => ({
     ...previousData,
-    condition: value ? parseInt(value) : value,
+    condition: value ? value : value,
   }));
 };
 
-export const tagsCallback = (value: null | [], params: {callback: (res: any) => void}) => {
+export const tagsCallback = (value: null | any[], params: {callback: (res: any) => void}) => {
   params.callback((previousData:any) => ({
     ...previousData,
-    tags: value.length===0 ? null : value,
+    tags: !value || value.length===0 ? null : value,
   }));
 };

@@ -28,7 +28,7 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
   // values
   const [adTypeCheckedValue, setAdTypeCheckedValue] = React.useState<number>(1);
   const [forSaleByCheckedValue, setForSaleByCheckedValue] = React.useState<number>(1);
-  const [fulfillmentCheckedValue, setFulfillmentCheckedValue] = React.useState<[]>([]);
+  const [fulfillmentCheckedValue, setFulfillmentCheckedValue] = React.useState<any>([]);
 
   // validation
   const [formValid, setFormValid] = React.useState<{
@@ -40,8 +40,8 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
   });
 
   // tags
-  const [tags, setTags] = React.useState<[]>([]);
-  const [tagTyping, setTagTyping] = React.useState<string | number | null | undefined>('');
+  const [tags, setTags] = React.useState<any>([]);
+  const [tagTyping, setTagTyping] = React.useState<string | number | undefined>('');
 
   // category
   const [currentCategory, setCurrentCategory] = React.useState<{
@@ -484,9 +484,9 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
             <Col xs="auto">
               <Form.Control
                 type="text"
-                disabled={tags.length === 5 ? true : false}
-                maxLength="30"
-                placeholder={tags.length === 5 ? 'Maximum 5 tags reached' : ''}
+                disabled={tags.length == 5 ? true : false}
+                maxLength={30}
+                placeholder={tags.length == 5 ? 'Maximum 5 tags reached' : ''}
                 onChange={(e:any) => setTagTyping(e.target.value)}
                 value={tagTyping}
                 onKeyPress={(e:any) => {

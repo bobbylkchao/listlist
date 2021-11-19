@@ -62,7 +62,7 @@ const MediaSection = (params: {onRef: any, callback: (res: any) => void}) => {
           const thumbnailBase64Result = await getImageBase64(thumbnailFile);// thumnnail file to base64
           
           setImages((preImages: any) => {
-            const newArraySet = [...preImages, {
+            const newArraySet:any = [...preImages, {
               img: base64Result,
               thumbnail: thumbnailBase64Result,
               main: images.length === 0 && i === 0 ? true : false,// if no image, then set first image as the main

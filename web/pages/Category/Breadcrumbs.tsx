@@ -17,6 +17,8 @@ const BreadCrumbsItem = (params: { id: number, name: string, end: boolean }) => 
 };
 
 const Breadcrumbs = (params:{ categoryTree: any }) => {
+  const router = useHistory();
+  
   return params.categoryTree && params.categoryTree.two.id ? (
     <BreadCrumbsWrapper>
       <span>

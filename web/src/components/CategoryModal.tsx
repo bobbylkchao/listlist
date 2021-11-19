@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const CategoryModal = (props: { onRef: any, callback: () => void }) => {
+const CategoryModal = (props: { onRef: any, callback: (res: any) => void }) => {
   const categoryReducerState = useSelector((state:any) => state.categoryList.state);
   const [visible, setVisible] = React.useState<boolean>(false);
   

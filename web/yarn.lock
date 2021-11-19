@@ -1369,6 +1369,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-facebook-login@^4.1.4":
+  "integrity" "sha512-TX6y5shj0wCx8Whho05MqjAcb8lg1R33Jdy4raCl5b/t2nO9WC8/VLF+7u9cXzRd4ohN7Iz1RwuT+90LUROhyg=="
+  "resolved" "https://registry.npmjs.org/@types/react-facebook-login/-/react-facebook-login-4.1.4.tgz"
+  "version" "4.1.4"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-redux@^7.1.16":
   "integrity" "sha512-L37dSCT0aoJnCgpR8Iuginlbxoh7qhWOXiaDqEsxVMrER1CmVhFD+63NxgJeT4pkmEM28oX0NH4S4f+sXHTZjA=="
   "resolved" "https://registry.npmjs.org/@types/react-redux/-/react-redux-7.1.19.tgz"
