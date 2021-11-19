@@ -7,17 +7,22 @@
 1. Download this repo.
 2. Create a database, and import the SQL from /database/db.sql file.
 3. Modify config/db.config.js file, change the db password and db name.
-3. Open repo, and execute `npm i`.
-4. Ok, done, run it `node index.js`.
-5. Visit `http://localhost:4000` in your browser.
+4. Create a file in api folder, name is `.env`, content is:
 
-## Next Step: Create Token
-1. Run `node createToken.js` to generate a token secret.
-2. Copy and parse token secret from command line to .env file.
+```
+TOKEN_SECRET=
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_REGION=
+AWS_S3_BUCKET=
+```
 
-## Next Step: Modify AWS Configuration
-1. In this project, i am using AWS S3 as cloud storage service
-2. Modify AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_S3_BUCKET in .env file.
+5. Run `node createToken.js` to generate a token secret. (JUST ONCE)
+6. Copy and parse token secret from command line to .env file. (JUST ONCE)
+7. In this project, i am using AWS S3 as cloud storage service, modify AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_S3_BUCKET in .env file. (OPTIONAL, JUST ONCE)
+8. Run `npm i` to install dependencies.
+9. Run `node index.js` to start graphQL.
+10. Visit `http://localhost:4000` in your browser.
 
 ## Folder description
 
