@@ -1,5 +1,6 @@
 const express = require("express");
-const requestIp = require('request-ip');
+const requestIp = require('request-ip');// used to get real ipv4 ip
+const ipv6 = require('ip-address');// used to convert ipv4 to ipv6, mainly for iPhone devices which are using mobile network
 const { graphqlHTTP } = require("express-graphql");
 const cors = require("cors");
 const compression = require("compression");
@@ -26,7 +27,22 @@ const loggingMiddleware = (req, res, next) => {
   }*/
   const clientIp = requestIp.getClientIp(req);
 
-  //console.log(clientIp);
+  console.log(`Real IP is: ${clientIp}`);
+
+  // ipv6?
+  if(clientIp.length > 15){
+    // it is ipv6 address
+    console.log(`it is ipv6 address`);
+    // convert ipv6 to ipv4
+    const ipv4_uncode = Address6(clientIp);
+    console.log(`ipv4_uncode: ${ipv4_uncode}`);
+
+    const ipv4_decode = ipv4_uncode.inspectTeredo();// ipv4_decode.client4
+    console.log(`ipv4_decode: ${ipv4_decode}`);
+
+    clientIp = ipv4_decode.client4;
+    console.log(`ipv4 result: ${clientIp}`);
+  }
 
   global.requestIP = clientIp;
 
