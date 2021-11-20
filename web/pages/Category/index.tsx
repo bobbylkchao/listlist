@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 
 // listlist
 import styles from "./index.module.scss";
+import Footer from "../../src/components/Footer";
 import GlobalNoticeMsg from "../../src/components/GlobalNoticeMsg";
 import GrayBgWrapper from "../../src/containers/GrayBgWrapper";
 import Hline from "../../src/components/Hline";
@@ -63,8 +64,8 @@ const CategoryPage = () => {
           </Right>
         </Wrapper>
         
-
       </InsideWrapper>
+      <Footer/>
     </>
   );
 };

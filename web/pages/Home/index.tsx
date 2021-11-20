@@ -4,6 +4,7 @@ import TopMenus from "../../src/components/TopMenus";
 import Hline from "../../src/components/Hline";
 import Link from "../../src/components/Link";
 import GlobalNoticeMsg from "../../src/components/GlobalNoticeMsg";
+import Footer from "../../src/components/Footer";
 
 const HomePage = () => {
   return(
@@ -16,6 +17,7 @@ const HomePage = () => {
         <GlobalNoticeMsg />
         <h2>Home</h2>
       </InsideWrapper>
+      <Footer/>
     </>
   );
 };

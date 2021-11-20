@@ -95,6 +95,7 @@ export const Right = styled.div`
   flex: 3;
   flex-direction: column;
   margin-left: 20px;
+  min-height: 768px;
 `;
 
 export const RightFilterWrapper = styled.div`
