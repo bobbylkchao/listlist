@@ -18,7 +18,7 @@ const CategoryItemsType = new GraphQLObjectType({
       type: new GraphQLList(CategoryItemsItemsType),
       resolve: async (category) => {
         // Get level 2 sub-items
-        let subitemsTwo = await dbQuery(`SELECT * FROM Category WHERE upperID = ${category.id}`);
+        let subitemsTwo = await dbQuery(`SELECT * FROM category WHERE upperID = ${category.id}`);
         return subitemsTwo;
       }
     }
@@ -35,7 +35,7 @@ const CategoryType = new GraphQLObjectType({
       type: new GraphQLList(CategoryItemsType),
       resolve: async (category) => {
         // Get level 1 sub-items
-        let subitemsOne = await dbQuery(`SELECT * FROM Category WHERE upperID = ${category.id}`);
+        let subitemsOne = await dbQuery(`SELECT * FROM category WHERE upperID = ${category.id}`);
         return subitemsOne;
       }
     }

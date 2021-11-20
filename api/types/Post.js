@@ -104,7 +104,7 @@ const PostType = new GraphQLObjectType({
         type: UserType,
         description: "User's info of this post.",
         resolve: async (post) => {
-          let res = await dbQuery(`SELECT * FROM User WHERE id = ${parseInt(post.userID)}`);
+          let res = await dbQuery(`SELECT * FROM user WHERE id = ${parseInt(post.userID)}`);
           return res[0];
         }
       },
@@ -112,7 +112,7 @@ const PostType = new GraphQLObjectType({
         type: new GraphQLList(PostImageType),
         description: "Images of this post.",
         resolve: async (post) => {
-          let res = await dbQuery(`SELECT * FROM PostImage WHERE postID = ${parseInt(post.id)}`);
+          let res = await dbQuery(`SELECT * FROM postimage WHERE postID = ${parseInt(post.id)}`);
           return res;
         }
       }
