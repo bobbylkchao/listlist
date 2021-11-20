@@ -34,7 +34,7 @@ const loggingMiddleware = (req, res, next) => {
     // it is ipv6 address
     console.log(`it is ipv6 address`);
     // convert ipv6 to ipv4
-    const ipv4_uncode = Address6(clientIp);
+    const ipv4_uncode = ipv6(clientIp);
     console.log(`ipv4_uncode: ${ipv4_uncode}`);
 
     const ipv4_decode = ipv4_uncode.inspectTeredo();// ipv4_decode.client4
