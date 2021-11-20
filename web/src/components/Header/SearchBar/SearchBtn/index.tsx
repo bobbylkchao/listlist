@@ -26,7 +26,7 @@ const SearchBtn = (props:{width?:number, passData:string}) => {
 
   const submitSearch = () => {
     if(!props.passData){
-      return router.push(`/category/${getReduxStoreState['categorySelected']['state'] ? getReduxStoreState['categorySelected']['state']['id'] : 0}`);
+      return router.push(`/category/${getReduxStoreState['categorySelected']['state'] ? (getReduxStoreState['categorySelected']['state']['id']*1024) : 0}`);
     }
     router.push(`/search/${props.passData}`);
   };
