@@ -26,7 +26,7 @@ const loggingMiddleware = (req, res, next) => {
   }*/
   const clientIp = requestIp.getClientIp(req);
 
-  console.log(clientIp);
+  //console.log(clientIp);
 
   global.requestIP = clientIp;
 
