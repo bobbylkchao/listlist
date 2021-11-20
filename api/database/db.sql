@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 15/11/2021 20:56:43
+ Date: 19/11/2021 23:28:06
 */
 
 SET NAMES utf8mb4;
@@ -30,7 +30,7 @@ CREATE TABLE `category` (
   KEY `id` (`id`),
   KEY `upperid` (`upperID`),
   KEY `icon` (`icon`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of category
@@ -68,6 +68,7 @@ INSERT INTO `category` VALUES (29, 'Cats & Kittens for Rehoming', NULL, 25);
 INSERT INTO `category` VALUES (30, 'Community', 'users', 0);
 INSERT INTO `category` VALUES (31, 'Lost & Found', NULL, 30);
 INSERT INTO `category` VALUES (32, 'Volunteers', NULL, 30);
+INSERT INTO `category` VALUES (33, 'Books', '', 1);
 COMMIT;
 
 -- ----------------------------
@@ -167,6 +168,9 @@ CREATE TABLE `notification` (
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `id` bigint NOT NULL AUTO_INCREMENT,
+  `country` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `region` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `city` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
   `userID` int NOT NULL,
   `categoryID` int NOT NULL,
   `adtype` int NOT NULL COMMENT '1: offer 2: want to find',
@@ -204,8 +208,11 @@ CREATE TABLE `post` (
   KEY `address` (`address`),
   KEY `fulfillment` (`fulfillment`),
   KEY `cashless_pay` (`cashless_pay`),
-  KEY `condition` (`condition`)
-) ENGINE=InnoDB AUTO_INCREMENT=16001002 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `condition` (`condition`),
+  KEY `country` (`country`),
+  KEY `region` (`region`),
+  KEY `city` (`city`)
+) ENGINE=InnoDB AUTO_INCREMENT=16001001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for postimage
@@ -222,7 +229,7 @@ CREATE TABLE `postimage` (
   KEY `postid` (`postID`),
   KEY `main` (`main`),
   CONSTRAINT `postimage.postid` FOREIGN KEY (`postID`) REFERENCES `post` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Table structure for reviews
@@ -267,16 +274,6 @@ CREATE TABLE `user` (
   KEY `status` (`status`),
   KEY `reg_channel` (`reg_channel`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5000024 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-BEGIN;
-INSERT INTO `user` VALUES (5000022, 'Bobby Chao', 'bobbylkchao@gmail.com', 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10216636384462559&height=50&width=50&ext=1639288350&hash=AeRKqDTh8OOg_iCdxJ0', NULL, 'facebook', '10216636384462559', NULL, 1, 1636075207, NULL);
-INSERT INTO `user` VALUES (5000001, 'Candy R. Kim', 'CandyRKim@teleworm.us', 'default', '$2b$10$EL2Jy2tky6wLjVA9ZcOHce/HxX7XNMuiOX7yRSNKrzrLINKzALiwa', 'listlist', NULL, NULL, 1, 1635060428, NULL);
-INSERT INTO `user` VALUES (5000002, 'Donna J. Snyder', 'DonnaJSnyder@teleworm.us', 'default', '$2b$10$cr0pIfWpXebCXTZeVqO.kOtuLbGhCHXuKQezZKd1M2j9DiJD5poD2', 'listlist', NULL, NULL, 1, 1635060442, NULL);
-INSERT INTO `user` VALUES (5000023, 'test', 'test@test.com', 'default', '$2b$10$Y2J9phaPGAx2asdy6XjdpuuP.69/MStg0M4R2tkPRDEsEkDFFZRmi', 'listlist', NULL, NULL, 1, 1636696316, NULL);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for visit
