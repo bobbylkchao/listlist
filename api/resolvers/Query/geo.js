@@ -5,8 +5,13 @@ const queryGeo = {
   type: GeoType,
   description: "Get the geo infos.",
   async resolve(_, {}){
-    const geoResult = geoip.lookup(global.requestIP);
-    return global.requestIP ? geoResult : {};
+    if(global.requestIP.length > 15){
+      // ipv6, return blank object directly, and leave it to html5 geolocation to determine
+      return {};
+    }else{
+      const geoResult = geoip.lookup(global.requestIP);
+      return global.requestIP ? geoResult : {};
+    }
   }
 };
 
