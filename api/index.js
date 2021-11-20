@@ -1,5 +1,6 @@
 const express = require("express");
 const requestIp = require('request-ip');// used to get real ipv4 ip
+const ipaddr = require('ipaddr.js');// used to convert to ipv6 to ipv4
 const { graphqlHTTP } = require("express-graphql");
 const cors = require("cors");
 const compression = require("compression");
@@ -30,7 +31,13 @@ const loggingMiddleware = (req, res, next) => {
 
   // ipv6?
   if(clientIp.length > 15){
-    
+    console.log(`ipv6 ip...`);
+
+    const ipv6addr = ipaddr.parse(clientIp);
+    console.log(`ip parsed: ${ipv6addr}`);
+
+    clientIp = ipv6addr.toIPv4Address().toString();
+    console.log(`convert to ipv4: ${clientIp}`);
   }
 
   global.requestIP = clientIp;
