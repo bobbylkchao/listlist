@@ -11,11 +11,11 @@
 
 ## Getting Started
 
-1. Change config informations in `src/web.config.ts` file
+1. Copy `src/web.config.ts.example` to `web.config.ts`, then change config informations in `src/web.config.ts`.
 2. Run `npm i` to install all dependencies.
 3. If you wanna start dev env: run `yarn dev`.
 4. If you wanna build production: run `yarn build`, then run `yarn start`.
-4. Visit `http://localhost:3000` in browser.
+5. Visit `http://localhost:3000` in browser.
 
 ## About Google Login
 
