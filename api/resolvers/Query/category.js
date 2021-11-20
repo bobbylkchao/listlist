@@ -6,7 +6,7 @@ const queryCategory = {
   type: new GraphQLList(CategoryType),
   description: "Get category list.",
   async resolve(){
-    let res = await dbQuery(`SELECT * FROM Category WHERE upperID = 0`);
+    let res = await dbQuery(`SELECT * FROM category WHERE upperID = 0`);
     return res;
   }
 };

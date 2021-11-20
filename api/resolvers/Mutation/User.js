@@ -29,7 +29,7 @@ const insertUser = {
     const currentTimestamp = getTimeStamp();
     
     // Insert to DB
-    let res = await dbQuery(`insert into User (email, name, password, reg_channel, createdAt) values ('${email}', '${name}', '${hashedPwd}', 'listlist',${currentTimestamp})`);
+    let res = await dbQuery(`insert into user (email, name, password, reg_channel, createdAt) values ('${email}', '${name}', '${hashedPwd}', 'listlist',${currentTimestamp})`);
     
     // Generate the auth token for user
     const token = AuthToken.generate(email);

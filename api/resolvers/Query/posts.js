@@ -38,7 +38,7 @@ const queryPosts = {
     const dataCountPerTime = 10;
     let res = "";
     let sql = "";
-    let sql_part_main = "SELECT * FROM Post WHERE country = ? AND region = ?";
+    let sql_part_main = "SELECT * FROM post WHERE country = ? AND region = ?";
     let sql_part_orderby = "ORDER BY id desc, updatedAt desc";
     let sql_limit = `LIMIT ${dataCountPerTime}`;
     let params = [country, region];

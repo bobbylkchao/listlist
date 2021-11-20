@@ -29,7 +29,7 @@ const queryAuth = {
       if(!passwordValid.status) return { code: null, message: passwordValid.message, token: null }
 
       // Query user in DB
-      let res = await dbQuery(`SELECT * FROM User WHERE email = '${email}'`);
+      let res = await dbQuery(`SELECT * FROM user WHERE email = '${email}'`);
       let passwordInDB = res[0] ? res[0].password : '';
 
       // No user
@@ -79,7 +79,7 @@ const queryAuth = {
       if(!emailValid.status) return { code: 500, message: emailValid.message, token: null }
 
       // Query user in DB
-      let res = await dbQuery(`SELECT * FROM User WHERE email = '${email}'`);
+      let res = await dbQuery(`SELECT * FROM user WHERE email = '${email}'`);
       
       let resUserInfos = {};
 
@@ -88,7 +88,7 @@ const queryAuth = {
         // diff headnav, if same, go next, if not same, update headnav then go next;
         if(res[0].headnav !== channelHeadNav){
           // update headnav
-          await dbQuery(`UPDATE User SET headnav = '${channelHeadNav}' WHERE email = '${email}'`);
+          await dbQuery(`UPDATE user SET headnav = '${channelHeadNav}' WHERE email = '${email}'`);
         }
 
         resUserInfos = JSON.stringify({
@@ -104,7 +104,7 @@ const queryAuth = {
         // user is not exist
         // create user first then go next;
         const currentTimestamp = getTimeStamp();
-        let createTheUser = await dbQuery(`insert into User (email, name, headnav, reg_channel, channel_userID, createdAt) values ('${email}', '${channelName}', '${channelHeadNav}', '${channel}', '${channelID}',${currentTimestamp})`);
+        let createTheUser = await dbQuery(`insert into user (email, name, headnav, reg_channel, channel_userID, createdAt) values ('${email}', '${channelName}', '${channelHeadNav}', '${channel}', '${channelID}',${currentTimestamp})`);
 
         resUserInfos = JSON.stringify({
           name: channelName,

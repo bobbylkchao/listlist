@@ -12,7 +12,7 @@ const queryUser = {
     }
   },
   async resolve(_, { id }){
-    let res = await dbQuery(`SELECT * FROM User WHERE id = ${id}`);
+    let res = await dbQuery(`SELECT * FROM user WHERE id = ${id}`);
     return res[0];
   }
 };

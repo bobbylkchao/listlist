@@ -6,7 +6,7 @@ const queryUsers = {
   type: new GraphQLList(UserType),
   description: "Get user list.",
   async resolve(_, {}){
-    let res = await dbQuery(`SELECT * FROM User`);
+    let res = await dbQuery(`SELECT * FROM user`);
     return res;
   }
 };
