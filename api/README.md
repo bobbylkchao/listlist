@@ -11,9 +11,10 @@
 3. Copy `.env.example` to `.env`
 4. Run `node createToken.js` to generate a token secret. (JUST ONCE), then copy and parse token secret from command line to .env file. (JUST DO ONCE)
 5. In this project, i am using AWS S3 as cloud storage service, modify `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `AWS_S3_BUCKET` in `.env` file. (JUST DO ONCE)
-6. Run `npm i` to install dependencies.
-7. Run `node index.js` to start graphQL.
-8. Visit `http://localhost:4000` in your browser.
+6. In this project, i am using Google Geocode to get geo infos, modify `GOOGLE_MAP_GEOCODE_KEY` in `.env` file. (JUST DO ONCE)
+7. Run `npm i` to install dependencies.
+8. Run `node index.js` to start graphQL.
+9. Visit `http://localhost:4000` in your browser.
 
 ## Folder description
 
