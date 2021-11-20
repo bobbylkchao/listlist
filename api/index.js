@@ -1,4 +1,5 @@
 const express = require("express");
+const requestIp = require('request-ip');
 const { graphqlHTTP } = require("express-graphql");
 const cors = require("cors");
 const compression = require("compression");
@@ -15,16 +16,19 @@ app.use(express.urlencoded({
 
 // logging middleware
 const loggingMiddleware = (req, res, next) => {
-  let reqIP = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  /*let reqIP = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   if (reqIP.substr(0, 7) === "::ffff:") {
     reqIP = reqIP.substr(7);
   }
 
   if (reqIP === "::1" || reqIP === "127.0.0.1" || reqIP.substr(0, 7) === "192.168") {
     reqIP = "50.70.197.94";// for local test, assgign reqIP to a public example ip (Winnipeg)
-  }
+  }*/
+  const clientIp = requestIp.getClientIp(req);
 
-  global.requestIP = reqIP;
+  console.log(clientIp);
+
+  global.requestIP = clientIp;
 
   next();
 };
