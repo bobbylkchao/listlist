@@ -6,7 +6,6 @@ const queryGeo = {
   description: "Get the geo infos.",
   async resolve(_, {}){
     const geoResult = geoip.lookup(global.requestIP);
-    console.log(geoResult);
     return global.requestIP ? geoResult : {};
   }
 };
