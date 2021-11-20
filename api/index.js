@@ -25,19 +25,14 @@ const loggingMiddleware = (req, res, next) => {
   if (reqIP === "::1" || reqIP === "127.0.0.1" || reqIP.substr(0, 7) === "192.168") {
     reqIP = "50.70.197.94";// for local test, assgign reqIP to a public example ip (Winnipeg)
   }*/
+  console.log(req);
   const clientIp = requestIp.getClientIp(req);
 
   console.log(`Real IP is: ${clientIp}`);
 
   // ipv6?
   if(clientIp.length > 15){
-    console.log(`ipv6 ip...`);
-
-    const ipv6addr = ipaddr.parse(clientIp);
-    console.log(`ip parsed: ${ipv6addr}`);
-
-    clientIp = ipv6addr.toIPv4Address().toString();
-    console.log(`convert to ipv4: ${clientIp}`);
+    
   }
 
   global.requestIP = clientIp;
