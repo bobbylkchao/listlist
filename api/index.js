@@ -20,7 +20,7 @@ const loggingMiddleware = (req, res, next) => {
     reqIP = reqIP.substr(7);
   }
 
-  if (reqIP === "::1" || reqIP === "127.0.0.1") {
+  if (reqIP === "::1" || reqIP === "127.0.0.1" || reqIP.substr(0, 7) === "192.168") {
     reqIP = "50.70.197.94";// for local test, assgign reqIP to a public example ip (Winnipeg)
   }
 
