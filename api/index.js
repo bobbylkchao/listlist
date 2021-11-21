@@ -39,9 +39,10 @@ app.use(tokenMiddleware);
 app.use(compression());
 
 // Set Cors
+const { CORS_DOMAINS } = process.env;
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://192.168.0.102:3000", "https://www.listlist.ca"],
+    origin: JSON.parse(CORS_DOMAINS),
     methods: "POST",
     optionsSuccessStatus: 200
   })
