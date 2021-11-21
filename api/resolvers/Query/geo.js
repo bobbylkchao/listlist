@@ -41,6 +41,8 @@ const queryGeo = {
     
     const res = await geocoder.reverse({lat: lat, lon: long});
 
+    console.log(res);
+
     return {
       country: res[0].countryCode,
       region: res[0].administrativeLevels.level1short,
