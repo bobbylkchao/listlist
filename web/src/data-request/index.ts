@@ -12,18 +12,30 @@ import {
  * @param {void} dispatch redux dispatch
  * @return {null}
  */
-export const getGeoInfo = (callback: (result: any) => void) => {
-  getGraphQL(`
-    query{
-      geo{
+export const getGeoInfo = (lat: number, long: number, callback?: (result: any) => void) => {
+  const query = `
+    query(
+      $lat: Float!,
+      $long: Float!
+    ){
+      geo(
+        lat: $lat,
+        long: $long
+      ){
         country,
         region,
-        city,
-        ll
+        city
       }
     }
-  `, (result: any) => {
-    callback(result);
+  `;
+
+  const variables = {
+    lat: lat,
+    long: long,
+  };
+
+  getGraphQLWithVariables(query, variables, (res: any) => {
+    callback ? callback(res) : null;
   });
 };
 

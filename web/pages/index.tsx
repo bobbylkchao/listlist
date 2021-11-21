@@ -55,7 +55,7 @@ const Main = () => {
   library.add(faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, faTools, faPaw, faUsers, faTag, faCar, faChevronRight, faUserCircle, faUser, faEnvelope, faLock, faCheckCircle, faExclamationCircle, faPlus, faTimes, fab, faChevronDown, faChevronUp);
 
   React.useEffect(() => {
-    debugLog(`Route is loaded...`);
+    debugLog(`Main & Route is loaded...`);
     preFetchExecute(reduxUseDispatch);
   }, []);
 

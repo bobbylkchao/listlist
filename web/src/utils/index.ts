@@ -433,3 +433,38 @@ export const getCategoryTree = (categoryID: number, categoryList: any) => {
 
   return res;
 };
+
+/**
+ * get user's geolocation
+ */
+export const getGeoLocation = (callback: (res: {
+  lat: number,
+  long: number,
+  remark: string,
+}) => void) => {
+  if('geolocation' in navigator){
+    navigator.geolocation.getCurrentPosition(
+      (success: any) => {
+        callback({
+          lat: success.coords.latitude,
+          long: success.coords.longitude,
+          remark: 'success',
+        });
+      },
+      (error: any) => {
+        // if failed, use default lat and long. (Winnipeg, MB, CA)
+        callback({
+          lat: 49.773600,
+          long: -97.169770,
+          remark: 'error, use default value',
+        });
+      }
+    );
+  }else{
+    callback({
+      lat: 49.773600,
+      long: -97.169770,
+      remark: 'error, not support, use default value',
+    });
+  }
+};

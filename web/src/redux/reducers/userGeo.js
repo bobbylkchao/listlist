@@ -5,7 +5,6 @@ const userGeoInitData = {
   country: "CA",
   region: "MB",
   city: "Winnipeg",
-  ll: ["49.8179","-97.1535"],
   remarks: "Initial value",
 };
 

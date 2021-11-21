@@ -2,7 +2,7 @@
  * Fetch before rendering
  */
 import { getAllCategories, getGeoInfo, tokenValidation } from "../data-request";
-import { userAuthLSInfos } from "../utils";
+import { userAuthLSInfos, getGeoLocation } from "../utils";
 
 // Execute prefetchs before rendering
 const preFetchExecute = (reduxUseDispatch: (parms:any) => void) => {
@@ -19,7 +19,7 @@ const preFetchExecute = (reduxUseDispatch: (parms:any) => void) => {
   /**
    * Init the user's geo infos
    */
-  getGeoInfo((result:any) => {
+  /*getGeoInfo((result:any) => {
     if(!result.data || !result.data.geo){
       reduxUseDispatch({
         type: "updateUserGeo",
@@ -42,6 +42,35 @@ const preFetchExecute = (reduxUseDispatch: (parms:any) => void) => {
         ll: result.data.geo.ll,
         remarks: "No error.",
       },
+    });
+  });*/
+  getGeoLocation((res: {
+    lat: number,
+    long: number,
+    remark: string,
+  }) => {
+    getGeoInfo(res.lat, res.long, (result:any) => {
+      if(!result.data || !result.data.geo){
+        reduxUseDispatch({
+          type: "updateUserGeo",
+          value:{
+            country: "CA",
+            region: "MB",
+            city: "Winnipeg",
+            remarks: "Error, use default values.",
+          },
+        });
+      }
+  
+      reduxUseDispatch({
+        type: "updateUserGeo",
+        value:{
+          country: result.data.geo.country,
+          region: result.data.geo.region,
+          city: result.data.geo.city,
+          remarks: "No error.",
+        },
+      });
     });
   });
 
