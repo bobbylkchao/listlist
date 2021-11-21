@@ -39,23 +39,18 @@ app.use(tokenMiddleware);
 app.use(compression());
 
 // Set Cors
-const { CORS_DOMAINS } = process.env;
 app.use(
   cors({
-    origin: JSON.parse(CORS_DOMAINS),
+    origin: [
+      "http://localhost:3000",
+      "http://127.0.0.1:3000",
+      "https://www.listlist.ca",
+      "https://listlist.ca"
+    ],
     methods: "POST",
     optionsSuccessStatus: 200
   })
 );
-
-/*
-app.all('*', function(req, res, next) {
-  //res.setHeader('Access-Control-Allow-Origin','*');
-  //res.setHeader('Access-Control-Allow-Methods', '*'); 
-  res.setHeader('Access-Control-Allow-Headers', '*'); 
-  next();
-});*/
-
 
 app.use(
   "/",
