@@ -1,10 +1,10 @@
-// reducer for storing currently selected category
-import { getGeoInfo } from "../../data-request";
-
+// reducer for storing user's geo infos
 const userGeoInitData = {
   country: "CA",
   region: "MB",
   city: "Winnipeg",
+  street: "Carlton St",
+  zipcode: "R3C 0V4",
   remarks: "Initial value",
 };
 

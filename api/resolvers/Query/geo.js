@@ -25,6 +25,7 @@ const queryGeo = {
         country: "CA",
         region: "MB",
         city: "Winnipeg",
+        street: "Carlton St",
         zipcode: "R3C 0V4",
         remark: "failed, not configured GOOGLE_MAP_GEOCODE_KEY in .env, use default value",
       };
@@ -41,12 +42,11 @@ const queryGeo = {
     
     const res = await geocoder.reverse({lat: lat, lon: long});
 
-    console.log(res);
-
     return {
       country: res[0].countryCode,
       region: res[0].administrativeLevels.level1short,
       city: res[0].city,
+      street: res[0].streetName,
       zipcode: res[0].zipcode,
       remark: "success",
     };

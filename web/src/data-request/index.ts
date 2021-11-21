@@ -24,7 +24,10 @@ export const getGeoInfo = (lat: number, long: number, callback?: (result: any) =
       ){
         country,
         region,
-        city
+        city,
+        street,
+        zipcode,
+        remark
       }
     }
   `;
