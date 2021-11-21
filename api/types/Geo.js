@@ -16,9 +16,13 @@ const GeoType = new GraphQLObjectType({
       type: GraphQLString,
       description: "City of IP, eg. Winnipeg",
     },
-    ll: {
-      type: GraphQLList(GraphQLString),
-      description: "Latitude and longitude of IP, eg. [ 49.8179, -97.1535 ]",
+    zipcode: {
+      type: GraphQLString,
+      description: "Postal Code, eg. R3E 5H0",
+    },
+    remark: {
+      type: GraphQLString,
+      description: "remark message",
     }
   }
 });
