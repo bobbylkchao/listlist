@@ -16,6 +16,10 @@ const GeoType = new GraphQLObjectType({
       type: GraphQLString,
       description: "City of IP, eg. Winnipeg",
     },
+    streetNumber: {
+      type: GraphQLString,
+      description: "Street number",
+    },
     street: {
       type: GraphQLString,
       description: "Street name of this location",
