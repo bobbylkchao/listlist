@@ -6,6 +6,7 @@ export const LocationSectionWrapper = styled.div`
 
 export const InsideLeft = styled.div`
   display: flex;
+  flex-direction: column;
   width: 60%
 `;
 
@@ -16,7 +17,7 @@ export const InsideRight= styled.div`
 
 export const MapShow = styled.div`
   width: 100%;
-  height: 120px;
+  height: 100%;
   margin: 0 10px;
   border-radius: 5px;
   background-color: #eeeeee;

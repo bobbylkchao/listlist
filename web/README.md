@@ -26,3 +26,10 @@
 
 1. Follow steps on `https://developers.facebook.com`
 2. Change `facebookAppID` in `src/web.config.ts` file
+
+## About Google Map Place API
+
+**Using google map place api to autocomplete the address input by user**
+
+1. Follow steps on `https://developers.google.com/maps/documentation/javascript/places?hl=en_GB`
+2. Change `googleMapPlaceAPIKey` in `src/web.config.ts` file
