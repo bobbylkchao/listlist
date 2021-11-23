@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "./node_modules/.bin/tslint --project tsconfig.json --config tslint.json"
+    "tslint": "./node_modules/.bin/tslint --project tsconfig.json --config tslint.json"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
