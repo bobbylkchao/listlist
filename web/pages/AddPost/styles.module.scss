@@ -96,3 +96,70 @@
   margin-right: 10px;
   margin-bottom: 10px;
 }
+
+.locationStaticAddress{
+  >span{
+    margin-right: 20px;
+    font-size: 16px;
+  }
+}
+
+.adPostedInShow{
+  display: flex;
+  flex-direction: row;
+  background-color: #F8F9F9;
+  width: 60%;
+  padding: 20px 0;
+  box-sizing: border-box;
+  margin: 20px 0;
+  border-radius: 5px;
+  align-items: center;
+
+  >div:first-child{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  }
+
+  >div:not(:first-child){
+    display: flex;
+    flex: 5;
+    flex-direction: column;
+    color: #929292;
+    font-weight: 300;
+
+    >div:nth-child(2){
+      font-weight: 500;
+      color: #1c242c;
+    }
+  }
+}
+
+.notCityPostedInQuestion{
+  color: #929292;
+  font-weight: 300;
+  >svg{
+    margin-left: 10px;
+    :hover{
+      cursor: help;
+    }
+  }
+}
+
+.googleMapInputWrapper{
+  min-height: 171px;
+  input{
+    height: 40px;
+  }
+
+  >div:first-child{
+    color: #929292;
+    font-weight: 300;
+    margin-bottom: 15px;
+  }
+
+  >div:nth-child(4){
+    text-align: center;
+    margin-top: 15px;
+  }
+}

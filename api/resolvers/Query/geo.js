@@ -28,6 +28,8 @@ const queryGeo = {
         streetNumber: "223",
         street: "Carlton St",
         zipcode: "R3C 0V4",
+        lat: 49.893910,
+        long: -97.146480,
         remark: "failed, not configured GOOGLE_MAP_GEOCODE_KEY in .env, use default value",
       };
     }
@@ -50,6 +52,8 @@ const queryGeo = {
       streetNumber: res[0].streetNumber,
       street: res[0].streetName,
       zipcode: res[0].zipcode,
+      lat: lat,
+      long: long,
       remark: "success",
     };
 

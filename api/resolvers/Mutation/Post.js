@@ -1,4 +1,4 @@
-const { GraphQLInt, GraphQLString, GraphQLList, GraphQLNonNull } = require('graphql');
+const { GraphQLInt, GraphQLString, GraphQLFloat, GraphQLNonNull } = require('graphql');
 const { dbQuery } = require('../../database');
 const { DefaultType, UploadImagesType } = require('../../types');
 const { getTimeStamp } = require('../../libs/utils');
@@ -16,6 +16,8 @@ const insertPost = {
     country: { type: new GraphQLNonNull(GraphQLString) },
     region: { type: new GraphQLNonNull(GraphQLString) },
     city: { type: new GraphQLNonNull(GraphQLString) },
+    lat: { type: new GraphQLNonNull(GraphQLFloat) },
+    long: { type: new GraphQLNonNull(GraphQLFloat) },
     userID: { type: new GraphQLNonNull(GraphQLInt) },
     categoryID: { type: new GraphQLNonNull(GraphQLInt) },
     adtype: { type: new GraphQLNonNull(GraphQLInt) },
@@ -38,6 +40,8 @@ const insertPost = {
     country,
     region,
     city,
+    lat,
+    long,
     userID,
     categoryID,
     adtype,
@@ -66,11 +70,13 @@ const insertPost = {
     }
 
     let res = await dbQuery(
-      "INSERT INTO `post` (`country`,`region`,`city`,`userID`, `categoryID`, `adtype`, `forsaleby`, `title`, `description`, `price`, `price_value`, `address`, `fulfillment`, `cashless_pay`, `condition`, `tags`, `youtube`, `websitelink`, `phonenumber`, `createdAt`) VALUES (?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO `post` (`country`,`region`,`city`,`lat`,`long`,`userID`, `categoryID`, `adtype`, `forsaleby`, `title`, `description`, `price`, `price_value`, `address`, `fulfillment`, `cashless_pay`, `condition`, `tags`, `youtube`, `websitelink`, `phonenumber`, `createdAt`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         country,
         region,
         city,
+        lat,
+        long,
         parseInt(userID),
         parseInt(categoryID),
         parseInt(adtype),

@@ -57,8 +57,11 @@ const preFetchExecute = (reduxUseDispatch: (parms:any) => void) => {
             country: "CA",
             region: "MB",
             city: "Winnipeg",
+            streetNumber: "223",
             street: "Carlton St",
             zipcode: "R3C 0V4",
+            lat: 49.893910,
+            long: -97.146480,
             remarks: "Error, use default values.",
           },
         });
@@ -70,8 +73,11 @@ const preFetchExecute = (reduxUseDispatch: (parms:any) => void) => {
           country: result.data.geo.country,
           region: result.data.geo.region,
           city: result.data.geo.city,
+          streetNumber: result.data.geo.streetNumber,
           street: result.data.geo.street,
           zipcode: result.data.geo.zipcode,
+          lat: result.data.geo.lat,
+          long: result.data.geo.long,
           remarks: "No error.",
         },
       });

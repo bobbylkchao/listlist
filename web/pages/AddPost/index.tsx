@@ -60,6 +60,8 @@ const AddPostPage = () => {
     price: number,
     price_value: null | number,
     address: null | string,
+    lat: null | number,
+    long: null | number,
     fulfillment: [] | string[],
     cashless_pay: null | number,
     condition: null | number,
@@ -71,11 +73,11 @@ const AddPostPage = () => {
       img: string,
       thumbnail: string,
       main: boolean,
-    }],
+    }]
   }>({
-    country: userGeoState?.country,
-    region: userGeoState?.region,
-    city: userGeoState?.city,
+    country: "",
+    region: "",
+    city: "",
     userID: null,
     categoryID: null,
     adtype: 1,
@@ -84,7 +86,9 @@ const AddPostPage = () => {
     description: null,
     price: 1,
     price_value: null,
-    address: null,
+    address: "",
+    lat: null,
+    long: null,
     fulfillment: [],
     cashless_pay: null,
     condition: null,
@@ -92,7 +96,7 @@ const AddPostPage = () => {
     youtube: null,
     websitelink: null,
     phonenumber: null,
-    uploadImages: [],
+    uploadImages: []
   });
 
   // Ref from child components
@@ -108,7 +112,17 @@ const AddPostPage = () => {
         userID: userAuthState.userID,
       }));
     }
-  }, [userAuthState]);
+    if(userGeoState){
+      setFormData((previous: any) => ({
+        ...previous,
+        country: userGeoState.country,
+        region: userGeoState.region,
+        city: userGeoState.city,
+        lat: userGeoState.lat,
+        long: userGeoState.long,
+      }));
+    }
+  }, [userAuthState, userGeoState]);
   
   // handle form submit
   const handleSubmit = (event: any) => {
@@ -166,7 +180,12 @@ const AddPostPage = () => {
     }
 
     // address validation
-    if(!formData.address?.trim()){
+    if(!formData.address?.trim() || !formData.lat || !formData.long){
+      if(!formData.lat || !formData.long){
+        locationSectionRef.current.valid.validAddress(false, "Please select your address from dropdown list");
+        scrollToEle('addPost_location_address');
+        return;
+      }
       locationSectionRef.current.valid.validAddress(false, "Please enter a valid postal code or street address");
       scrollToEle('addPost_location_address');
       return;
@@ -210,17 +229,6 @@ const AddPostPage = () => {
     formData.description = encodeURIComponent(formData.description);
     formData.websitelink = formData.websitelink ? encodeURIComponent(formData.websitelink) : formData.websitelink;
     formData.youtube = formData.youtube ? encodeURIComponent(formData.youtube) : formData.youtube;
-
-    // geo validation
-    // LISTLIST-TODO: enable below three comments before launch
-    //if(!formData.country){formData.country = "CA";}
-    //if(!formData.region){formData.region = "MB";}
-    //if(!formData.city){formData.city = "Winnipeg";}
-
-    // geo double confirm
-    formData.country = userGeoState.country;
-    formData.region = userGeoState.region;
-    formData.city = userGeoState.city;
 
     // submit
     setIsSubmitting(true);
@@ -276,6 +284,9 @@ const AddPostPage = () => {
           style={{ maxWidth: 900 }}
         >
           <GlobalNoticeMsg />
+          {
+            JSON.stringify(formData)
+          }
           <Form
             noValidate
             onSubmit={!isSubmitting ? handleSubmit : () => {}}

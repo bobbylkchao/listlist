@@ -1,4 +1,4 @@
-const { GraphQLList, GraphQLInt, GraphQLNonNull, GraphQLString } = require('graphql');
+const { GraphQLList, GraphQLInt, GraphQLNonNull, GraphQLString, GraphQLFloat } = require('graphql');
 const { dbQuery } = require('../../database');
 const { PostType } = require('../../types');
 
@@ -17,6 +17,14 @@ const queryPosts = {
     city: {
       type: GraphQLString,
       description: "(Optional) City of posts, eg: WINNIPEG"
+    },
+    lat: {
+      type: GraphQLFloat,
+      description: "Publisher's latitude",
+    },
+    long: {
+      type: GraphQLFloat,
+      description: "Publisher's longitude",
     },
     categoryID: {
       type: GraphQLInt,

@@ -323,6 +323,16 @@ export const regexLetterNumberSpace = (value: string | number) => {
 };
 
 /**
+ * regexAddress
+ * @desc Regex, only keep letter, number, space, and dot
+ * @param {string | number} value 
+ * @returns {string | number} new value
+ */
+ export const regexAddress = (value: string | number) => {
+  return value.toString().replace(/[^a-z0-9À-ÿ, ]/gi, '');
+};
+
+/**
  * scroll to top
  * @param {number} top optional, top postion
  * @param {number} left optional, left postion

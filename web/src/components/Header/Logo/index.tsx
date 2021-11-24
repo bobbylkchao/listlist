@@ -14,6 +14,10 @@ const Logo = () => {
         alt="ListList.ca"
         onClick={() => router.push('/')}
         placeholder="blur"
+        blurDataURL={`data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM0mPS+HgAE3QIyD41BUwAAAABJRU5ErkJggg==`}
+        width={118}
+        height={45}
+        className="logoImage"
       />
     </div>
   );

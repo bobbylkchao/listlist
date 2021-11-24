@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLList, GraphQLString } = require('graphql');
+const { GraphQLObjectType, GraphQLFloat, GraphQLString } = require('graphql');
 
 const GeoType = new GraphQLObjectType({
   name: 'Geo',
@@ -27,6 +27,14 @@ const GeoType = new GraphQLObjectType({
     zipcode: {
       type: GraphQLString,
       description: "Postal Code, eg. R3E 5H0",
+    },
+    lat: {
+      type: GraphQLFloat,
+      description: "Latitude",
+    },
+    long: {
+      type: GraphQLFloat,
+      description: "Longitude",
     },
     remark: {
       type: GraphQLString,

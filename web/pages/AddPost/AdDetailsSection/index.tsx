@@ -65,7 +65,7 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
     two: {},
     three: {},
   });
-  
+ 
   // categroy modal
   const CategoryModalRef = React.createRef<any>();
 
@@ -89,7 +89,7 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
             title: {
               valid: valid,
               message: message ?? '',
-            }
+            },
           }));
         },
         validDesc: (valid: boolean, message?: string) => {
@@ -98,11 +98,11 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
             description: {
               valid: valid,
               message: message ?? '',
-            }
+            },
           }));
         },
-      }
-    }
+      },
+    };
   });
 
   return(
@@ -155,7 +155,7 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
                 title: {
                   valid: validStatus,
                   message: validationMessage,
-                }
+                },
               }));
 
               // form data callback
@@ -189,7 +189,7 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
               className={styles.add_post_form_adtype_o1}
               onChange={(e:any) => {
                 if(e.target.checked){
-                  adTypeCallback(e.target.value, params);
+                  adTypeCallback(parseInt(e.target.value), params);
                 }
                 if(e.target.checked && e.target.value !== 1){
                   setAdTypeCheckedValue(1);
@@ -206,7 +206,7 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
               className={styles.add_post_form_adtype_o2}
               onChange={(e:any) => {
                 if(e.target.checked){
-                  adTypeCallback(e.target.value, params);
+                  adTypeCallback(parseInt(e.target.value), params);
                 }
                 if(e.target.checked && e.target.value !== 2){
                   setAdTypeCheckedValue(2);
@@ -217,7 +217,6 @@ const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) =>
           </Col>
         </Form.Group>
       </fieldset>
-      
       <Gap/>
 
       {/**for sale by */}

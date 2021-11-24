@@ -24,6 +24,14 @@ const PostType = new GraphQLObjectType({
         type: GraphQLString,
         description: "Publisher's city",
       },
+      lat: {
+        type: GraphQLFloat,
+        description: "Publisher's latitude",
+      },
+      long: {
+        type: GraphQLFloat,
+        description: "Publisher's longitude",
+      },
       userID: {
         type: GraphQLInt,
         description: "The id of the user of the post.",

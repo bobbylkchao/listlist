@@ -62,6 +62,10 @@ textarea:focus{
   font-size: 15px !important;
 }
 
+input:focus:not(.is-invalid)[id^="react-select"]{
+  border: 0 !important;
+}
+
 textarea{
   font-size: 15px !important;
 }
