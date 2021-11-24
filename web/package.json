@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "tslint": "./node_modules/.bin/tslint --project tsconfig.json --config tslint.json"
+    "tslint": "./node_modules/.bin/tslint --project tsconfig.json --config tslint.json",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -34,14 +35,21 @@
     "styled-theming": "^2.2.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.15.1",
+    "@testing-library/react": "^12.1.2",
     "@types/react": "17.0.30",
     "@types/react-dom": "^17.0.9",
     "@types/react-facebook-login": "^4.1.4",
     "@types/react-router-dom": "^5.3.1",
     "@types/styled-theming": "^2.2.5",
+    "babel-jest": "^27.3.1",
     "babel-plugin-styled-components": "^1.13.2",
     "eslint": "^8.2.0",
     "eslint-config-next": "11.1.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.3.1",
+    "jest-fetch-mock": "^3.0.3",
+    "react-test-renderer": "^17.0.2",
     "sass": "^1.43.2",
     "scss": "^0.2.4",
     "tslint": "^6.1.3",
