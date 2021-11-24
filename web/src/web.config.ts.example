@@ -8,7 +8,7 @@ const webConfig = {
   photoThumbnailCompressionMaxWidthOrHeight: 200, // maximum 200 px width or height
   googleLoginClientID: "xxxxxx", // google login client id
   facebookAppID: "xxxxxx", // facebook login app id
-  googleMapsJavaScriptAPIKey: "xxxxxx", // google map maps javascript api key, used to show autocomplete address
+  googleMapsJavaScriptAPIKey: "xxxxxx", // google map maps javascript api key, used to show autocomplete address, and get geocode info from address place id. Needs enable Geocoding API, Maps JavaScript API and Places API on https://console.cloud.google.com/apis/credentials
 };
 
 export default webConfig;
