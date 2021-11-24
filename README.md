@@ -50,7 +50,7 @@ Database: MySQL
 
 Socket: Socket.io
 
-* Model E-R
+# Model E-R
 
 ![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/er.png)
 
