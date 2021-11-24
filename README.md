@@ -16,6 +16,7 @@ Web: [https://www.listlist.ca/](https://www.listlist.ca/)
 
 GraphQL API: [https://api.listlist.ca/](https://api.listlist.ca/)
 
+
 # Author
 
 Bobby Chao
@@ -48,6 +49,10 @@ Back-End: Node.js, ES6, GraphQL, Apollo
 Database: MySQL
 
 Socket: Socket.io
+
+* Model E-R
+
+![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/er.png)
 
 # How to start?
 
