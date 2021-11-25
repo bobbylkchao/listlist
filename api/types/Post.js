@@ -36,6 +36,10 @@ const PostType = new GraphQLObjectType({
         type: GraphQLInt,
         description: "The id of the user of the post.",
       },
+      exactLocation: {
+        type: GraphQLInt,
+        description: "Show exact location or Show an area, eg: 0: only show an area, 1: show exact location",
+      },
       categoryID: {
         type: GraphQLInt,
         description: "Post category id.",
