@@ -6,14 +6,14 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // listlist
-import webConfig from '../../../src/web.config';
-import styles from '../styles.module.scss';
+import webConfig from '../../src/web.config';
+import styles from './styles.module.scss';
 import {
   getImageBase64,
   urlValidation,
   compressionImage,
   thumbnailImage,
-} from '../../../src/utils';
+} from '../../src/utils';
 import {
   AddImageWrapper,
   AddPostFileUploadPureBtn,
@@ -23,12 +23,12 @@ import {
   SetMainBtn,
   MainPhoto,
   YoutubeVideoRemarkWrapper,
-} from '../../../src/styled/MediaSectionStyled';
+} from '../../src/styled/MediaSectionStyled';
 import {
   uploadImagesCallback,
   youtubeCallback,
   websitelinkCallback,
-} from '../../../src/utils/callbacks/MediaSectionCallback';
+} from '../../src/utils/callbacks/MediaSectionCallback';
 
 const MediaSection = (params: {onRef: any, callback: (res: any) => void}) => {
   const [images, setImages] = React.useState<any>([]);
