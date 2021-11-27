@@ -6,12 +6,12 @@ import Badge from 'react-bootstrap/Badge';
 import CloseButton from 'react-bootstrap/CloseButton';
 
 // listlist
-import styles from '../styles.module.scss';
-import Button from '../../../src/components/Button';
-import Link from '../../../src/components/Link';
-import CategoryModal from '../../../src/components/CategoryModal';
-import { regexLetterNumberSpace } from '../../../src/utils';
-import { AdDetailsSectionWrapper, Gap, TagsWrapper } from '../../../src/styled/AdDetailsSectionStyled';
+import styles from './styles.module.scss';
+import Button from '../../src/components/Button';
+import Link from '../../src/components/Link';
+import CategoryModal from '../../src/components/CategoryModal';
+import { regexLetterNumberSpace } from '../../src/utils';
+import { AdDetailsSectionWrapper, Gap, TagsWrapper } from '../../src/styled/AdDetailsSectionStyled';
 import {
   categoryCallback,
   adTitleCallback,
@@ -22,7 +22,7 @@ import {
   cashlessCallback,
   conditionCallback,
   tagsCallback,
-} from '../../../src/utils/callbacks/AdDetailsSectionCallback';// these callbacks are used to pass this form elements' value to main form hook state
+} from '../../src/utils/callbacks/AdDetailsSectionCallback';// these callbacks are used to pass this form elements' value to main form hook state
 
 const AdDetailsSection = (params: {onRef: any, callback: (res: any) => void}) => {
   // values

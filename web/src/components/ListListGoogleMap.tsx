@@ -31,7 +31,6 @@ const ListListGoogleMap = (params: { showExactLocation: boolean, lat: number, ln
       clickableIcons={false}
       onLoad={onLoad}
       onUnmount={onUnmount}
-      onError={(err:any) => console.error(err)}
       options={{
         disableDoubleClickZoom: true,
         draggable: false,

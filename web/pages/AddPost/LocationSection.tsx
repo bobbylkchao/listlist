@@ -12,12 +12,12 @@ import Image from 'next/image';
 import GooglePlacesAutocomplete, { geocodeByPlaceId } from 'react-google-places-autocomplete';
 
 // listlist
-import webConfig from '../../../src/web.config';
-import styles from '../styles.module.scss';
-import Link from '../../../src/components/Link';
-import Button from '../../../src/components/Button';
+import webConfig from '../../src/web.config';
+import styles from './styles.module.scss';
+import Link from '../../src/components/Link';
+import Button from '../../src/components/Button';
 //import googleMapPlaceholder from '../../../src/assets/images/googleMapPlaceholder.png';
-import { regexAddress } from '../../../src/utils';
+import { regexAddress } from '../../src/utils';
 import {
   LocationSectionWrapper,
   InsideLeft,
@@ -26,14 +26,14 @@ import {
   RemarkWrapper,
   OrSpan,
   GoogleMapPlaceholderWrapper,
-} from '../../../src/styled/LocationSectionStyled';
-import ListListGoogleMap from '../../../src/components/ListListGoogleMap';
+} from '../../src/styled/LocationSectionStyled';
+import ListListGoogleMap from '../../src/components/ListListGoogleMap';
 import {
   addressCallback,
   latLngCallback,
   regionCityCallback,
   exactAddressCallback,
-} from './callback';
+} from '../../src/utils/callbacks/LocationSectionCallback';
 
 const LocationSection = (params: {onRef: any, callback: (res: any) => void}) => {
   // get geo state from redux
