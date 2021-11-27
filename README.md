@@ -2,6 +2,8 @@
 
 ![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-header.png)
 
+![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/googlemap.gif)
+
 *More screenshots at bottom of this page.*
 
 # Status, Progress and Update
@@ -78,7 +80,11 @@ web: React.js project
 
 **Post Ad Page**
 
-![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-post-ad-0.0.5.png)
+![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/web-post-ad-0.0.6.png)
+
+**Post Ad Page - Google Map & Address Autocomplete**
+
+![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/googlemap.gif)
 
 **graphQL Query APIs**
 
