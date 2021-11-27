@@ -4,16 +4,19 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-import { geocodeByPlaceId } from 'react-google-places-autocomplete';
+import Image from 'next/image';
+
+// google map related
+import GooglePlacesAutocomplete, { geocodeByPlaceId } from 'react-google-places-autocomplete';
 
 // listlist
 import webConfig from '../../../src/web.config';
 import styles from '../styles.module.scss';
 import Link from '../../../src/components/Link';
+import Button from '../../../src/components/Button';
+//import googleMapPlaceholder from '../../../src/assets/images/googleMapPlaceholder.png';
 import { regexAddress } from '../../../src/utils';
 import {
   LocationSectionWrapper,
@@ -22,47 +25,40 @@ import {
   MapShow,
   RemarkWrapper,
   OrSpan,
+  GoogleMapPlaceholderWrapper,
 } from '../../../src/styled/LocationSectionStyled';
-
-// callback
-const addressCallback = (value: string, params: {callback: (res: any) => void}) => {
-  params.callback((previousData:any) => ({
-    ...previousData,
-    address: value ? value : null,
-  }));
-};
-
-const latLngCallback = (lat: number | null, long: number | null, params: {callback: (res: any) => void}) => {
-  params.callback((previousData:any) => ({
-    ...previousData,
-    lat: lat,
-    long: long
-  }));
-};
-
-const regionCityCallback = (city: string, region: string, params: {callback: (res: any) => void}) => {
-  if(region && city){
-    params.callback((previousData:any) => ({
-      ...previousData,
-      city: city,
-      region: region
-    }));
-  }
-};
+import ListListGoogleMap from '../../../src/components/ListListGoogleMap';
+import {
+  addressCallback,
+  latLngCallback,
+  regionCityCallback,
+  exactAddressCallback,
+} from './callback';
 
 const LocationSection = (params: {onRef: any, callback: (res: any) => void}) => {
+  // get geo state from redux
   const geoState = useSelector((state:any) => state.userGeo.state);
+
+  // hook to store google autocomplete input visible
   const [showGoogleInput, setShowGoogleInput] = React.useState<boolean>(false);
-  const [valid, setValid] = React.useState<{
-    status: boolean,
-    message: string,
-  }>({
-    status: true,
-    message: '',
-  });
+
+  // hook to store input validation
+  const [valid, setValid] = React.useState<{ status: boolean,message: string }>({ status: true,message: '' });
+
+  // hook to store address that been selected
   const [address, setAddress] = React.useState<string | null>(null);
+
+  // hook to store google autocomplete input value
   const [googleMapInputValue, setGoogleMapInputValue] = React.useState<string | null>(null);
+
+  // hook to store which city this post will be posted at
   const [adPostedInCity, setAdPostedInCity] = React.useState<string | null>(null);
+
+  // hook to store `exactLocation` checkbox checked status
+  const [exactLocationChecked, setExactLocationChecked] = React.useState<boolean>(false);
+
+  // hook to store lat and long of current selected address
+  const [latAndLong, setLatAndLong] = React.useState<{lat: number, long: number}>({lat: 0, long: 0});
 
   React.useEffect(() => {
     if(geoState){
@@ -71,6 +67,7 @@ const LocationSection = (params: {onRef: any, callback: (res: any) => void}) => 
         setAddress(`${geoState.city}, ${geoState.zipcode}`);
         setGoogleMapInputValue(`${geoState.city}, ${geoState.zipcode}`);
         addressCallback(`${geoState.city}, ${geoState.zipcode}`, params);
+        setLatAndLong({lat: geoState.lat, long: geoState.long});
       }
     }
   }, [geoState]);
@@ -163,26 +160,20 @@ const LocationSection = (params: {onRef: any, callback: (res: any) => void}) => 
                       res[0].geometry.location.lng(),
                       params
                     );
+                    setLatAndLong({
+                      lat: res[0].geometry.location.lat(),
+                      long: res[0].geometry.location.lng(),
+                    });
                   }
                 });
               }
             },
-            onBlur: (e:any) => {
-              if(e.target.value){
-                setAddress(e.target.value);
-                addressCallback(e.target.value, params);
-              }else{
-                setGoogleMapInputValue(null);
-                setValid({
-                  status: false,
-                  message: 'Please enter a valid postal code or street address'
-                });
-              }
-            }
+            onBlur: () => { return; }
           }}
           autocompletionRequest={{
             componentRestrictions: {country: ['ca']}
           }}
+          onLoadFailed={(error: any) => console.log(error)}
         />
         <Form.Control.Feedback
           style={{display: 'block'}}
@@ -195,6 +186,40 @@ const LocationSection = (params: {onRef: any, callback: (res: any) => void}) => 
     );
   };
 
+  const ShowMyExactLocation = () => {
+    return(
+      <Form.Check
+        type="checkbox"
+        label="Show my exact location"
+        name="addPost_showmyexact_location"
+        id="addPost_showmyexact_location"
+        style={{marginTop: 15}}
+        value={1}
+        checked={exactLocationChecked}
+        onChange={(e:any) => {
+          setExactLocationChecked(e.target.checked);
+          exactAddressCallback(e.target.checked, params);
+        }}
+      />
+    );
+  };
+
+  /*const GoogleMapPlaceholder = () => {
+    return(
+      <GoogleMapPlaceholderWrapper>
+        <Button>Preview Map</Button>
+        <Image
+          src={googleMapPlaceholder}
+          alt="Show Map"
+          placeholder="blur"
+          blurDataURL={`data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAALCAYAAABGbhwYAAABQGlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSCwoyGFhYGDIzSspCnJ3UoiIjFJgf8rAzSAJxBIMbInJxQWOAQE+QCUMMBoVfLvGwAiiL+uCzHq2dGXMVsXV87W2vpaY5qqjh6keBXClpBYnA+k/QJyUXFBUwsDAmABkK5eXFIDYLUC2SBHQUUD2DBA7HcJeA2InQdgHwGpCgpyB7CtAtkByRmIKkP0EyNZJQhJPR2JD7QUBDmdjIzdjS0MCTiUdlKRWlIBo5/yCyqLM9IwSBUdgCKUqeOYl6+koGBkYAa0EhTdE9ecb4HBkFONAiOWfZGCwZGdgYG5AiCWZMDBsd2BgkGhHiKncZGDg3wkUVytILEqEO4DJ2Lg4zdgIzGbk3s7AwDrt///P4QwM7JoMDH+v////e/v//3+XAc2/xcBw4BsAZ8xdKoA3UjkAAAA4ZVhJZk1NACoAAAAIAAGHaQAEAAAAAQAAABoAAAAAAAKgAgAEAAAAAQAAAAqgAwAEAAAAAQAAAAsAAAAAJdCzfwAAAB1JREFUGBlj/PTt138GIgATEWrASkYV4g0p6gcPAOEZA/cBXPsnAAAAAElFTkSuQmCC`}
+          width={390}
+          height={256}
+        />
+      </GoogleMapPlaceholderWrapper>
+    );
+  };*/
+
   return(
     <LocationSectionWrapper>
       <InsideLeft>
@@ -205,13 +230,20 @@ const LocationSection = (params: {onRef: any, callback: (res: any) => void}) => 
           :
           <>
             <StaticAddressShow/>
+            <ShowMyExactLocation/>
             <AdPostedInShow/>
             <NotCityPostedInQuestion/>
           </>
         }
       </InsideLeft>
       <InsideRight>
-        <MapShow>Google Map will be here</MapShow>
+        <MapShow>
+          <ListListGoogleMap
+            showExactLocation={exactLocationChecked}
+            lat={latAndLong.lat}
+            lng={latAndLong.long}
+          />
+        </MapShow>
       </InsideRight>
     </LocationSectionWrapper>
   );

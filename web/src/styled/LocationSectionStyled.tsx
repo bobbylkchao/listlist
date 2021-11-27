@@ -7,22 +7,19 @@ export const LocationSectionWrapper = styled.div`
 export const InsideLeft = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60%
+  width: 50%
 `;
 
 export const InsideRight= styled.div`
   display: flex;
-  width: 40%;
+  width: 50%;
 `;
 
 export const MapShow = styled.div`
   width: 100%;
   height: 100%;
-  margin: 0 10px;
-  border-radius: 5px;
-  background-color: #eeeeee;
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
   color: #929292;
   font-weight: 300;
@@ -45,4 +42,19 @@ export const OrSpan = styled.span`
   &::before{
     content: " ";
   }
+`;
+
+export const GoogleMapPlaceholderWrapper = styled.div`
+  position: relative;
+  >button{
+    width: 150px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    top: 41%;
+    z-index: 2;
+    left: 30%;
+    background-color: #fff;
+    color: #1e78fd;
+}
 `;

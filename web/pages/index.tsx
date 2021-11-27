@@ -13,6 +13,9 @@ import { faMapMarkerAlt, faEllipsisH, faCheck, faSearch, faHome, faBriefcase, fa
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { ThemeProvider } from 'styled-components';
 
+// listlist config
+import webConfig from '../src/web.config';
+
 // listlist context
 import { GlobalContext } from '../src/context/global.context';
 
@@ -113,6 +116,8 @@ const MainEntry = () => {
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
         {/*<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>*/}
+
+        <script type="text/javascript" src={`https://maps.googleapis.com/maps/api/js?key=${webConfig.googleMapsJavaScriptAPIKey}&libraries=places`} defer={true}/>
 
         <title>ListList in Winnipeg - Buy, Sell &amp; Save with ListList, Local Classifieds.</title>
       </Head>

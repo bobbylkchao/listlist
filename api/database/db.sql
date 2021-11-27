@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 23/11/2021 21:08:17
+ Date: 25/11/2021 18:05:22
 */
 
 SET NAMES utf8mb4;
@@ -182,6 +182,7 @@ CREATE TABLE `post` (
   `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `lat` decimal(18,15) NOT NULL,
   `long` decimal(18,15) NOT NULL,
+  `exactLocation` int DEFAULT '0' COMMENT '0: only show an area, 1: show exact location, default is 0',
   `fulfillment` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '[\\"1\\",\\"3\\",\\"2\\"] 1:Willing to drop-off / deliver 2:Willing to ship the item 3:Offer curbside pick up',
   `cashless_pay` int DEFAULT NULL COMMENT '1:Offer cashless payment',
   `condition` int DEFAULT NULL COMMENT '1:new 2:used-like new 3:used-good 4:used-fair',
@@ -215,18 +216,19 @@ CREATE TABLE `post` (
   KEY `region` (`region`),
   KEY `city` (`city`),
   KEY `lat` (`lat`),
-  KEY `long` (`long`)
+  KEY `long` (`long`),
+  KEY `exactlocation` (`exactLocation`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16001006 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of post
 -- ----------------------------
 BEGIN;
-INSERT INTO `post` VALUES (16001001, 'CA', 'MB', 'Winnipeg', 5000024, 4, 1, 1, 'AMD%20Ryzen%207%202700x', 'AMD%20Ryzen%207%202700x%203.7Ghz%20with%208%20core%2016%20threads%0A**NEW**%2016Gb%20Kingston%20Hynix%20DDR4%20ram%0A500Gb%20WD%20Black%20NVME%0AWD%20RED%204Tb%20hard%20drive%0AOnboard%20WIFI%20(2%2C4%20%26%205Ghz)%20and%20Bluetooth%0A**NEW**%20600%20Watt%20Thermaltake%20power%20supply%0A**NEW**%205%20Anidees%20140mm%20RGB%20fans%20with%20remote%0A**NEW**%20Veetroo%20Darkstorm%20Cpu%20cooler%0A**NEW**%20Raijintek%20Silenos%20case%203%20sides%20tempered%20glass%0A**NEW**%20NVIDIA%20GTX%201650%204Gb%20graphics%20card%0A**NEW**%20Windows%2011%20PRO%20install%20and%20all%20updates%0A%0A%241400%20FIRM%0A%0ACall%20or%20text%20Rod%20%40%20204-930-8591%0A%0AFREE%20Delivery%20to%20Winnipeg%0A%0A***Power%20supply%20was%20upgraded%20since%20pics%20were%20taken', 1, 1400, '185 Point West Bay, Winnipeg, R3T 5H8', 0.000000000000000, 0.000000000000000, '[1,3]', 1, 2, '[\"amd\",\"gaming\",\"computer\"]', NULL, NULL, NULL, 0, 1, 1637554092, NULL);
-INSERT INTO `post` VALUES (16001002, 'CA', 'MB', 'Winnipeg', 5000024, 4, 1, 1, 'Dell%20Optiplex%207050', 'I5-6500%0AWindows%2010%20Pro%0A16%20GB%20RAM%0A128%20GB%20m.2%20SSD%20(boot)%0A1%20TB%207200%20RPM%20HDD%20(storage)%0AAMD%207000%20series%20low%20profile%201%20GB%20GPU%0ASuper%20fast%20WiFi%20dongle%0A%24250%20FIRM.', 1, 250, '185 Point West Bay, Winnipeg, R3T 5H8', 0.000000000000000, 0.000000000000000, '[3]', 1, 3, '[\"computer\",\"dell\",\"dell 7050\"]', NULL, NULL, NULL, 0, 1, 1637554389, NULL);
-INSERT INTO `post` VALUES (16001003, 'CA', 'MB', 'Winnipeg', 5000024, 4, 1, 1, 'Mac%20Mini%20(Mid2011)', 'Mac%20Mini%20(Mid%202011)%202.3GHz%3A%204GB%20RAM%3B%20120%20SSD%3B%20Intel%20Graphics%203000.%20%24150.00...EACH!%0ACan%20be%20upgraded%20for%20a%20price.', 1, 150, '185 Point West Bay, Winnipeg, R3T 5H8', 0.000000000000000, 0.000000000000000, '[3]', 1, 2, '[\"mac\",\"mac mini\"]', NULL, NULL, NULL, 0, 1, 1637554543, NULL);
-INSERT INTO `post` VALUES (16001004, 'CA', 'MB', 'Winnipeg', 5000024, 5, 1, 1, 'awdawdawdawdawd', 'awdawdawdawd', 5, NULL, 'Winnipeg, R3T 5H8', 49.775340388218716, -97.169223269746170, '[]', NULL, NULL, '[]', NULL, NULL, NULL, 0, 1, 1637559270, NULL);
-INSERT INTO `post` VALUES (16001005, 'CA', ' ON', ' Toronto', 5000024, 4, 2, 1, 'Wanna%20buy%20a%20secondhand%20macbook%20pro%20(after%202017)', 'Wanna%20buy%20a%20secondhand%20macbook%20pro%20(after%202017)Wanna%20buy%20a%20secondhand%20macbook%20pro%20(after%202017)', 1, 500, '100 King Street West, Toronto, ON, Canada', 43.648496000000000, -79.381341100000000, '[]', 1, 3, '[\"macbook\"]', NULL, NULL, NULL, 0, 1, 1637721822, NULL);
+INSERT INTO `post` VALUES (16001001, 'CA', 'MB', 'Winnipeg', 5000024, 4, 1, 1, 'AMD%20Ryzen%207%202700x', 'AMD%20Ryzen%207%202700x%203.7Ghz%20with%208%20core%2016%20threads%0A**NEW**%2016Gb%20Kingston%20Hynix%20DDR4%20ram%0A500Gb%20WD%20Black%20NVME%0AWD%20RED%204Tb%20hard%20drive%0AOnboard%20WIFI%20(2%2C4%20%26%205Ghz)%20and%20Bluetooth%0A**NEW**%20600%20Watt%20Thermaltake%20power%20supply%0A**NEW**%205%20Anidees%20140mm%20RGB%20fans%20with%20remote%0A**NEW**%20Veetroo%20Darkstorm%20Cpu%20cooler%0A**NEW**%20Raijintek%20Silenos%20case%203%20sides%20tempered%20glass%0A**NEW**%20NVIDIA%20GTX%201650%204Gb%20graphics%20card%0A**NEW**%20Windows%2011%20PRO%20install%20and%20all%20updates%0A%0A%241400%20FIRM%0A%0ACall%20or%20text%20Rod%20%40%20204-930-8591%0A%0AFREE%20Delivery%20to%20Winnipeg%0A%0A***Power%20supply%20was%20upgraded%20since%20pics%20were%20taken', 1, 1400, '185 Point West Bay, Winnipeg, R3T 5H8', 0.000000000000000, 0.000000000000000, 0, '[1,3]', 1, 2, '[\"amd\",\"gaming\",\"computer\"]', NULL, NULL, NULL, 0, 1, 1637554092, NULL);
+INSERT INTO `post` VALUES (16001002, 'CA', 'MB', 'Winnipeg', 5000024, 4, 1, 1, 'Dell%20Optiplex%207050', 'I5-6500%0AWindows%2010%20Pro%0A16%20GB%20RAM%0A128%20GB%20m.2%20SSD%20(boot)%0A1%20TB%207200%20RPM%20HDD%20(storage)%0AAMD%207000%20series%20low%20profile%201%20GB%20GPU%0ASuper%20fast%20WiFi%20dongle%0A%24250%20FIRM.', 1, 250, '185 Point West Bay, Winnipeg, R3T 5H8', 0.000000000000000, 0.000000000000000, 0, '[3]', 1, 3, '[\"computer\",\"dell\",\"dell 7050\"]', NULL, NULL, NULL, 0, 1, 1637554389, NULL);
+INSERT INTO `post` VALUES (16001003, 'CA', 'MB', 'Winnipeg', 5000024, 4, 1, 1, 'Mac%20Mini%20(Mid2011)', 'Mac%20Mini%20(Mid%202011)%202.3GHz%3A%204GB%20RAM%3B%20120%20SSD%3B%20Intel%20Graphics%203000.%20%24150.00...EACH!%0ACan%20be%20upgraded%20for%20a%20price.', 1, 150, '185 Point West Bay, Winnipeg, R3T 5H8', 0.000000000000000, 0.000000000000000, 0, '[3]', 1, 2, '[\"mac\",\"mac mini\"]', NULL, NULL, NULL, 0, 1, 1637554543, NULL);
+INSERT INTO `post` VALUES (16001004, 'CA', 'MB', 'Winnipeg', 5000024, 5, 1, 1, 'awdawdawdawdawd', 'awdawdawdawd', 5, NULL, 'Winnipeg, R3T 5H8', 49.775340388218716, -97.169223269746170, 0, '[]', NULL, NULL, '[]', NULL, NULL, NULL, 0, 1, 1637559270, NULL);
+INSERT INTO `post` VALUES (16001005, 'CA', ' ON', ' Toronto', 5000024, 4, 2, 1, 'Wanna%20buy%20a%20secondhand%20macbook%20pro%20(after%202017)', 'Wanna%20buy%20a%20secondhand%20macbook%20pro%20(after%202017)Wanna%20buy%20a%20secondhand%20macbook%20pro%20(after%202017)', 1, 500, '100 King Street West, Toronto, ON, Canada', 43.648496000000000, -79.381341100000000, 0, '[]', 1, 3, '[\"macbook\"]', NULL, NULL, NULL, 0, 1, 1637721822, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -309,7 +311,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES (5000024, 'Bobby Chao', 'bobbylkchao@gmail.com', 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10216636384462559&height=50&width=50&ext=1640308227&hash=AeSAbuIq1hKswO3a4s4', NULL, 'google', '107118327150282520838', NULL, 1, 1637534230, NULL);
+INSERT INTO `user` VALUES (5000024, 'Bobby Chao', 'bobbylkchao@gmail.com', 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10216636384462559&height=50&width=50&ext=1640453343&hash=AeRS1zyWniyEyuutJSs', NULL, 'google', '107118327150282520838', NULL, 1, 1637534230, NULL);
 COMMIT;
 
 -- ----------------------------
