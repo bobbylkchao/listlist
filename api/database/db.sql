@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 25/11/2021 18:05:22
+ Date: 26/11/2021 22:53:09
 */
 
 SET NAMES utf8mb4;
@@ -182,7 +182,7 @@ CREATE TABLE `post` (
   `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `lat` decimal(18,15) NOT NULL,
   `long` decimal(18,15) NOT NULL,
-  `exactLocation` int DEFAULT '0' COMMENT '0: only show an area, 1: show exact location, default is 0',
+  `exactLocation` tinyint NOT NULL DEFAULT '0' COMMENT '0: only show an area, 1: show exact location, default is 0',
   `fulfillment` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '[\\"1\\",\\"3\\",\\"2\\"] 1:Willing to drop-off / deliver 2:Willing to ship the item 3:Offer curbside pick up',
   `cashless_pay` int DEFAULT NULL COMMENT '1:Offer cashless payment',
   `condition` int DEFAULT NULL COMMENT '1:new 2:used-like new 3:used-good 4:used-fair',
@@ -218,7 +218,7 @@ CREATE TABLE `post` (
   KEY `lat` (`lat`),
   KEY `long` (`long`),
   KEY `exactlocation` (`exactLocation`)
-) ENGINE=InnoDB AUTO_INCREMENT=16001006 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16001008 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of post
@@ -229,6 +229,8 @@ INSERT INTO `post` VALUES (16001002, 'CA', 'MB', 'Winnipeg', 5000024, 4, 1, 1, '
 INSERT INTO `post` VALUES (16001003, 'CA', 'MB', 'Winnipeg', 5000024, 4, 1, 1, 'Mac%20Mini%20(Mid2011)', 'Mac%20Mini%20(Mid%202011)%202.3GHz%3A%204GB%20RAM%3B%20120%20SSD%3B%20Intel%20Graphics%203000.%20%24150.00...EACH!%0ACan%20be%20upgraded%20for%20a%20price.', 1, 150, '185 Point West Bay, Winnipeg, R3T 5H8', 0.000000000000000, 0.000000000000000, 0, '[3]', 1, 2, '[\"mac\",\"mac mini\"]', NULL, NULL, NULL, 0, 1, 1637554543, NULL);
 INSERT INTO `post` VALUES (16001004, 'CA', 'MB', 'Winnipeg', 5000024, 5, 1, 1, 'awdawdawdawdawd', 'awdawdawdawd', 5, NULL, 'Winnipeg, R3T 5H8', 49.775340388218716, -97.169223269746170, 0, '[]', NULL, NULL, '[]', NULL, NULL, NULL, 0, 1, 1637559270, NULL);
 INSERT INTO `post` VALUES (16001005, 'CA', ' ON', ' Toronto', 5000024, 4, 2, 1, 'Wanna%20buy%20a%20secondhand%20macbook%20pro%20(after%202017)', 'Wanna%20buy%20a%20secondhand%20macbook%20pro%20(after%202017)Wanna%20buy%20a%20secondhand%20macbook%20pro%20(after%202017)', 1, 500, '100 King Street West, Toronto, ON, Canada', 43.648496000000000, -79.381341100000000, 0, '[]', 1, 3, '[\"macbook\"]', NULL, NULL, NULL, 0, 1, 1637721822, NULL);
+INSERT INTO `post` VALUES (16001006, 'CA', ' ON', ' Toronto', 5000024, 2, 1, 1, 'testtesttest', 'testtesttesttesttesttesttesttesttesttesttesttest', 5, NULL, '100 King Street West, Toronto, ON, Canada', 43.648496000000000, -79.381341100000000, 0, '[1,2,3]', 1, 3, '[\"a\",\"b\",\"c\"]', '1.ca', '2.ca', '111-111-1111', 0, 1, 1637988329, NULL);
+INSERT INTO `post` VALUES (16001007, 'CA', 'MB', 'Winnipeg', 5000024, 7, 1, 1, 'tttttttttttttt', 'tttttttttttttttttttttttttttttttttttttttttttttttttttttttt', 1, 1, 'Winnipeg, R3T 5H8', 49.775266698498050, -97.169364291565270, 1, '[]', NULL, NULL, '[]', NULL, NULL, NULL, 0, 1, 1637988376, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -246,7 +248,7 @@ CREATE TABLE `postimage` (
   KEY `postid` (`postID`),
   KEY `main` (`main`),
   CONSTRAINT `postimage.postid` FOREIGN KEY (`postID`) REFERENCES `post` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of postimage
@@ -261,6 +263,8 @@ INSERT INTO `postimage` VALUES (6, 16001002, 'posts/16001002/3P69CK6ICCIX-640.jp
 INSERT INTO `postimage` VALUES (7, 16001002, 'posts/16001002/QF79JPEVQSD4-640.jpeg', 'posts/16001002/KVLCT4H518FD-200.jpeg', 0);
 INSERT INTO `postimage` VALUES (8, 16001002, 'posts/16001002/JMS7IZWS3792-640.jpeg', 'posts/16001002/2XPMHPXSJ3Q6-200.jpeg', 0);
 INSERT INTO `postimage` VALUES (9, 16001003, 'posts/16001003/3DNJ4BYEF65X-640.png', 'posts/16001003/DZ1ZB8FK7JBU-200.png', 1);
+INSERT INTO `postimage` VALUES (10, 16001006, 'posts/16001006/PBW9QU6CIG3J-640.jpeg', 'posts/16001006/Q5EVL2C5ZLAQ-200.jpeg', 1);
+INSERT INTO `postimage` VALUES (11, 16001006, 'posts/16001006/H32CUTZZJRBF-640.png', 'posts/16001006/N7AX824XYCXJ-200.png', 0);
 COMMIT;
 
 -- ----------------------------
