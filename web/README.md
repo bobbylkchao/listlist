@@ -17,6 +17,12 @@
 4. If you wanna build production: run `yarn build`, then run `yarn start`.
 5. Visit `http://localhost:3000` in browser.
 
+## Remarks
+
+You have to configure the image domain in `next.config.js` if you gonna use image from external.
+
+Change `images.domains` property in `next.config.js`.
+
 ## About Google Login
 
 1. Follow steps on `https://developers.google.com/identity/sign-in/web/sign-in`
