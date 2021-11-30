@@ -5,7 +5,7 @@ const webConfig = {
   maxUploadPhotos: 10, // maximum photo upload per post
   photoCompressionMaxMB: 0.05, // maximum 50 kb
   photoCompressionMaxWidthOrHeight: 640, // maximum 640 px width or height
-  photoThumbnailCompressionMaxMB: 0.01, // maximum 10 kb
+  photoThumbnailCompressionMaxMB: 0.05, // maximum 50 kb
   photoThumbnailCompressionMaxWidthOrHeight: 200, // maximum 200 px width or height
   googleLoginClientID: "xxxxxx", // google login client id
   facebookAppID: "xxxxxx", // facebook login app id
