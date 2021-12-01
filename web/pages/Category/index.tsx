@@ -6,7 +6,6 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // listlist
-import imagePlaceholderGray from "../../src/assets/images/imagePlaceholderGray.png";
 import webConfig from "../../src/web.config";
 import styles from "./index.module.scss";
 import Footer from "../../src/components/Footer";
@@ -66,7 +65,7 @@ const CategoryPage = () => {
               src={`${webConfig.cdnURL}posts/16001009/4RR7PAQTT881-200.jpeg`}
               alt="uploaded image"
               placeholder="blur"
-              blurDataURL={imagePlaceholderGray}
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAEAQMAAACTPww9AAAAA1BMVEXp6elXI8SMAAAACklEQVQI12OAAgAACAABod4++QAAAABJRU5ErkJggg=="
               width={160}
               height={160}
               className={styles.itemThumbNailImage}
