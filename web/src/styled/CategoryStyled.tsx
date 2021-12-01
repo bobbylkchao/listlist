@@ -101,4 +101,103 @@ export const Right = styled.div`
 export const RightFilterWrapper = styled.div`
   display: flex;
   justify-content: end;
+  margin-bottom: 15px;
+`;
+
+export const RightListWrapper = styled.div`
+
+`;
+
+export const RightListItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 160px;
+  border-radius: 5px 5px 0 0;
+
+  img{
+    border-radius: 5px;
+  }
+
+  &:hover{
+    cursor: pointer;
+    background-color: #f8f9f9;
+  }
+
+  >div:first-child{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    position: relative;
+  }
+
+  >div:nth-child(2){
+    display: flex;
+    flex: 4;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    flex-direction: column;
+
+    {/* title area */}
+    >div:first-child{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: 20%;
+      font-weight: 500;
+      font-size: 17px;
+
+      {/* title */}
+      >div:first-child{
+        flex: 4;
+        max-width: 500px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      {/* price */}
+      >div:nth-child(2){
+        display: flex;
+        color: #37a864;
+        margin-left: 5px;
+      }
+
+    }
+
+    {/* short infos area */}
+    >div:nth-child(2){
+      display: flex;
+      align-items: center;
+      height: 20%;
+      color: #b9b9b9;
+      
+      >span:first-child{
+        &:after{
+          content: "|";
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+      }
+
+    }
+
+    {/* content area */}
+    >div:nth-child(3){
+      height: 60%;
+      padding-top: 5px;
+      box-sizing: border-box;
+      align-items: start;
+      overflow: hidden;
+      line-height: 1.8;
+    }
+
+  }
+`;
+
+export const RightListItemDivider = styled.div`
+  height: 1px;
+  width: 100%;
+  background-color: #e8e8e8;
+  margin: 10px 0;
 `;
