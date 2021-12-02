@@ -4,7 +4,7 @@
   "description": "**[IN DEVELOPMENT]**",
   "scripts": {
     "api": "cd api && npm i && node index.js",
-    "web": "cd web && rm .next && npm i && yarn dev",
+    "web": "cd web && npm i && yarn dev",
     "updatedb": "mysql -ubobbylkchao -p3530566 listlist < ./api/database/db.sql"
   },
   "repository": {
