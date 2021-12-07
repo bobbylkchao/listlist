@@ -42,6 +42,9 @@ const AddressSeletionModal = (props: { onRef: any }) => {
   // hook to store which city this post will be posted at
   const [adPostedInCity, setAdPostedInCity] = React.useState<string | null>(null);
 
+  // hook to store which region this post will be posted at
+  const [adPostedInRegion, setAdPostedInRegion] = React.useState<string | null>(null);
+
   // hook to store lat and long of current selected address
   const [latAndLong, setLatAndLong] = React.useState<{lat: number, long: number}>({lat: 10, long: 10});
 
@@ -54,6 +57,7 @@ const AddressSeletionModal = (props: { onRef: any }) => {
       searchConfigState({
         type: "setSearchArea",
         value: {
+          region: adPostedInRegion,
           city: adPostedInCity,
           lat: latAndLong.lat,
           long: latAndLong.long,
@@ -63,6 +67,7 @@ const AddressSeletionModal = (props: { onRef: any }) => {
     }
     // set all state to default when hiding
     setGoogleMapInputValue(null);
+    setAdPostedInRegion(null);
     setAdPostedInCity(null);
     setLatAndLong({lat: 10, long: 10});
     setDistance(50);
@@ -88,6 +93,7 @@ const AddressSeletionModal = (props: { onRef: any }) => {
       onHide={() => {
         // set all state to default when hiding
         setGoogleMapInputValue(null);
+        setAdPostedInRegion(null);
         setAdPostedInCity(null);
         setLatAndLong({lat: 10, long: 10});
         setDistance(50);
@@ -166,6 +172,7 @@ const AddressSeletionModal = (props: { onRef: any }) => {
                       if(e.value.description.split(',').length >= 3){
                         let region = e.value.description.split(',')[e.value.description.split(',').length-2];
                         let city = e.value.description.split(',')[e.value.description.split(',').length-3];
+                        setAdPostedInRegion(region);
                         setAdPostedInCity(city);
                       }
                       

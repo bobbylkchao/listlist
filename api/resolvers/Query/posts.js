@@ -6,9 +6,13 @@ const queryPosts = {
   type: new GraphQLList(PostType),
   description: "Get post list.",
   args: {
+    region: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: "Region of posts, eg: MB"
+    },
     city: {
       type: new GraphQLNonNull(GraphQLString),
-      description: "(Optional) City of posts, eg: WINNIPEG"
+      description: "City of posts, eg: Winnipeg"
     },
     lat: {
       type: new GraphQLNonNull(GraphQLFloat),
@@ -18,8 +22,12 @@ const queryPosts = {
       type: new GraphQLNonNull(GraphQLFloat),
       description: "Publisher's longitude",
     },
-    categoryID: {
+    radius: {
       type: new GraphQLNonNull(GraphQLInt),
+      description: "Range of search area, unit is km",
+    },
+    categoryID: {
+      type: GraphQLInt,
       description: "(Optional) The id of the category that needs to get the data."
     },
     topID: {
@@ -31,26 +39,29 @@ const queryPosts = {
       description: "(Optional) From which ID to get the data, used to get previous data"
     },
   },
-  async resolve(_, { city, categoryID, topID, bottomID }){
-    //let categoryIDFilter = categoryID ? `WHERE categoryID = ${categoryID}` : '';
-    //let fromIDFilter = lastID ? `AND  id < ${lastID}` : '';
-    //let res = await dbQuery(`SELECT * FROM Post ${categoryIDFilter} ${fromIDFilter} ORDER BY id desc, updatedAt desc limit 10`);
-    const dataCountPerTime = 10;
+  async resolve(_, { region, city, lat, long, radius, categoryID, topID, bottomID }){
+    const dataCountPerTime = 50;// how many data will return, default is 50;
     let res = "";
     let sql = "";
-    let sql_part_main = "SELECT * FROM post";
-    let sql_part_orderby = "ORDER BY id desc, updatedAt desc";
-    let sql_limit = `LIMIT ${dataCountPerTime}`;
-    let params = [];
-
-    if(city){
-      // SELECT * FROM Post WHERE city = ? ORDER BY id desc, updatedAt desc limit 10
-      sql_part_main = `${sql_part_main} WHERE city = ?`;
-      params = [city];
-    }
-
+    let sql_part_main = `
+      SELECT
+        *,
+        (6371 * acos (cos(radians(?)) * cos(radians(lat)) * cos(radians(\`long\`)-radians(?)) + sin(radians(?)) * sin(radians(lat)))) AS distance 
+      FROM
+        post
+      WHERE
+        lat <> 0.000000000000000
+      AND
+        \`long\` <> 0.000000000000000
+      AND
+        city = ?
+      AND
+        region = ?
+    `;
+    let sql_limit = ` LIMIT ${dataCountPerTime}`;
+    let params = [lat, long, lat, city, region];
+ 
     if(categoryID){
-      // SELECT * FROM Post WHERE country = ? AND region = ? AND categoryID = ? ORDER BY id desc, updatedAt desc limit 10
       sql_part_main = `${sql_part_main} AND categoryID = ?`;
       params = [...params, categoryID];
     }
@@ -68,7 +79,8 @@ const queryPosts = {
       params = [...params, bottomID];
     }
 
-    sql = `${sql_part_main} ${sql_part_orderby} ${sql_limit}`;
+    sql = `${sql_part_main} HAVING distance <= ? ORDER BY id desc, updatedAt desc ${sql_limit}`;
+    params = [...params, radius];
 
     res = await dbQuery(sql, params);
     

@@ -305,18 +305,18 @@ export const submitAddPost = (params: SubmitAddPostParamsInterface, callback: (r
   `;
 
   const graphQLAddPostVariables = {
-    country: params.country,
-    region: params.region,
-    city: params.city,
+    country: params.country.trim(),
+    region: params.region.trim(),
+    city: params.city.trim(),
     userID: params.userID,
     categoryID: params.categoryID,
     adtype: params.adtype,
     forsaleby: params.forsaleby,
-    title: params.title,
-    description: params.description,
+    title: params.title.trim(),
+    description: params.description.trim(),
     price: params.price,
     price_value: params.price_value,
-    address: params.address,
+    address: params.address.trim(),
     lat: params.lat,
     long: params.long,
     exactLocation: params.exactLocation,
@@ -334,3 +334,19 @@ export const submitAddPost = (params: SubmitAddPostParamsInterface, callback: (r
     callback(res);
   });
 };
+
+/**
+ * Get Post List
+ */
+export const getPostList = (params: {
+  city: string,
+  lat: number,
+  long: number,
+  categoryID: number,
+  radius: number,
+  topID?: number,
+  bottomID?: number,
+}) => {
+  console.log(`params: ${JSON.stringify(params)}`);
+};
+

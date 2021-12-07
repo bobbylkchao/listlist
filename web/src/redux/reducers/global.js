@@ -6,10 +6,11 @@ const globalReducerInitState = {
     'message': '',
   },
   searchArea: {
-    city: 'Winnipeg',
-    lat: 49.893910,
-    long: -97.146480,
-    areaDistance: 50,// unit: km
+    region: '',
+    city: '',
+    lat: 0,
+    long: 0,
+    areaDistance: 0,// unit: km
   }
 };
 

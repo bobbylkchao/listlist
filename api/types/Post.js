@@ -127,6 +127,10 @@ const PostType = new GraphQLObjectType({
           let res = await dbQuery(`SELECT * FROM postimage WHERE postID = ${parseInt(post.id)}`);
           return res;
         }
+      },
+      distance: {
+        type: GraphQLFloat,
+        description: "Distance from user's location, unit is KM.",
       }
     }
   ) 

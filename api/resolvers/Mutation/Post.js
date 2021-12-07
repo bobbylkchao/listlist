@@ -71,8 +71,10 @@ const insertPost = {
       return {code: 500, message: 'Token Expired'};
     }
 
+    const currentTimeStamp = getTimeStamp();
+
     let res = await dbQuery(
-      "INSERT INTO `post` (`country`,`region`,`city`,`lat`,`long`,`exactLocation`, `userID`, `categoryID`, `adtype`, `forsaleby`, `title`, `description`, `price`, `price_value`, `address`, `fulfillment`, `cashless_pay`, `condition`, `tags`, `youtube`, `websitelink`, `phonenumber`, `createdAt`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO `post` (`country`,`region`,`city`,`lat`,`long`,`exactLocation`, `userID`, `categoryID`, `adtype`, `forsaleby`, `title`, `description`, `price`, `price_value`, `address`, `fulfillment`, `cashless_pay`, `condition`, `tags`, `youtube`, `websitelink`, `phonenumber`, `createdAt`, `updatedAt`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         country,
         region,
@@ -96,7 +98,8 @@ const insertPost = {
         youtube === "null" ? null : youtube,
         websitelink === "null" ? null : websitelink,
         phonenumber === "null" ? null : phonenumber,
-        getTimeStamp()
+        currentTimeStamp,
+        currentTimeStamp
       ]
     );
 
