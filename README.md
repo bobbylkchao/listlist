@@ -56,7 +56,7 @@ Socket: Socket.io
 
 # Model E-R
 
-![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/er.png)
+![ScreenShot](https://raw.githubusercontent.com/bobbylkchao/listlist/main/doc/screenshoot/er1.1.png)
 
 # How to start?
 
