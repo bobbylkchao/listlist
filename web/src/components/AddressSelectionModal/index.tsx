@@ -61,6 +61,12 @@ const AddressSeletionModal = (props: { onRef: any }) => {
         }
       });
     }
+    // set all state to default when hiding
+    setGoogleMapInputValue(null);
+    setAdPostedInCity(null);
+    setLatAndLong({lat: 10, long: 10});
+    setDistance(50);
+    // set modal to hide
     setVisible(false);
   };
 
