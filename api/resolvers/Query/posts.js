@@ -7,19 +7,19 @@ const queryPosts = {
   description: "Get post list.",
   args: {
     city: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       description: "(Optional) City of posts, eg: WINNIPEG"
     },
     lat: {
-      type: GraphQLFloat,
+      type: new GraphQLNonNull(GraphQLFloat),
       description: "Publisher's latitude",
     },
     long: {
-      type: GraphQLFloat,
+      type: new GraphQLNonNull(GraphQLFloat),
       description: "Publisher's longitude",
     },
     categoryID: {
-      type: GraphQLInt,
+      type: new GraphQLNonNull(GraphQLInt),
       description: "(Optional) The id of the category that needs to get the data."
     },
     topID: {
