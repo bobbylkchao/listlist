@@ -6,14 +6,6 @@ const queryPosts = {
   type: new GraphQLList(PostType),
   description: "Get post list.",
   args: {
-    country: {
-      type: new GraphQLNonNull(GraphQLString),
-      description: "Country of posts, eg: CA"
-    },
-    region: {
-      type: new GraphQLNonNull(GraphQLString),
-      description: "Region of posts, eg: MB"
-    },
     city: {
       type: GraphQLString,
       description: "(Optional) City of posts, eg: WINNIPEG"
@@ -39,22 +31,22 @@ const queryPosts = {
       description: "(Optional) From which ID to get the data, used to get previous data"
     },
   },
-  async resolve(_, { country, region, city, categoryID, topID, bottomID }){
+  async resolve(_, { city, categoryID, topID, bottomID }){
     //let categoryIDFilter = categoryID ? `WHERE categoryID = ${categoryID}` : '';
     //let fromIDFilter = lastID ? `AND  id < ${lastID}` : '';
     //let res = await dbQuery(`SELECT * FROM Post ${categoryIDFilter} ${fromIDFilter} ORDER BY id desc, updatedAt desc limit 10`);
     const dataCountPerTime = 10;
     let res = "";
     let sql = "";
-    let sql_part_main = "SELECT * FROM post WHERE country = ? AND region = ?";
+    let sql_part_main = "SELECT * FROM post";
     let sql_part_orderby = "ORDER BY id desc, updatedAt desc";
     let sql_limit = `LIMIT ${dataCountPerTime}`;
-    let params = [country, region];
+    let params = [];
 
     if(city){
-      // SELECT * FROM Post WHERE country = ? AND region = ? AND city = ? ORDER BY id desc, updatedAt desc limit 10
-      sql_part_main = `${sql_part_main} AND city = ?`;
-      params = [...params, city];
+      // SELECT * FROM Post WHERE city = ? ORDER BY id desc, updatedAt desc limit 10
+      sql_part_main = `${sql_part_main} WHERE city = ?`;
+      params = [city];
     }
 
     if(categoryID){
