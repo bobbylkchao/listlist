@@ -2,7 +2,6 @@ import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Form from 'react-bootstrap/Form';
-import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // listlist
@@ -26,6 +25,7 @@ import {
   RightListItem,
   RightListItemDivider,
 } from "../../src/styled/CategoryStyled";
+import LazyImage from "../../src/components/LazyImage";
 
 const CategoryPage = () => {
   const router = useHistory();
@@ -61,11 +61,9 @@ const CategoryPage = () => {
                 className={`${styles.favHeart} ${checked ? styles.checked : styles.unchecked}`}
               />
             </a>
-            <Image
+            <LazyImage
               src={`${webConfig.cdnURL}posts/16001009/4RR7PAQTT881-200.jpeg`}
               alt="uploaded image"
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAEAQMAAACTPww9AAAAA1BMVEXp6elXI8SMAAAACklEQVQI12OAAgAACAABod4++QAAAABJRU5ErkJggg=="
               width={160}
               height={160}
               className={styles.itemThumbNailImage}

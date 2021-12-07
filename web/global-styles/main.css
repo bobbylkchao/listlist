@@ -9,6 +9,10 @@ html, body{
   height: 100%;
 }
 
+img{
+  user-select: none;
+}
+
 ::-webkit-input-placeholder {
   font-weight: 300;
 }
@@ -26,6 +30,14 @@ html, body{
   background-color: #d5e5f5;
   color: #067ae9;
   font-weight: 500 !important;
+}
+
+#mapplaceholder{
+  /*filter: blur(5px) !important;*/
+  object-fit: cover;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
 }
 
 .toastModal .modal-sm{

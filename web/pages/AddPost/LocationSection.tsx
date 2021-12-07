@@ -242,6 +242,10 @@ const LocationSection = (params: {onRef: any, callback: (res: any) => void}) => 
             showExactLocation={exactLocationChecked}
             lat={latAndLong.lat}
             lng={latAndLong.long}
+            style={{
+              width: 390,
+              height: 256
+            }}
           />
         </MapShow>
       </InsideRight>
