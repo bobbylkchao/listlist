@@ -5,6 +5,12 @@ const globalReducerInitState = {
     'type': '', // success | danger
     'message': '',
   },
+  searchArea: {
+    city: 'Winnipeg',
+    lat: 49.893910,
+    long: -97.146480,
+    areaDistance: 50,// unit: km
+  }
 };
 
 const globalReducer = (state = globalReducerInitState, action) => {
@@ -18,6 +24,11 @@ const globalReducer = (state = globalReducerInitState, action) => {
       return{
         ...state,
         noticeMessage: action.value
+      }
+    case 'setSearchArea':
+      return{
+        ...state,
+        searchArea: action.value
       }
     default:
       return state;

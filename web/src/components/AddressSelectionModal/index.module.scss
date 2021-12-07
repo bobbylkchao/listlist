@@ -1,0 +1,44 @@
+.mapPlaceHolder{
+  z-index: 2;
+}
+
+.footer{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  >div{
+    display: flex;
+    flex: 1;
+  }
+
+  >div:first-child{
+    flex: 3;
+
+    >div{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+    }
+
+    >div:nth-child(2){
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 5;
+    }
+
+    >div:nth-child(3){
+      color: #6f727f;
+    }
+  }
+
+  >div:nth-child(2){
+    align-items: center;
+    justify-content: center;
+    >button{
+      width: 80%;
+    }
+  }
+}

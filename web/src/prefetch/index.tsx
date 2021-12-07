@@ -81,6 +81,17 @@ const preFetchExecute = (reduxUseDispatch: (parms:any) => void) => {
           remarks: "No error.",
         },
       });
+
+      reduxUseDispatch({
+        type: "setSearchArea",
+        value:{
+          city: result.data.geo.city,
+          lat: result.data.geo.lat,
+          long: result.data.geo.long,
+          areaDistance: 50,
+        },
+      });
+
     });
   });
 
