@@ -1,7 +1,7 @@
 /**
  * LazyImage
  * @desc Custom image component, implemented and optimized by using Next.js Image. Have to configure the image domain in `next.config.js` if gonna use image from external.
- * @param {string} src source of the image, supports from local file or remote url
+ * @param {any} src source of the image, supports from local file or remote url
  * @param {string} alt alt attribute
  * @param {number} width width of image
  * @param {number} height height of image
@@ -11,7 +11,8 @@
 import Image from "next/image";
 
 const LazyImage = (params: {
-  src: string;
+  id?: string;
+  src: any;
   alt: string;
   width: number;
   height: number;

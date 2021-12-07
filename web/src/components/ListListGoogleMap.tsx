@@ -6,7 +6,7 @@ import webConfig from '../web.config';
 const ListListGoogleMap = (params: { showExactLocation: boolean, lat: number, lng: number, circleMeters?: number, style: any }) => {
   // google map
   const [map, setMap] = React.useState<any>(null);
-  const [zoom, setZoom] = React.useState<boolean>(14);
+  const [zoom, setZoom] = React.useState<number>(14);
 
   const onLoad = React.useCallback(function callback(map:any) {
     const bounds = new window.google.maps.LatLngBounds();
@@ -22,7 +22,7 @@ const ListListGoogleMap = (params: { showExactLocation: boolean, lat: number, ln
     /**
      * These are relationships between circleMeters and zoom level;
     */
-    if(params){
+    if(params && params.circleMeters){
       if(params.circleMeters/1000 > 270) return setZoom(5);
       if(params.circleMeters/1000 > 120) return setZoom(6);
       if(params.circleMeters/1000 > 80) return setZoom(7);

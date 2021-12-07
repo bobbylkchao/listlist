@@ -29,7 +29,7 @@ import GooglePlacesAutocomplete, { geocodeByPlaceId } from 'react-google-places-
    position: relative;
  `;
  
-const AddressSeletionModal = (props: { onRef: any, callback: (res: any) => void }) => {
+const AddressSeletionModal = (props: { onRef: any }) => {
   const categoryReducerState = useSelector((state:any) => state.categoryList.state);
   const geoState = useSelector((state:any) => state.userGeo.state);
   const searchConfigState = useDispatch();
