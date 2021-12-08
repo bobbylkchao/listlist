@@ -61,7 +61,8 @@ const queryPosts = {
     let sql_limit = ` LIMIT ${dataCountPerTime}`;
     let params = [lat, long, lat, city, region];
  
-    if(categoryID){
+    // TODO: category tree search, for some cases, user wanna search posts in first level or second level categories
+    if(categoryID || categoryID !== 0){
       sql_part_main = `${sql_part_main} AND categoryID = ?`;
       params = [...params, categoryID];
     }

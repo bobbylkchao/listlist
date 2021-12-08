@@ -85,6 +85,7 @@ const preFetchExecute = (reduxUseDispatch: (parms:any) => void) => {
       reduxUseDispatch({
         type: "setSearchArea",
         value:{
+          region: result.data.geo.region,
           city: result.data.geo.city,
           lat: result.data.geo.lat,
           long: result.data.geo.long,

@@ -26,20 +26,37 @@ import {
   RightListItemDivider,
 } from "../../src/styled/CategoryStyled";
 import LazyImage from "../../src/components/LazyImage";
+import { getPostList } from "../../src/data-request";
 
 const CategoryPage = () => {
   const router = useHistory();
-  const routerParams:{id: string} = useParams();
-  const categoryID = parseInt(routerParams.id)/1024;// real category id
+  const routerParams:any = useParams();
+  const categoryID = parseInt(routerParams.id)/1024;
+
   const categoryListState = useSelector((state:any) => state.categoryList.state);
+  const globalSearchState = useSelector((state:any) => state.globalReducer.searchArea);
+
   const [breadCrumbs, setBreadCrumbs] = React.useState<any>(null);
 
   React.useEffect(() => {
-    if(categoryListState){
+    if(categoryID && categoryListState){
       const categoryTree = getCategoryTree(categoryID, categoryListState);
       setBreadCrumbs(categoryTree);
     }
-  }, [categoryID, categoryListState]);
+
+    if(categoryID && globalSearchState && globalSearchState.city){
+      getPostList({
+        region: globalSearchState.region,
+        city: globalSearchState.city,
+        lat: globalSearchState.lat,
+        long: globalSearchState.long,
+        radius: globalSearchState.areaDistance,
+        categoryID: categoryID,
+      }, (res: any) => {
+        console.log(res);
+      });
+    }
+  }, [categoryID, categoryListState, globalSearchState]);
 
   const ListItem = () => {
     const [checked, setChecked] = React.useState<boolean>(false);

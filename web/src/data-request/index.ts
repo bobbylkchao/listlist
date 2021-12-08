@@ -337,16 +337,98 @@ export const submitAddPost = (params: SubmitAddPostParamsInterface, callback: (r
 
 /**
  * Get Post List
+ * @param {string} region The region where the post is located
+ * @param {string} city The city where the post is located
+ * @param {number} lat Search range, lat
+ * @param {number} long Search range, long
+ * @param {number} radius Search range, radius, unit is KM
+ * @param {number} categoryID (Optional) Post category id
+ * @param {number} topID (Optional) From which id to get the latest data 
+ * @param {number} bottomID (Optional) From which id to get more data 
+ * 
  */
 export const getPostList = (params: {
+  region: string,
   city: string,
   lat: number,
   long: number,
-  categoryID: number,
   radius: number,
+  categoryID?: number,
   topID?: number,
   bottomID?: number,
-}) => {
-  console.log(`params: ${JSON.stringify(params)}`);
-};
+}, callback?: (res: any) => void) => {
+  const query = `
+    query(
+      $region: String!,
+      $city: String!,
+      $lat: Float!,
+      $long: Float!,
+      $radius: Int!,
+      $categoryID: Int,
+      $topID: Int,
+      $bottomID: Int
+    ){
+      posts(
+        region: $region,
+        city: $city,
+        lat: $lat,
+        long: $long,
+        radius: $radius,
+        categoryID: $categoryID,
+        topID: $topID,
+        bottomID: $bottomID
+      ){
+        id,
+        city,
+        distance,
+        lat,
+        long,
+        address,
+        exactLocation,
+        categoryID,
+        adtype,
+        forsaleby,
+        title,
+        description,
+        price,
+        price_value,
+        fulfillment,
+        cashless_pay,
+        condition,
+        tags,
+        youtube,
+        websitelink,
+        phonenumber,
+        visit,
+        createdAt,
+        updatedAt,
+        user{
+          id,
+          name,
+          headnav,
+        },
+        images{
+          id,
+          url,
+          thumbnailUrl,
+          main,
+        }
+      }
+    }
+  `;
 
+  const variables = {
+    region: params.region,
+    city: params.city,
+    lat: params.lat,
+    long: params.long,
+    radius: params.radius,
+    categoryID: params.categoryID,
+    topID: params.topID,
+    bottomID: params.bottomID,
+  };
+
+  getGraphQLWithVariables(query, variables, (res: any) => {
+    callback ? callback(res) : null;
+  });
+};
