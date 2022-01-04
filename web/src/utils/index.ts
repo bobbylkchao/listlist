@@ -1,8 +1,12 @@
 import imageCompression from 'browser-image-compression';
+import moment from 'moment';
 import webConfig from "../web.config";
 
 /**
  * GraphQL request method
+ * 
+ * @param {string} query the query script
+ * @param {void} callback callback function
  */
 export const getGraphQL = (query: string, callback: (res: any) => void) => {
   fetch(webConfig.apiURL, {
@@ -24,6 +28,10 @@ export const getGraphQL = (query: string, callback: (res: any) => void) => {
 
 /**
  * GraphQL request method, with variables
+ * 
+ * @param {string} query the query script
+ * @param {objecg} variables the variables of query
+ * @param {void} callback callback function 
  */
  export const getGraphQLWithVariables = (query: string, variables: {}, callback: (res: any) => void) => {
   fetch(webConfig.apiURL, {
@@ -46,6 +54,10 @@ export const getGraphQL = (query: string, callback: (res: any) => void) => {
 
 /**
  * Email address validation
+ * 
+ * @param {string} value 
+ * @returns {boolean} status, result status true or false
+ * @returns {string} message, result content
 */
 export const emailValidation = (value: string) => {
   if(!value){
@@ -61,6 +73,10 @@ export const emailValidation = (value: string) => {
 
 /**
  * User Name validation
+ * 
+ * @param {string} value 
+ * @returns {boolean} status, result status true or false
+ * @returns {string} message, result content
  */
 export const usernameValidation = (value: string) => {
   if(!value){
@@ -80,6 +96,10 @@ export const usernameValidation = (value: string) => {
 
 /**
  * Password validation
+ * 
+ * @param {string} value 
+ * @returns {boolean} status, result status true or false
+ * @returns {string} message, result content
  */
 export const passwordValidation = (value: string) => {
   if(!value){
@@ -95,6 +115,10 @@ export const passwordValidation = (value: string) => {
 
 /**
  * Password repeat validation
+ * 
+ * @param {string} value 
+ * @returns {boolean} status, result status true or false
+ * @returns {string} message, result content
  */
 export const passwordRepeatValidation = (orgPassword: string, repeatPassword: string) => {
   if(!orgPassword){
@@ -113,7 +137,11 @@ export const passwordRepeatValidation = (orgPassword: string, repeatPassword: st
 };
 
 /**
- * LocalStorage
+ * Local Storage simplified
+ * 
+ * @method ls.set() Set a localstorage item
+ * @method ls.get() Get from localstorage
+ * @method ls.delete() Clear a localstorage item
  */
 export const ls = {
   set: (key: string, value: any) => {
@@ -134,9 +162,10 @@ export const ls = {
 
 /**
  * User Auth LocalStorage Infos
+ * 
  * @method userAuthLSInfos.set() Set all the user's auth infos to localstorage
- * @method userAuthLSInfos.get(); Get all the user's auth infos from localstorage
- * @method userAuthLSInfos.clear(); Clear the user's auth infos from localstorage
+ * @method userAuthLSInfos.get() Get all the user's auth infos from localstorage
+ * @method userAuthLSInfos.clear() Clear the user's auth infos from localstorage
  */
 export const userAuthLSInfos = {
   set: (
@@ -203,16 +232,18 @@ export const userAuthLSInfos = {
 };
 
 /**
- * echo debug log
- * @desc will execute according `debug` value in webConfig file.
+ * will execute according `debug` value in webConfig file
+ * 
+ * @param {string | number} msg
  */
 export const debugLog = (msg: string | number) => {
   webConfig.debug ? console.log(`${getCurrentTime()} - [DEBUG] - ${msg}`) : null;
 };
 
 /**
- * getCurrentTime
- * @desc Get current time, with milliseconds.
+ * Get current time, with milliseconds
+ * 
+ * @returns {string} eg. 2021/01/01 10:30:40:10
  */
 const getCurrentTime = () => {
   const zeroFill = (i: number) => {
@@ -235,10 +266,10 @@ const getCurrentTime = () => {
 }
 
 /**
- * getQueryVariable
- * @desc Get query variable from URL
+ * Get query variable from URL
+ * 
  * @param {string} variable
- * @returns {string} Already used decodeURIComponent()
+ * @returns {string}
  */
 export const getQueryVariable = (variable: any) => {
   if(!variable) return "";
@@ -252,8 +283,8 @@ export const getQueryVariable = (variable: any) => {
 }
 
 /**
- * getImageBase64
- * @desc Convert image file to base64 string
+ * Convert image file to base64 string. Asynchronous, use await or .then()
+ * 
  * @param {object} file
  */
 export const getImageBase64 = (file: any) => {
@@ -268,8 +299,9 @@ export const getImageBase64 = (file: any) => {
 
 /**
  * URL format validation
+ * 
  * @param {string} value 
- * @returns {boolean}
+ * @returns {boolean} boolean
  */
 export const urlValidation = (value: string) => {
   if(!value) return false;
@@ -278,10 +310,10 @@ export const urlValidation = (value: string) => {
 };
 
 /**
- * priceNumberCheck
- * @desc Check the input value is a valid price number or not (without dot)
- * @param {number | string} value
- * @returns {number | ""} res
+ * Check the input value is a valid price number or not
+ * 
+ * @param {number} value
+ * @returns {number | ""}
  */
 export const priceNumberCheck = (value: number) => {
   if(!isNaN(value)){
@@ -292,9 +324,9 @@ export const priceNumberCheck = (value: number) => {
 };
 
 /**
- * phonNumberTransform
- * @desc Transform phone number to canadian number format
- * @param {string | number | null | undefined} value
+ * Transform phone number to canadian number format
+ * 
+ * @param {string | number} value
  * @returns {string}
  */
 export const phonNumberTransform = (value: string | number) => {
@@ -313,29 +345,30 @@ export const phonNumberTransform = (value: string | number) => {
 };
 
 /**
- * regexLetterNumberSpace
- * @desc Regex, only keep letter, number, and space
+ * Regex, only keep letter, number, and space
+ * 
  * @param {string | number} value 
- * @returns {string | number} new value
+ * @returns {string} new value
  */
 export const regexLetterNumberSpace = (value: string | number) => {
   return value.toString().replace(/[^a-z0-9À-ÿ ]/gi, '');
 };
 
 /**
- * regexAddress
- * @desc Regex, only keep letter, number, space, and dot
+ * Regex, only keep letter, number, space, and dot
+ * 
  * @param {string | number} value 
- * @returns {string | number} new value
+ * @returns {string} new value
  */
  export const regexAddress = (value: string | number) => {
   return value.toString().replace(/[^a-z0-9À-ÿ, ]/gi, '');
 };
 
 /**
- * scroll to top
- * @param {number} top optional, top postion
- * @param {number} left optional, left postion
+ * Scroll to top
+ * 
+ * @param {number} top optional, top postion, default is 0
+ * @param {number} left optional, left postion, default is 0
  */
 export const scrollToTop = (top?: number, left?: number) => {
   window.scrollTo({
@@ -346,7 +379,8 @@ export const scrollToTop = (top?: number, left?: number) => {
 };
 
 /**
- * scroll to specified element
+ * Scroll to specified element
+ * 
  * @param {string} elementID
  */
 export const scrollToEle = (elementID: string) => {
@@ -357,9 +391,10 @@ export const scrollToEle = (elementID: string) => {
 };
 
 /**
- * compression image
+ * Compression image. Asynchronous, use await or .then()
+ * 
  * @param {object} file eg. e.files[0]
- * @returns {object} compressedFile
+ * @returns {object}
  */
 export const compressionImage = (file: any) => {
   return new Promise((resolve: any) => {
@@ -378,9 +413,10 @@ export const compressionImage = (file: any) => {
 };
 
 /**
- * create thumbnail image
+ * Create thumbnail image. Asynchronous, use await or .then()
+ * 
  * @param {object} file eg. e.files[0]
- * @returns {object} thumbnail image
+ * @returns {object}
  */
  export const thumbnailImage = (file: any) => {
   return new Promise((resolve: any) => {
@@ -398,7 +434,8 @@ export const compressionImage = (file: any) => {
 };
 
 /**
- * based on a category, get its category tree
+ * Based on a category, get its category tree
+ * 
  * @param {number} categoryID
  * @param {object} categoryList
  * @returns {object} {one: { id: null | number, name: null | string }, two: { id: null | number, name: null | string }, three: { id: null | number, name: null | string } }
@@ -477,4 +514,28 @@ export const getGeoLocation = (callback: (res: {
       remark: 'error, not support, use default value',
     });
   }
+};
+
+/**
+ * Get main thumbnail image url of list item
+ * 
+ * @param {array} items, the item list array of post
+ * @returns {string | null} thumbnail image url
+ */
+export const getListItemMainThumbNail = (items: any[]) => {
+  let result = null;
+  items.images.map((loopItem: any) => {
+    if(loopItem.main === 1){
+      // found main thumbnail
+      result = `${webConfig.cdnURL}${loopItem.thumbnailUrl}`;
+    }
+  });
+  return result;
+};
+
+/**
+ * Calculate the difference between the posting time of the post and the current time, and display'xxx ago'
+ */
+export const postTimeDiff = (timestamp: number) => {
+  return moment.unix(timestamp).fromNow();
 };

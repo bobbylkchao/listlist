@@ -13,7 +13,11 @@ import GrayBgWrapper from "../../src/containers/GrayBgWrapper";
 import Hline from "../../src/components/Hline";
 import InsideWrapper from "../../src/containers/InsideWrapper";
 import TopMenus from "../../src/components/TopMenus";
-import { getCategoryTree } from "../../src/utils";
+import {
+  getCategoryTree,
+  getListItemMainThumbNail,
+  postTimeDiff,
+} from "../../src/utils";
 import Breadcrumbs from "./Breadcrumbs";
 import LeftFilter from "./LeftFilter";
 import { 
@@ -26,6 +30,7 @@ import {
   RightListItemDivider,
 } from "../../src/styled/CategoryStyled";
 import LazyImage from "../../src/components/LazyImage";
+import LoadingPlaceHolder from "../../src/components/LoadingPlaceholder";
 import { getPostList } from "../../src/data-request";
 
 const CategoryPage = () => {
@@ -37,13 +42,16 @@ const CategoryPage = () => {
   const globalSearchState = useSelector((state:any) => state.globalReducer.searchArea);
 
   const [breadCrumbs, setBreadCrumbs] = React.useState<any>(null);
+  const [postList, setPostList] = React.useState<[any] | null>(null);
 
   React.useEffect(() => {
+    // update bread crumbs
     if(categoryID && categoryListState){
       const categoryTree = getCategoryTree(categoryID, categoryListState);
       setBreadCrumbs(categoryTree);
     }
 
+    // get user post list
     if(categoryID && globalSearchState && globalSearchState.city){
       getPostList({
         region: globalSearchState.region,
@@ -53,34 +61,42 @@ const CategoryPage = () => {
         radius: globalSearchState.areaDistance,
         categoryID: categoryID,
       }, (res: any) => {
-        console.log(res);
+        if(res && res.data && res.data.posts){
+          setPostList(res.data.posts);
+        }
       });
     }
   }, [categoryID, categoryListState, globalSearchState]);
 
-  const ListItem = () => {
+  // Render each list item
+  const ListItem = (props: { item: any }) => {
     const [checked, setChecked] = React.useState<boolean>(false);
+
     return(
       <>
         <RightListItem
-          onClick={() => router.push('/post/1')}
+          onClick={() => router.push(`/post/${props.item.id}`)}
         >
           <div>
             <a
               title="Click to add to my favourites"
               onClick={(e: any) => {
+                // TODO: to be implemented
                 e.stopPropagation();
                 setChecked(!checked);
               }}
             >
+              {
+                // TODO: to be implemented, get fav status
+              }
               <FontAwesomeIcon
                 icon="heart"
                 className={`${styles.favHeart} ${checked ? styles.checked : styles.unchecked}`}
               />
             </a>
             <LazyImage
-              src={`${webConfig.cdnURL}posts/16001009/4RR7PAQTT881-200.jpeg`}
-              alt="uploaded image"
+              src={`${getListItemMainThumbNail(props.item)}`}
+              alt="thumbnail image"
               width={160}
               height={160}
               className={styles.itemThumbNailImage}
@@ -88,16 +104,14 @@ const CategoryPage = () => {
           </div>
           <div>
             <div>
-              <div>Regent Uniway GAMING DESKTOP Core i5 16GB RAM Geforce GTX 1650 Regent Uniway GAMING DESKTOP Core i5 16GB RAM Geforce GTX 1650</div>
+              <div>{ decodeURIComponent(props.item.title) }</div>
               <div>$1,399.00</div>
             </div>
             <div>
-              <span>Winnipeg</span>
-              <span>&lt; 17 minutes ago</span>
+              <span>{ props.item.city }</span>
+              <span>{ postTimeDiff(props.item.updatedAt) }</span>
             </div>
-            <div>
-            UNIWAY REGENT Location Customized Ryzen 5 5600G 16GB RAM DDR4 RTX 3060 TI CPU: Ryzen 5 5600g Motherboard: ASUS Prime B550M-A (WIFI) RAM: TeamGroup16GB RAM DDR4 3200 Mhz(2*8GB) GPU: ASUS Geforce RTX...
-            </div>
+            <div>{ decodeURIComponent(props.item.description) }</div>
           </div>
         </RightListItem>
         <RightListItemDivider/>
@@ -133,7 +147,13 @@ const CategoryPage = () => {
             </RightFilterWrapper>
 
             <RightListWrapper>
-              <ListItem/>
+              {
+                postList ? postList.map((item: any, index: number) => {
+                  return(
+                    <ListItem key={index} item={item}/>
+                  )
+                }): <LoadingPlaceHolder style={{marginTop: 20}}/>
+              }
             </RightListWrapper>
 
 
