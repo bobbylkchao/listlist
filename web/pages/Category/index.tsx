@@ -30,7 +30,7 @@ import {
   RightListItemDivider,
 } from "../../src/styled/CategoryStyled";
 import LazyImage from "../../src/components/LazyImage";
-import LoadingPlaceHolder from "../../src/components/LoadingPlaceholder";
+import LoadingPlaceHolder from "../../src/components/LoadingPlaceHolder";
 import { getPostList } from "../../src/data-request";
 
 const CategoryPage = () => {

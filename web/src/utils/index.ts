@@ -522,7 +522,7 @@ export const getGeoLocation = (callback: (res: {
  * @param {array} items, the item list array of post
  * @returns {string | null} thumbnail image url
  */
-export const getListItemMainThumbNail = (items: any[]) => {
+export const getListItemMainThumbNail = (items: any) => {
   let result = null;
   items.images.map((loopItem: any) => {
     if(loopItem.main === 1){
