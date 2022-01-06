@@ -87,16 +87,16 @@ const queryAuth = {
         // user is exist
         
         // diff headnav, if same, go next, if not same, update headnav then go next;
-        /*if(res[0].headnav !== channelHeadNav){
+        if(res[0].headnav !== channelHeadNav){
           // update headnav
           await dbQuery(`UPDATE user SET headnav = '${channelHeadNav}' WHERE email = '${email}'`);
-        }*/
+        }
 
         resUserInfos = JSON.stringify({
           name: res[0].name,
           email: res[0].email,
           userID: res[0].id,
-          headnav: res[0].headnav,
+          headnav: res[0].headnav !== channelHeadNav ? channelHeadNav : res[0].headnav,
           createdAt: res[0].createdAt,
           channel: channel,
         });
