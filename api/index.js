@@ -45,7 +45,9 @@ app.use(
       "http://localhost:3000",
       "http://127.0.0.1:3000",
       "https://www.listlist.ca",
-      "https://listlist.ca"
+      "https://listlist.ca",
+      "https://fiddle.jshell.net",
+      "https://jsfiddle.net"
     ],
     methods: "POST",
     optionsSuccessStatus: 200
