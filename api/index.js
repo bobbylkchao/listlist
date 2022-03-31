@@ -19,7 +19,7 @@ const loggingMiddleware = (req, res, next) => {
   let clientIp = requestIp.getClientIp(req);
   if(clientIp === "127.0.0.1"){
     // for local testing, will change clientIp to a Winnipeg IP
-    clientIp = "50.70.197.94";
+    clientIp = "50.71.89.11";
   }
   global.requestIP = clientIp;
   next();
